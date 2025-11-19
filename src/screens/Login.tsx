@@ -20,6 +20,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const handleForgotPassword = () => {};
+  const handleSignUp = () => {};
 
   return (
     <View style={styles.fullScreen}>
@@ -73,11 +74,13 @@ function Login() {
             <Text style={styles.dividerText}>Or continue with</Text>
           </View>
 
-          {/* singup */}
-          <Text style={styles.footerText}>
-            Don&apos;t have an account?
-            <Text style={styles.linkText}> Sign up</Text>
-          </Text>
+          {/* signup */}
+          <Pressable style={styles.footer} onPress={handleSignUp}>
+            <Text style={styles.footerText}>
+              Don&apos;t have an account?{" "}
+              <Text style={styles.linkText}>Sign up</Text>
+            </Text>
+          </Pressable>
         </ScrollView>
       </SafeAreaView>
     </View>
@@ -134,6 +137,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     color: "#000",
+  },
+  footer: {
+    alignItems: "center",
   },
   footerText: {
     color: AppColors.primaryTextDark,
