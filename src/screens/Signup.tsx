@@ -7,20 +7,23 @@ import {
   Text,
   View,
 } from "react-native";
-import CTAButton from "../components/common/CTAButton";
-import IntroCard from "../components/login/IntroCard";
-import CTATextField from "../components/common/CTATextField";
-import LoginHeader from "../components/login/LoginHeader";
-import ForgetPassword from "../components/login/ForgetPassword";
-import { AppColors } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CTAButton from "../components/common/CTAButton";
+import CTATextField from "../components/common/CTATextField";
+import IntroCard from "../components/login/IntroCard";
+import LoginHeader from "../components/login/LoginHeader";
+import { AppColors } from "../theme/colors";
 
-function Login() {
+function Signup() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const handleForgotPassword = () => {};
-  const handleSignUp = () => {};
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [referralCode, setReferralCode] = useState("");
+
+  const handleSignup = () => {};
+  const handleNavigateToLogin = () => {};
 
   return (
     <View style={styles.fullScreen}>
@@ -36,10 +39,17 @@ function Login() {
           showsVerticalScrollIndicator={false}
           bounces={true}
         >
-          {/* intro header */}
           <LoginHeader />
 
-          <IntroCard style={styles.fieldStack}>
+          <IntroCard style={styles.form}>
+            <CTATextField
+              label="Full Name"
+              placeholder="Enter your name"
+              autoCapitalize="words"
+              value={fullName}
+              onChangeText={setFullName}
+            />
+
             <CTATextField
               label="Email Address"
               placeholder="Enter your email"
@@ -48,6 +58,15 @@ function Login() {
               value={email}
               onChangeText={setEmail}
             />
+
+            <CTATextField
+              label="Phone Number"
+              placeholder="Enter your phone number"
+              keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+            />
+
             <CTATextField
               label="Password"
               placeholder="Enter your password"
@@ -56,29 +75,34 @@ function Login() {
               onChangeText={setPassword}
             />
 
-            <ForgetPassword
-              rememberMe={rememberMe}
-              onToggleRemember={() => setRememberMe((prev) => !prev)}
-              onForgotPassword={handleForgotPassword}
+            <CTATextField
+              label="Confirm Password"
+              placeholder="Re-enter your password"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+            />
+
+            <CTATextField
+              label="Referral Code"
+              placeholder="Enter referral code"
+              autoCapitalize="characters"
+              value={referralCode}
+              onChangeText={setReferralCode}
             />
 
             <CTAButton
-              label="Sign In"
+              label="Sign Up"
               variant="primary"
               iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              onPress={handleSignup}
             />
           </IntroCard>
 
-          {/* divider */}
-          <View style={styles.divider}>
-            <Text style={styles.dividerText}>Or continue with</Text>
-          </View>
-
-          {/* signup */}
-          <Pressable style={styles.footer} onPress={handleSignUp}>
+          <Pressable style={styles.footer} onPress={handleNavigateToLogin}>
             <Text style={styles.footerText}>
-              Don&apos;t have an account?{" "}
-              <Text style={styles.linkText}>Sign up</Text>
+              Already have an account?{" "}
+              <Text style={styles.linkText}>Sign In</Text>
             </Text>
           </Pressable>
         </ScrollView>
@@ -105,47 +129,26 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
-    gap: 28,
+    gap: 24,
     paddingVertical: 24,
   },
-  fieldStack: {
+  form: {
     gap: 25,
+  },
+  footer: {
+    alignItems: "center",
+    marginTop: 12,
+  },
+  footerText: {
+    color: AppColors.primaryTextDark,
+    fontSize: 14,
   },
   linkText: {
     color: AppColors.primaryTextDark,
     fontSize: 14,
-    textDecorationLine: "underline",
     fontWeight: "600",
-  },
-  divider: {
-    alignItems: "center",
-  },
-  dividerText: {
-    color: AppColors.primaryTextDark,
-    fontSize: 14,
-  },
-  socialRow: {
-    flexDirection: "row",
-    gap: 16,
-  },
-  googleIcon: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#EA4335",
-  },
-  appleIcon: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#000",
-  },
-  footer: {
-    alignItems: "center",
-  },
-  footerText: {
-    color: AppColors.primaryTextDark,
-    textAlign: "center",
-    fontSize: 14,
+    textDecorationLine: "underline",
   },
 });
 
-export default Login;
+export default Signup;
