@@ -1,22 +1,50 @@
 import { StatusBar, StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Welcome from "./screens/Welcome";
-import Login from "./screens/Login";
+import Home from "./screens/Home";
 import Signup from "./screens/Signup";
+import { AppColors } from "./theme/colors";
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <SafeAreaProvider style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <Signup />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <StatusBar barStyle="light-content" />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: AppColors.backgroundGradientStartDark,
+              },
+              headerTintColor: AppColors.primaryTextDark,
+            }}
+          >
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ title: "Home" }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{ title: "Create account" }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
   },
 });
 
