@@ -1,11 +1,13 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import BrandHeader from "../components/home/BrandHeader";
 import HeaderActions from "../components/home/HeaderActions";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
+import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";
+import ReferralCard from "../components/home/ReferralCard";
 
 const WEATHER_SLIDES: WeatherSlide[] = [
   {
@@ -30,10 +32,26 @@ const WEATHER_SLIDES: WeatherSlide[] = [
   },
 ];
 
+const PRODUCT_SLIDES: ProductSlide[] = [
+  {
+    id: "apple-watch-video",
+    title: "Apple Watch Series 10",
+    type: "video",
+    source: require("../assets/home/productSlider/apple-watch.mp4"),
+  },
+  {
+    id: "ipad-pro",
+    title: "iPad Pro 2025",
+    type: "image",
+    source: require("../assets/home/productSlider/ipad.png"),
+  },
+];
+
 function Home() {
   const navigation = useNavigation();
   const renderHeaderActions = React.useCallback(() => <HeaderActions />, []);
   const sliderItems = React.useMemo(() => WEATHER_SLIDES, []);
+  const productSlides = React.useMemo(() => PRODUCT_SLIDES, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -57,11 +75,24 @@ function Home() {
         imageStyle={styles.backgroundImage}
       >
         <SafeAreaView style={styles.safeArea}>
-          {/* weather */}
-          <WeatherAndGreeting />
+          <ScrollView
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            bounces
+            contentInsetAdjustmentBehavior="never"
+          >
+            {/* weather */}
+            <WeatherAndGreeting />
 
-          {/* weather slider */}
-          <WeatherSlider slides={sliderItems} />
+            {/* weather slider */}
+            <WeatherSlider slides={sliderItems} />
+
+            {/* products slider */}
+            <ProductSlider slides={productSlides} />
+
+            {/* referral card */}
+            <ReferralCard />
+          </ScrollView>
         </SafeAreaView>
       </ImageBackground>
     </View>
@@ -80,10 +111,12 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  content: {
+    flexGrow: 1,
     paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingBottom: 16,
     gap: 28,
-    justifyContent: "flex-start",
   },
 });
 
