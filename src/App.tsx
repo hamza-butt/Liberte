@@ -19,7 +19,7 @@ function App() {
             screenOptions={{
               headerTitleAlign: "center",
               headerStyle: {
-                backgroundColor: AppColors.backgroundGradientStartDark,
+                backgroundColor: AppColors.navBarBackground,
               },
               headerTintColor: AppColors.primaryTextDark,
             }}

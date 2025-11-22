@@ -26,4 +26,10 @@ export const AppColors = {
 
   // slider dot color
   sliderDotActive: "#FACC15",
+
+  // nav bar color
+  navBarBackground: "#045f79",
+
+  // background color
+  backgroundColorDark: "#006a86",
 } as const;

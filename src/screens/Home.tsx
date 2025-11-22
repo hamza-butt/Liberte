@@ -8,6 +8,7 @@ import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
 import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";
 import ReferralCard from "../components/home/ReferralCard";
+import YachtRewardCard from "../components/home/YachtRewardCard";
 
 const WEATHER_SLIDES: WeatherSlide[] = [
   {
@@ -80,6 +81,7 @@ function Home() {
             showsVerticalScrollIndicator={false}
             bounces
             contentInsetAdjustmentBehavior="never"
+            automaticallyAdjustContentInsets={false}
           >
             {/* weather */}
             <WeatherAndGreeting />
@@ -92,6 +94,9 @@ function Home() {
 
             {/* referral card */}
             <ReferralCard />
+
+            {/* yacht reward */}
+            <YachtRewardCard />
           </ScrollView>
         </SafeAreaView>
       </ImageBackground>
@@ -117,6 +122,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingBottom: 16,
     gap: 28,
+    paddingTop: 16,
   },
 });
 
