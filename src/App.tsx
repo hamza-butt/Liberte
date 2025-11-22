@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Home from "./screens/Home";
+import TabNavigator from "./navigation/TabNavigator";
 import Signup from "./screens/Signup";
 import { AppColors } from "./theme/colors";
 
@@ -25,9 +26,9 @@ function App() {
             }}
           >
             <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ title: "Home" }}
+              name="Main"
+              component={TabNavigator}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Signup"
