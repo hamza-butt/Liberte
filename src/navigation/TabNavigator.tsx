@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import DigitalVault from "../screens/DigitalVault";
@@ -9,19 +9,25 @@ const Tab = createBottomTabNavigator();
 
 // Custom Home Icon
 const HomeIcon = ({ focused }: { focused: boolean }) => (
+
+
     <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-        {/* Simple House Shape */}
-        <View style={styles.houseBody} />
-        <View style={styles.houseRoof} />
+        <Image
+            source={require("../assets/tabbar/home_white.png")}
+            style={styles.iconImage}
+            resizeMode="contain"
+        />
     </View>
 );
 
 // Custom Wallet Icon
 const WalletIcon = ({ focused }: { focused: boolean }) => (
-    <View style={styles.iconContainer}>
-        <View style={styles.walletBody}>
-            <View style={styles.walletDot} />
-        </View>
+    <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
+        <Image
+            source={require("../assets/tabbar/Wallet_white.png")}
+            style={styles.iconImage}
+            resizeMode="contain"
+        />
     </View>
 );
 
@@ -30,13 +36,14 @@ const WalkButton = ({ children, onPress }: any) => (
     <TouchableOpacity
         style={styles.walkButtonContainer}
         onPress={onPress}
-        activeOpacity={0.8}
     >
         <View style={styles.walkButton}>
-            <View style={styles.walkIconHead} />
-            <View style={styles.walkIconBody} />
+            <Image
+                source={require("../assets/tabbar/walk.gif")}
+                style={styles.walkImage}
+                resizeMode="cover"
+            />
         </View>
-        <Text style={styles.walkLabel}>Walk</Text>
     </TouchableOpacity>
 );
 
@@ -61,10 +68,10 @@ const TabNavigator = () => {
             />
             <Tab.Screen
                 name="Walk"
-                component={Home} // Placeholder, maybe should be a different screen
+                component={Home} // Placeholder
                 options={{
                     tabBarButton: (props) => <WalkButton {...props} />,
-                    tabBarLabel: () => null, // Hide default label
+                    tabBarLabel: () => null,
                 }}
             />
             <Tab.Screen
@@ -102,86 +109,24 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255, 255, 255, 0.2)",
         borderRadius: 12,
     },
-    // Home Icon Shapes
-    houseBody: {
-        width: 14,
-        height: 10,
-        backgroundColor: "white",
-        marginTop: 4,
-    },
-    houseRoof: {
-        width: 0,
-        height: 0,
-        backgroundColor: "transparent",
-        borderStyle: "solid",
-        borderLeftWidth: 9,
-        borderRightWidth: 9,
-        borderBottomWidth: 9,
-        borderLeftColor: "transparent",
-        borderRightColor: "transparent",
-        borderBottomColor: "white",
-        position: "absolute",
-        top: 6,
-    },
-    // Wallet Icon Shapes
-    walletBody: {
-        width: 20,
-        height: 14,
-        backgroundColor: "white",
-        borderRadius: 2,
-        justifyContent: "center",
-        alignItems: "flex-end",
-        paddingRight: 2,
-    },
-    walletDot: {
-        width: 2,
-        height: 2,
-        backgroundColor: AppColors.navBarBackground,
-        borderRadius: 1,
+    iconImage: {
+        width: 24,
+        height: 24,
+        tintColor: "white",
     },
     // Walk Button Styles
     walkButtonContainer: {
-        top: -30,
+        top: -40,
         justifyContent: "center",
         alignItems: "center",
     },
     walkButton: {
         width: 70,
         height: 70,
-        borderRadius: 35,
-        backgroundColor: AppColors.yellowDark,
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 2,
-        borderColor: AppColors.yellowDark, // Dashed border trick requires SVG or dashed-border library, using solid for now or dotted
-        borderStyle: "dashed", // Works on some platforms
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 5,
     },
-    walkLabel: {
-        color: AppColors.primaryTextDark, // Or black depending on contrast
-        fontWeight: "bold",
-        marginTop: 5,
-        fontSize: 14,
-        position: "absolute",
-        bottom: 15, // Adjust to be inside the circle
-        zIndex: 10,
-    },
-    walkIconHead: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: "black",
-        marginBottom: 2,
-    },
-    walkIconBody: {
-        width: 8,
-        height: 16,
-        borderRadius: 4,
-        backgroundColor: "black",
+    walkImage: {
+        width: '100%',
+        height: '100%',
     },
 });
 

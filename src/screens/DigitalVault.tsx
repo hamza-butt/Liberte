@@ -1,26 +1,46 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, ImageBackground } from "react-native";
 import { AppColors } from "../theme/colors";
+import BalanceCard from "../components/digitalVault/BalanceCard";
+import Leaderboard from "../components/digitalVault/Leaderboard";
+import SupportCard from "../components/digitalVault/SupportCard";
 
 const DigitalVault = () => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Digital Vault</Text>
-        </View>
+        <ImageBackground
+            source={require("../assets/welcome/intro_background.png")}
+            style={styles.background}
+            imageStyle={styles.backgroundImage}
+        >
+            <SafeAreaView style={styles.safeArea}>
+                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                    <BalanceCard />
+                    <Leaderboard />
+                    <SupportCard />
+                </ScrollView>
+            </SafeAreaView>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: "100%",
+        height: "100%",
+    },
+    backgroundImage: {
+        resizeMode: "cover",
+    },
+    safeArea: {
+        flex: 1,
+    },
     container: {
         flex: 1,
-        backgroundColor: AppColors.backgroundColorDark,
-        justifyContent: "center",
-        alignItems: "center",
     },
-    text: {
-        color: AppColors.primaryTextDark,
-        fontSize: 20,
-        fontWeight: "bold",
+    contentContainer: {
+        padding: 20,
+        paddingBottom: 100,
     },
 });
 
