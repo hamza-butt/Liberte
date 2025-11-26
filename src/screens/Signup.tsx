@@ -22,8 +22,8 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [referralCode, setReferralCode] = useState("");
 
-  const handleSignup = () => {};
-  const handleNavigateToLogin = () => {};
+  const handleSignup = () => { };
+  const handleNavigateToLogin = () => { };
 
   return (
     <View style={styles.fullScreen}>
@@ -123,9 +123,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     resizeMode: "cover",
-  },
-  contentWrapper: {
-    padding: 24,
   },
   content: {
     flexGrow: 1,

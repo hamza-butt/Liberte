@@ -19,8 +19,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const handleForgotPassword = () => {};
-  const handleSignUp = () => {};
+  const handleForgotPassword = () => { };
+  const handleSignUp = () => { };
+  const handleSignIn = () => {
+    console.log("tapped");
+  };
 
   return (
     <View style={styles.fullScreen}>
@@ -66,6 +69,7 @@ function Login() {
               label="Sign In"
               variant="primary"
               iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              onPress={handleSignIn}
             />
           </IntroCard>
 

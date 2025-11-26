@@ -6,6 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Home from "./screens/Home";
 import TabNavigator from "./navigation/TabNavigator";
 import Signup from "./screens/Signup";
+import Login from "./screens/Login";
 import { AppColors } from "./theme/colors";
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,13 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
+            initialRouteName="Login"
           >
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="Main"
               component={TabNavigator}
@@ -33,7 +40,7 @@ function App() {
             <Stack.Screen
               name="Signup"
               component={Signup}
-              options={{ title: "Create account" }}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>
