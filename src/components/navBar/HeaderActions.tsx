@@ -13,7 +13,7 @@ function HeaderActions() {
         ]}
       >
         <Image
-          source={require("../../assets/welcome/wern-logo.png")}
+          source={require("../../assets/tabbar/Wallet_dark.png")}
           style={styles.iconImage}
           resizeMode="contain"
         />
@@ -29,7 +29,7 @@ function HeaderActions() {
         ]}
       >
         <Image
-          source={require("../../assets/welcome/wern-logo.png")}
+          source={require("../../assets/tabbar/bell_white.png")}
           style={styles.iconImage}
           resizeMode="contain"
         />
@@ -61,20 +61,19 @@ const styles = StyleSheet.create({
     borderColor: AppColors.orangeDark,
   },
   balancePill: {
-    height: 40,
+    height: 30,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    borderRadius: 999,
-    borderWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    borderWidth: 1,
     borderColor: AppColors.whiteTranslucent,
     backgroundColor: AppColors.whiteTranslucent,
     gap: 3,
   },
   iconImage: {
-    width: 20,
-    height: 20,
+    width: 12,
+    height: 12,
   },
 
   balanceValue: {
@@ -87,10 +86,10 @@ const styles = StyleSheet.create({
     color: AppColors.primaryTextDark,
   },
   roundButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: StyleSheet.hairlineWidth,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1,
     borderColor: AppColors.whiteTranslucent,
     backgroundColor: AppColors.whiteTranslucent,
     justifyContent: "center",
@@ -98,18 +97,18 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     backgroundColor: AppColors.whiteTranslucent,
     justifyContent: "center",
     alignItems: "center",
   },
 
   profileiconImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
 
   actionPressed: {

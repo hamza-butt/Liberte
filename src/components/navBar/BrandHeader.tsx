@@ -10,7 +10,7 @@ function BrandHeader() {
         style={styles.iconImage}
         resizeMode="contain"
       />
-      <Text style={styles.brandName}>WERN</Text>
+      {/* <Text style={styles.brandName}>WERN</Text> */}
     </View>
   );
 }
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   iconImage: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
   },
   brandName: {
-    fontSize: 16,
+    fontSize: 10,
     fontWeight: "300",
     color: AppColors.primaryTextDark,
   },
