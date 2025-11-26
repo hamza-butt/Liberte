@@ -1,9 +1,6 @@
 import React from "react";
 import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import BrandHeader from "../components/home/BrandHeader";
-import HeaderActions from "../components/home/HeaderActions";
+
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
 import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";
@@ -49,24 +46,9 @@ const PRODUCT_SLIDES: ProductSlide[] = [
 ];
 
 function Home() {
-  const navigation = useNavigation();
-  const renderHeaderActions = React.useCallback(() => <HeaderActions />, []);
   const sliderItems = React.useMemo(() => WEATHER_SLIDES, []);
   const productSlides = React.useMemo(() => PRODUCT_SLIDES, []);
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => <BrandHeader />,
-      headerRight: renderHeaderActions,
-      unstable_headerRightItems: () => [
-        {
-          type: "custom",
-          element: renderHeaderActions(),
-          hidesSharedBackground: true,
-        },
-      ],
-    });
-  }, [navigation, renderHeaderActions]);
 
   return (
     <View style={styles.fullScreen}>
@@ -75,30 +57,28 @@ function Home() {
         style={styles.background}
         imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView style={styles.safeArea}>
-          <ScrollView
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-            bounces
-            contentInsetAdjustmentBehavior="never"
-            automaticallyAdjustContentInsets={false}
-          >
-            {/* weather */}
-            <WeatherAndGreeting />
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+          bounces
+          contentInsetAdjustmentBehavior="never"
+          automaticallyAdjustContentInsets={false}
+        >
+          {/* weather */}
+          <WeatherAndGreeting />
 
-            {/* weather slider */}
-            <WeatherSlider slides={sliderItems} />
+          {/* weather slider */}
+          <WeatherSlider slides={sliderItems} />
 
-            {/* products slider */}
-            <ProductSlider slides={productSlides} />
+          {/* products slider */}
+          <ProductSlider slides={productSlides} />
 
-            {/* referral card */}
-            <ReferralCard />
+          {/* referral card */}
+          <ReferralCard />
 
-            {/* yacht reward */}
-            <YachtRewardCard />
-          </ScrollView>
-        </SafeAreaView>
+          {/* yacht reward */}
+          <YachtRewardCard />
+        </ScrollView>
       </ImageBackground>
     </View>
   );
