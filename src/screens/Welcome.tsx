@@ -72,7 +72,7 @@ function Intro() {
             <CTAButton
               label="Get Started"
               variant="primary"
-              iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              iconSource={require("../assets/common/arrow-right-white.png")}
               onPress={() => navigation.navigate("Login")}
             />
             <CTAButton

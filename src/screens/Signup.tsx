@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   ImageBackground,
@@ -15,6 +16,7 @@ import LoginHeader from "../components/login/LoginHeader";
 import { AppColors } from "../theme/colors";
 
 function Signup() {
+  const navigation = useNavigation<any>();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,7 +25,9 @@ function Signup() {
   const [referralCode, setReferralCode] = useState("");
 
   const handleSignup = () => { };
-  const handleNavigateToLogin = () => { };
+  const handleNavigateToLogin = () => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.fullScreen}>
@@ -33,7 +37,7 @@ function Signup() {
         imageStyle={styles.backgroundImage}
       />
 
-      <SafeAreaView style={[styles.safeArea, styles.contentWrapper]}>
+      <SafeAreaView style={[styles.safeArea]}>
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
@@ -94,7 +98,7 @@ function Signup() {
             <CTAButton
               label="Sign Up"
               variant="primary"
-              iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              iconSource={require("../assets/common/arrow-right-white.png")}
               onPress={handleSignup}
             />
           </IntroCard>
@@ -128,6 +132,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     gap: 24,
     paddingVertical: 24,
+    paddingHorizontal: 24,
   },
   form: {
     gap: 25,

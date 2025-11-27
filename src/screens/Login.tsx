@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ImageBackground,
   Pressable,
@@ -14,41 +14,22 @@ import LoginHeader from "../components/login/LoginHeader";
 import ForgetPassword from "../components/login/ForgetPassword";
 import { AppColors } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 
-import { api } from "../services/ApiClient";
-import { ENDPOINTS } from "../services/ApiEndpoints";
+import { useLoginViewModel } from "../hooks/useLoginViewModel";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const handleForgotPassword = () => { };
-  const handleSignUp = () => { };
-  const handleSignIn = async () => {
-    const params = {
-      email: "debaprasad2252@gmail.com",
-      password: "Debu@123"
-    };
-
-    try {
-      console.log("Attempting login with:", params);
-      const response = await api.request(ENDPOINTS.USER_LOGIN, 'POST', params);
-      console.log("Login Success:", response);
-      Toast.show({
-        type: "success",
-        text1: "Login Successful",
-        text2: "Welcome back! 👋",
-      });
-    } catch (error: any) {
-      console.error("Login Failed:", error.message);
-      Toast.show({
-        type: "error",
-        text1: "Login Failed",
-        text2: error.message || "Something went wrong",
-      });
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    rememberMe,
+    setRememberMe,
+    isLoading,
+    handleSignIn,
+    handleSignUp,
+    handleForgotPassword,
+  } = useLoginViewModel();
 
   return (
     <View style={styles.fullScreen}>
@@ -93,7 +74,7 @@ function Login() {
             <CTAButton
               label="Sign In"
               variant="primary"
-              iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              iconSource={require("../assets/common/arrow-right-white.png")}
               onPress={handleSignIn}
             />
           </IntroCard>
