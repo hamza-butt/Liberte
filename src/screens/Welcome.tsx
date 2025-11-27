@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 import CTAButton from "../components/common/CTAButton";
@@ -7,6 +8,7 @@ import { AppColors } from "../theme/colors";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 function Intro() {
+  const navigation = useNavigation<any>();
   const features = [
     {
       title: "Earn While Walking",
@@ -35,53 +37,53 @@ function Intro() {
   ];
 
   return (
-    <SafeAreaProvider style={styles.safeArea}>
-      <View style={styles.fullScreen}>
-        {/* background Image */}
-        <ImageBackground
-          source={require("../assets/welcome/intro_background.png")}
-          style={styles.background}
-          imageStyle={styles.backgroundImage}
-        />
+    <View style={styles.fullScreen}>
+      {/* background Image */}
+      <ImageBackground
+        source={require("../assets/welcome/intro_background.png")}
+        style={styles.background}
+        imageStyle={styles.backgroundImage}
+      />
 
-        <SafeAreaView style={[styles.safeArea, styles.contentWrapper]}>
-          <ScrollView
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-            bounces={true}
-          >
-            {/* welcome image and title */}
-            <WelcomeHero />
+      <SafeAreaView style={[styles.safeArea, styles.contentWrapper]}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+          bounces={true}
+        >
+          {/* welcome image and title */}
+          <WelcomeHero />
 
-            {/* features list */}
-            <View style={styles.features}>
-              {features.map((feature) => (
-                <WelcomeFeatureItem
-                  key={feature.title}
-                  title={feature.title}
-                  subtitle={feature.subtitle}
-                  iconSource={feature.iconSource}
-                  iconBackgroundColor={feature.iconBackgroundColor}
-                />
-              ))}
-            </View>
-
-            {/* get started and account button */}
-            <View style={styles.buttonStack}>
-              <CTAButton
-                label="Get Started"
-                variant="primary"
-                iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+          {/* features list */}
+          <View style={styles.features}>
+            {features.map((feature) => (
+              <WelcomeFeatureItem
+                key={feature.title}
+                title={feature.title}
+                subtitle={feature.subtitle}
+                iconSource={feature.iconSource}
+                iconBackgroundColor={feature.iconBackgroundColor}
               />
-              <CTAButton
-                label="I already have an account"
-                variant="secondary"
-              />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </View>
-    </SafeAreaProvider>
+            ))}
+          </View>
+
+          {/* get started and account button */}
+          <View style={styles.buttonStack}>
+            <CTAButton
+              label="Get Started"
+              variant="primary"
+              iconSource={require("../assets/welcome/rocket-solid-full-white.png")}
+              onPress={() => navigation.navigate("Login")}
+            />
+            <CTAButton
+              label="I already have an account"
+              variant="secondary"
+              onPress={() => navigation.navigate("Login")}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 

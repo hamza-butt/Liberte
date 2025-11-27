@@ -9,6 +9,7 @@ import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import { AppColors } from "./theme/colors";
 import Toast from "react-native-toast-message";
+import Welcome from "./screens/Welcome";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +27,14 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
-            initialRouteName="Login"
+            initialRouteName="Welcome"
           >
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{ headerShown: false }}
+            />
+
             <Stack.Screen
               name="Login"
               component={Login}
@@ -43,6 +50,9 @@ function App() {
               component={Signup}
               options={{ headerShown: false }}
             />
+
+
+
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
