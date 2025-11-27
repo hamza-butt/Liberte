@@ -13,6 +13,9 @@ export const useSignupViewModel = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [referralCode, setReferralCode] = useState("");
+    const [formattedPhoneNumber, setFormattedPhoneNumber] = useState("");
+    const [countryCode, setCountryCode] = useState("US");
+    const [callingCode, setCallingCode] = useState("1");
     const [isLoading, setIsLoading] = useState(false);
 
     const validateInput = () => {
@@ -73,7 +76,7 @@ export const useSignupViewModel = () => {
         setIsLoading(true);
         const params = {
             full_name: fullName,
-            country_code: "",
+            country_code: `+${callingCode}`,
             phone_number: phoneNumber,
             email: email,
             password: password,
@@ -94,7 +97,7 @@ export const useSignupViewModel = () => {
                 text1: "Signup Successful",
                 text2: "Please login to continue",
             });
-            navigation.navigate("Login");
+            navigation.goBack();
         } catch (error: any) {
             console.error("Signup Failed:", error.message);
             Toast.show({
@@ -118,6 +121,12 @@ export const useSignupViewModel = () => {
         setEmail,
         phoneNumber,
         setPhoneNumber,
+        formattedPhoneNumber,
+        setFormattedPhoneNumber,
+        countryCode,
+        setCountryCode,
+        callingCode,
+        setCallingCode,
         password,
         setPassword,
         confirmPassword,

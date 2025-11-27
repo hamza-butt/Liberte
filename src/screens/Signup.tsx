@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import CTAButton from "../components/common/CTAButton";
 import CTATextField from "../components/common/CTATextField";
+import NumberTextField from "../components/common/NumberTextField";
 import IntroCard from "../components/login/IntroCard";
 import LoginHeader from "../components/login/LoginHeader";
 import { AppColors } from "../theme/colors";
@@ -24,6 +25,10 @@ function Signup() {
     setEmail,
     phoneNumber,
     setPhoneNumber,
+    setFormattedPhoneNumber,
+    countryCode,
+    setCountryCode,
+    setCallingCode,
     password,
     setPassword,
     confirmPassword,
@@ -69,12 +74,16 @@ function Signup() {
               onChangeText={setEmail}
             />
 
-            <CTATextField
+            <NumberTextField
               label="Phone Number"
-              placeholder="Enter your phone number"
-              keyboardType="phone-pad"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
+              onChangeFormattedText={setFormattedPhoneNumber}
+              defaultCode={countryCode}
+              onChangeCountry={(country) => {
+                setCountryCode(country.cca2);
+                setCallingCode(country.callingCode[0]);
+              }}
             />
 
             <CTATextField
