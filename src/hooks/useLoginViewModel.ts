@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
 import { api } from "../services/ApiClient";
@@ -58,8 +58,13 @@ export const useLoginViewModel = () => {
                 text1: "Login Successful",
                 text2: "Welcome back! 👋",
             });
-            // Navigate to Main or Home after successful login
-            navigation.navigate("Main");
+            // Navigate to Main or Home after successful login and reset stack
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: "Main" }],
+                })
+            );
         } catch (error: any) {
             console.error("Login Failed:", error.message);
             Toast.show({
