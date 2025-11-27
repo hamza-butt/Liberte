@@ -8,6 +8,7 @@ import TabNavigator from "./navigation/TabNavigator";
 import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import { AppColors } from "./theme/colors";
+import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
+      <Toast />
     </GestureHandlerRootView>
   );
 }

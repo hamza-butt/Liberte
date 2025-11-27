@@ -14,6 +14,10 @@ import LoginHeader from "../components/login/LoginHeader";
 import ForgetPassword from "../components/login/ForgetPassword";
 import { AppColors } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
+
+import { api } from "../services/ApiClient";
+import { ENDPOINTS } from "../services/ApiEndpoints";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -21,8 +25,29 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const handleForgotPassword = () => { };
   const handleSignUp = () => { };
-  const handleSignIn = () => {
-    console.log("tapped");
+  const handleSignIn = async () => {
+    const params = {
+      email: "debaprasad2252@gmail.com",
+      password: "Debu@123"
+    };
+
+    try {
+      console.log("Attempting login with:", params);
+      const response = await api.request(ENDPOINTS.USER_LOGIN, 'POST', params);
+      console.log("Login Success:", response);
+      Toast.show({
+        type: "success",
+        text1: "Login Successful",
+        text2: "Welcome back! 👋",
+      });
+    } catch (error: any) {
+      console.error("Login Failed:", error.message);
+      Toast.show({
+        type: "error",
+        text1: "Login Failed",
+        text2: error.message || "Something went wrong",
+      });
+    }
   };
 
   return (
