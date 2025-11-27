@@ -26,6 +26,7 @@ class ApiClient {
 
         let url = `${this.baseUrl}${endpoint}`;
 
+        console.log("Request URL:", url);
         const headers = new Headers({
             'Content-Type': 'application/json',
             'Accept': 'application/json'

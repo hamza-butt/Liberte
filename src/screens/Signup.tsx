@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
 import {
   ImageBackground,
   Pressable,
@@ -15,19 +14,26 @@ import IntroCard from "../components/login/IntroCard";
 import LoginHeader from "../components/login/LoginHeader";
 import { AppColors } from "../theme/colors";
 
-function Signup() {
-  const navigation = useNavigation<any>();
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [referralCode, setReferralCode] = useState("");
+import { useSignupViewModel } from "../hooks/useSignupViewModel";
 
-  const handleSignup = () => { };
-  const handleNavigateToLogin = () => {
-    navigation.goBack();
-  };
+function Signup() {
+  const {
+    fullName,
+    setFullName,
+    email,
+    setEmail,
+    phoneNumber,
+    setPhoneNumber,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    referralCode,
+    setReferralCode,
+    isLoading,
+    handleSignup,
+    handleNavigateToLogin,
+  } = useSignupViewModel();
 
   return (
     <View style={styles.fullScreen}>
@@ -100,6 +106,7 @@ function Signup() {
               variant="primary"
               iconSource={require("../assets/common/arrow-right-white.png")}
               onPress={handleSignup}
+              isLoading={isLoading}
             />
           </IntroCard>
 

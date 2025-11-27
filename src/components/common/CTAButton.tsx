@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActivityIndicator,
   Image,
   ImageSourcePropType,
   Pressable,
@@ -18,6 +19,7 @@ export type CTAButtonProps = {
   iconSource?: ImageSourcePropType;
   icon?: React.ReactNode;
   disabled?: boolean;
+  isLoading?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -28,37 +30,46 @@ function CTAButton({
   iconSource,
   icon,
   disabled = false,
+  isLoading = false,
   style,
 }: CTAButtonProps) {
   const variantStyle =
     variant === "primary" ? styles.primaryButton : styles.secondaryButton;
 
+  const isButtonDisabled = disabled || isLoading;
+
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      disabled={disabled}
+      accessibilityState={{ disabled: isButtonDisabled }}
+      disabled={isButtonDisabled}
       onPress={onPress}
       style={({ pressed }) => [
         styles.base,
         variantStyle,
         pressed && styles.pressed,
-        disabled && styles.disabled,
+        isButtonDisabled && styles.disabled,
         style,
       ]}
     >
-      {iconSource ? (
-        <View style={styles.iconWrapper}>
-          <Image
-            source={iconSource}
-            style={styles.iconImage}
-            resizeMode="contain"
-          />
-        </View>
-      ) : icon ? (
-        <View style={styles.iconWrapper}>{icon}</View>
-      ) : null}
-      <Text style={styles.label}>{label}</Text>
+      {isLoading ? (
+        <ActivityIndicator color={AppColors.primaryTextDark} />
+      ) : (
+        <>
+          {iconSource ? (
+            <View style={styles.iconWrapper}>
+              <Image
+                source={iconSource}
+                style={styles.iconImage}
+                resizeMode="contain"
+              />
+            </View>
+          ) : icon ? (
+            <View style={styles.iconWrapper}>{icon}</View>
+          ) : null}
+          <Text style={styles.label}>{label}</Text>
+        </>
+      )}
     </Pressable>
   );
 }

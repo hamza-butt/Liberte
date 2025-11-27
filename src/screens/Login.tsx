@@ -76,6 +76,7 @@ function Login() {
               variant="primary"
               iconSource={require("../assets/common/arrow-right-white.png")}
               onPress={handleSignIn}
+              isLoading={isLoading}
             />
           </IntroCard>
 
