@@ -1,29 +1,53 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
+import { hexToRgba } from "../../utils/colorUtils";
 
 const MOCK_DATA = [
-    { id: "1", rank: 1, user: "Isabella Ferreira", country: "UAE", litties: 1245, isMe: true },
-    { id: "2", rank: 2, user: "Rohan B.", country: "India", litties: 1198, isMe: false },
-    { id: "3", rank: 3, user: "Mia S.", country: "Pakistan", litties: 1011, isMe: false },
-    { id: "4", rank: 4, user: "Daniel W.", country: "USA", litties: 985, isMe: false },
-    { id: "5", rank: 5, user: "Sophia L.", country: "Canada", litties: 942, isMe: false },
-    { id: "6", rank: 6, user: "Ahmed R.", country: "Egypt", litties: 910, isMe: false },
-    { id: "7", rank: 7, user: "Elena G.", country: "Spain", litties: 880, isMe: false },
-    { id: "8", rank: 8, user: "Kenji T.", country: "Japan", litties: 860, isMe: false },
-    { id: "9", rank: 9, user: "Maria P.", country: "Brazil", litties: 835, isMe: false },
-    { id: "10", rank: 10, user: "Liam O.", country: "Ireland", litties: 810, isMe: false },
+    { id: "1", rank: 1, user: "Isabella F.", country: "UAE", litties: 1245, steps: 15000, week: "Week 1", impact: "High", isMe: true },
+    { id: "2", rank: 2, user: "Rohan B.", country: "India", litties: 1198, steps: 14500, week: "Week 1", impact: "High", isMe: false },
+    { id: "3", rank: 3, user: "Mia S.", country: "Pakistan", litties: 1011, steps: 13000, week: "Week 1", impact: "Med", isMe: false },
+    { id: "4", rank: 4, user: "Daniel W.", country: "USA", litties: 985, steps: 12500, week: "Week 1", impact: "Med", isMe: false },
+    { id: "5", rank: 5, user: "Sophia L.", country: "Canada", litties: 942, steps: 12000, week: "Week 1", impact: "Med", isMe: false },
+    { id: "6", rank: 6, user: "Ahmed R.", country: "Egypt", litties: 910, steps: 11500, week: "Week 1", impact: "Low", isMe: false },
+    { id: "7", rank: 7, user: "Elena G.", country: "Spain", litties: 880, steps: 11000, week: "Week 1", impact: "Low", isMe: false },
+    { id: "8", rank: 8, user: "Kenji T.", country: "Japan", litties: 860, steps: 10500, week: "Week 1", impact: "Low", isMe: false },
+    { id: "9", rank: 9, user: "Maria P.", country: "Brazil", litties: 835, steps: 10000, week: "Week 1", impact: "Low", isMe: false },
+    { id: "10", rank: 10, user: "Liam O.", country: "Ireland", litties: 810, steps: 9500, week: "Week 1", impact: "Low", isMe: false },
 ];
 
 const TABS = ["Litties", "Total Steps", "Global Impact"];
 
+type ColumnConfig = {
+    header: string;
+    style: any;
+    render: (item: any) => React.ReactNode;
+};
+
 const Leaderboard = () => {
     const [activeTab, setActiveTab] = useState("Litties");
 
+    const TAB_CONFIG: Record<string, ColumnConfig[]> = {
+        "Litties": [
+            { header: "Country", style: styles.countryCell, render: (item) => <Text style={[styles.cell, styles.countryCell]}>{item.country}</Text> },
+            { header: "Litties", style: styles.littiesCell, render: (item) => <Text style={[styles.cell, styles.littiesCell]}>{item.litties} Litties</Text> },
+        ],
+        "Total Steps": [
+            { header: "Week", style: styles.weekCell, render: (item) => <Text style={[styles.cell, styles.weekCell]}>{item.week}</Text> },
+            { header: "Steps", style: styles.stepsCell, render: (item) => <Text style={[styles.cell, styles.stepsCell]}>{item.steps}</Text> },
+        ],
+        "Global Impact": [
+            { header: "Impact", style: styles.impactCell, render: (item) => <Text style={[styles.cell, styles.impactCell]}>{item.impact}</Text> },
+        ],
+    };
+
     const renderItem = ({ item }: { item: any }) => (
         <View style={styles.row}>
+            {/* Rank */}
             <Text style={[styles.cell, styles.rankCell]}>{item.rank}</Text>
-            <View style={[styles.cell, styles.userCell]}>
+
+            {/* User */}
+            <View style={[styles.userCell]}>
                 <View style={styles.avatarPlaceholder}>
                     {/* Placeholder for avatar */}
                     <View style={styles.avatarInner} />
@@ -31,15 +55,22 @@ const Leaderboard = () => {
                 <Text style={styles.userName}>{item.user}</Text>
                 {item.isMe && <Text style={[styles.youBadge, styles.youText]}>YOU</Text>}
             </View>
-            <Text style={[styles.cell, styles.countryCell]}>{item.country}</Text>
-            <Text style={[styles.cell, styles.littiesCell]}>{item.litties} Litties</Text>
+
+            {/* Tab Config */}
+            {TAB_CONFIG[activeTab].map((col, index) => (
+                <React.Fragment key={index}>
+                    {col.render(item)}
+                </React.Fragment>
+            ))}
         </View>
     );
 
     return (
         <View style={styles.container}>
+
             <Text style={styles.title}>Leaderboard</Text>
 
+            {/* Tabs */}
             <View style={styles.tabsContainer}>
                 {TABS.map((tab) => (
                     <TouchableOpacity
@@ -52,14 +83,22 @@ const Leaderboard = () => {
                 ))}
             </View>
 
+            {/* Table Header */}
             <View style={styles.tableHeader}>
                 <Text style={[styles.headerCell, styles.rankCell]}>Rank</Text>
                 <Text style={[styles.headerCell, styles.userCell]}>User</Text>
-                <Text style={[styles.headerCell, styles.countryCell]}>Country</Text>
-                <Text style={[styles.headerCell, styles.littiesCell]}>Litties</Text>
+                {TAB_CONFIG[activeTab].map((col, index) => (
+                    <Text
+                        key={index}
+                        style={[styles.headerCell, col.style]}
+                    >
+                        {col.header}
+                    </Text>
+                ))}
             </View>
 
-            <View style={styles.listContainer}>
+            {/* List List */}
+            <View>
                 {MOCK_DATA.map((item) => (
                     <View key={item.id} style={styles.rowWrapper}>
                         {renderItem({ item })}
@@ -67,9 +106,11 @@ const Leaderboard = () => {
                 ))}
             </View>
 
-            <TouchableOpacity style={styles.viewAllButton}>
+
+            {/* View All Button */}
+            {/* <TouchableOpacity style={styles.viewAllButton}>
                 <Text style={styles.viewAllText}>View All ▼</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };
@@ -87,26 +128,25 @@ const styles = StyleSheet.create({
     tabsContainer: {
         flexDirection: "row",
         marginBottom: 20,
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
-        borderRadius: 20,
-        padding: 4,
+        gap: 10,
     },
     tab: {
         flex: 1,
-        paddingVertical: 8,
+        paddingVertical: 12,
         alignItems: "center",
-        borderRadius: 16,
+        borderRadius: 25,
+        backgroundColor: AppColors.whiteTranslucent,
     },
     activeTab: {
-        backgroundColor: AppColors.ctaGradientStart, // Using yellow/gold from colors
+        backgroundColor: hexToRgba(AppColors.ctaGradientStart, 0.8),
     },
     tabText: {
-        color: "rgba(255, 255, 255, 0.7)",
-        fontSize: 12,
+        color: "white",
+        fontSize: 13,
         fontWeight: "600",
     },
     activeTabText: {
-        color: AppColors.primaryTextLight, // Dark text on light button
+        color: "white",
         fontWeight: "bold",
     },
     tableHeader: {
@@ -115,14 +155,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "rgba(255, 255, 255, 0.1)",
         marginBottom: 10,
+        paddingHorizontal: 10,
     },
     headerCell: {
-        color: "rgba(255, 255, 255, 0.6)",
+        color: "white",
         fontSize: 12,
         fontWeight: "600",
-    },
-    listContainer: {
-        // Container for list items
     },
     rowWrapper: {
         marginBottom: 12,
@@ -130,6 +168,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         alignItems: "center",
+        paddingHorizontal: 10,
     },
     cell: {
         color: "white",
@@ -137,7 +176,7 @@ const styles = StyleSheet.create({
     },
     rankCell: {
         width: 40,
-        textAlign: "center",
+        textAlign: "left",
     },
     userCell: {
         flex: 1,
@@ -148,6 +187,17 @@ const styles = StyleSheet.create({
         width: 60,
     },
     littiesCell: {
+        width: 80,
+        textAlign: "right",
+    },
+    weekCell: {
+        width: 60,
+    },
+    stepsCell: {
+        width: 80,
+        textAlign: "right",
+    },
+    impactCell: {
         width: 80,
         textAlign: "right",
     },

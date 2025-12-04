@@ -5,35 +5,39 @@ import { AppColors } from "../../theme/colors";
 const BalanceCard = () => {
     return (
         <View style={styles.container}>
-            {/* Background Gradient Simulation */}
-            <View style={styles.backgroundOverlay} />
 
+            {/* Available Litties */}
             <View style={styles.headerRow}>
                 <Text style={styles.title}>Available Litties</Text>
-                <TouchableOpacity style={styles.transactionButton}>
-                    {/* Placeholder for icon */}
-                    <View style={styles.iconPlaceholder} />
+                <View style={styles.transactionButton}>
+                    <Image
+                        source={require("../../assets/tabbar/Wallet_white.png")}
+                        style={styles.icon}
+                    />
                     <Text style={styles.transactionText}>Transactions</Text>
-                </TouchableOpacity>
+                </View>
             </View>
 
-            <View style={styles.balanceContainer}>
-                <Text style={styles.balanceLabel}>Available Balance</Text>
-                <Text style={styles.balanceValue}>6 Litties</Text>
-            </View>
+            {/* Balance and Stats */}
+            <View style={styles.contentRow}>
+                <View style={styles.balanceContainer}>
+                    <Text style={styles.balanceLabel}>Available Balance</Text>
+                    <Text style={styles.balanceValue}>6 Litties</Text>
+                </View>
 
-            <View style={styles.statsRow}>
-                <View style={styles.statItem}>
-                    <Text style={styles.statValue}>3.1</Text>
-                    <Text style={styles.statLabel}>Km</Text>
-                </View>
-                <View style={styles.statItem}>
-                    <Text style={styles.statValue}>247.76</Text>
-                    <Text style={styles.statLabel}>Calories</Text>
-                </View>
-                <View style={styles.statItem}>
-                    <Text style={styles.statValue}>6194</Text>
-                    <Text style={styles.statLabel}>Steps</Text>
+                <View style={styles.statsRow}>
+                    <View style={styles.statItem}>
+                        <Text style={styles.statValue}>3.1</Text>
+                        <Text style={styles.statLabel}>Km</Text>
+                    </View>
+                    <View style={styles.statItem}>
+                        <Text style={styles.statValue}>247.76</Text>
+                        <Text style={styles.statLabel}>Calories</Text>
+                    </View>
+                    <View style={styles.statItem}>
+                        <Text style={styles.statValue}>6194</Text>
+                        <Text style={styles.statLabel}>Steps</Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -44,14 +48,12 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: AppColors.whiteTranslucent,
         borderRadius: 20,
+        borderWidth: 1,
+        borderColor: AppColors.whiteTranslucent,
         padding: 20,
         marginVertical: 10,
         overflow: "hidden",
         minHeight: 180,
-    },
-    backgroundOverlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: "rgba(255, 255, 255, 0.1)", // Subtle overlay
     },
     headerRow: {
         flexDirection: "row",
@@ -67,25 +69,30 @@ const styles = StyleSheet.create({
     transactionButton: {
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.2)",
+        borderColor: AppColors.whiteTranslucent,
+        borderWidth: 1,
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 20,
     },
-    iconPlaceholder: {
+    icon: {
         width: 16,
         height: 16,
-        backgroundColor: AppColors.yellowDark,
-        borderRadius: 8,
         marginRight: 6,
+        resizeMode: 'contain',
     },
     transactionText: {
         color: "white",
         fontSize: 12,
         fontWeight: "500",
     },
+    contentRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+    },
     balanceContainer: {
-        marginBottom: 20,
+        // Removed marginBottom to align better in row
     },
     balanceLabel: {
         color: "rgba(255, 255, 255, 0.8)",
@@ -99,11 +106,10 @@ const styles = StyleSheet.create({
     },
     statsRow: {
         flexDirection: "row",
-        justifyContent: "space-between",
-        paddingRight: 40, // Give some space
+        gap: 15, // Add gap between stat items
     },
     statItem: {
-        alignItems: "flex-start",
+        alignItems: "center", // Center align text for stats
     },
     statValue: {
         color: "white",

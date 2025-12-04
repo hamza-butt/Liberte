@@ -34,10 +34,12 @@ const SupportCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: AppColors.cardSurface, // Teal background
+        backgroundColor: AppColors.whiteTranslucent,
         borderRadius: 20,
         padding: 20,
         marginVertical: 10,
+        borderWidth: 1,
+        borderColor: AppColors.whiteTranslucent,
     },
     content: {
         flexDirection: "row",

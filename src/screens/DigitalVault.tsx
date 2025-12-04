@@ -14,8 +14,14 @@ const DigitalVault = () => {
         >
             <SafeAreaView style={styles.safeArea}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+
+                    {/* Balance Card */}
                     <BalanceCard />
+
+                    {/* Leaderboard */}
                     <Leaderboard />
+
+                    {/* Support Card */}
                     <SupportCard />
                 </ScrollView>
             </SafeAreaView>
@@ -39,7 +45,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     contentContainer: {
-        padding: 20,
+        paddingHorizontal: 20,
         paddingBottom: 100,
     },
 });

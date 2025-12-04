@@ -27,7 +27,7 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
-            initialRouteName="Welcome"
+            initialRouteName="Main"
           >
             <Stack.Screen
               name="Welcome"
