@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
 
 const SupportCard = () => {
@@ -8,9 +8,10 @@ const SupportCard = () => {
             <View style={styles.content}>
                 <View style={styles.iconContainer}>
                     {/* Placeholder for support icon */}
-                    <View style={styles.iconCircle}>
-                        <Text style={styles.iconText}>i</Text>
-                    </View>
+                    <Image
+                        source={require("../../assets/digitalVault/help.png")}
+                        style={styles.icon}
+                    />
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>Help & Customer Support</Text>
@@ -44,6 +45,11 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: "row",
         marginBottom: 20,
+    },
+    icon: {
+        width: 80,
+        height: 80,
+        resizeMode: 'contain',
     },
     iconContainer: {
         marginRight: 15,

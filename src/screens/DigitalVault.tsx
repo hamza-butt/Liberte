@@ -12,19 +12,17 @@ const DigitalVault = () => {
             style={styles.background}
             imageStyle={styles.backgroundImage}
         >
-            <SafeAreaView style={styles.safeArea}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-                    {/* Balance Card */}
-                    <BalanceCard />
+                {/* Balance Card */}
+                <BalanceCard />
 
-                    {/* Leaderboard */}
-                    <Leaderboard />
+                {/* Leaderboard */}
+                <Leaderboard />
 
-                    {/* Support Card */}
-                    <SupportCard />
-                </ScrollView>
-            </SafeAreaView>
+                {/* Support Card */}
+                <SupportCard />
+            </ScrollView>
         </ImageBackground>
     );
 };

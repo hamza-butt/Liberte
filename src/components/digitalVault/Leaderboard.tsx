@@ -48,10 +48,10 @@ const Leaderboard = () => {
 
             {/* User */}
             <View style={[styles.userCell]}>
-                <View style={styles.avatarPlaceholder}>
-                    {/* Placeholder for avatar */}
-                    <View style={styles.avatarInner} />
-                </View>
+                <Image
+                    source={require("../../assets/digitalVault/user.png")}
+                    style={styles.icon}
+                />
                 <Text style={styles.userName}>{item.user}</Text>
                 {item.isMe && <Text style={[styles.youBadge, styles.youText]}>YOU</Text>}
             </View>
@@ -210,12 +210,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    avatarInner: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: "black",
-        opacity: 0.3
+    icon: {
+        width: 20,
+        height: 20,
+        marginRight: 6,
+        resizeMode: 'contain',
     },
     userName: {
         color: "white",

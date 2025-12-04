@@ -11,7 +11,7 @@ const BalanceCard = () => {
                 <Text style={styles.title}>Available Litties</Text>
                 <View style={styles.transactionButton}>
                     <Image
-                        source={require("../../assets/tabbar/Wallet_white.png")}
+                        source={require("../../assets/digitalVault/coin.png")}
                         style={styles.icon}
                     />
                     <Text style={styles.transactionText}>Transactions</Text>
