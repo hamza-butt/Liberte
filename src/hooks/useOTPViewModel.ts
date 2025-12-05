@@ -7,23 +7,30 @@ import { ENDPOINTS } from "../services/ApiEndpoints";
 export const useOTPViewModel = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
-    // const { email } = route.params || {};
-    const email = "m.hamzase@gmail.com";
+    const { email } = route.params || {};
 
     const [otp, setOtp] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [timer, setTimer] = useState(30);
+    const [timer, setTimer] = useState(60);
 
     useEffect(() => {
         let interval: ReturnType<typeof setInterval>;
         if (timer > 0) {
             interval = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1);
+                setTimer((lastTimerCount) => {
+                    if (lastTimerCount <= 1) {
+                        clearInterval(interval);
+                        return 0;
+                    }
+                    return lastTimerCount - 1;
+                });
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [timer]);
+    }, [timer > 0]);
+
+
 
     const handleVerify = async () => {
         if (otp.length < 6) {
