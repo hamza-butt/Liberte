@@ -30,6 +30,7 @@ const OTP = () => {
         handleVerify,
         handleResend,
         email,
+        timer,
     } = useOTPViewModel();
 
     const ref = useBlurOnFulfill({ value: otp, cellCount: CELL_COUNT });
@@ -94,8 +95,10 @@ const OTP = () => {
                         {/* Resend Button */}
                         <View style={styles.resendContainer}>
                             <Text style={styles.resendText}>Did not receive the code? </Text>
-                            <Pressable onPress={handleResend}>
-                                <Text style={styles.resendLink}>Resend</Text>
+                            <Pressable onPress={handleResend} disabled={timer > 0}>
+                                <Text style={[styles.resendLink, timer > 0 && styles.resendLinkDisabled]}>
+                                    {timer > 0 ? `Resend in ${timer}s` : "Resend"}
+                                </Text>
                             </Pressable>
                         </View>
 
@@ -184,6 +187,9 @@ const styles = StyleSheet.create({
         color: AppColors.yellowDark,
         fontSize: 14,
         fontWeight: "600",
+    },
+    resendLinkDisabled: {
+        color: "rgba(255, 255, 255, 0.3)",
     },
     backButton: {
         marginTop: 24,

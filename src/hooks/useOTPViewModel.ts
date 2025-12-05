@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Toast from "react-native-toast-message";
 import { api } from "../services/ApiClient";
 import { ENDPOINTS } from "../services/ApiEndpoints";
@@ -12,6 +12,18 @@ export const useOTPViewModel = () => {
 
     const [otp, setOtp] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const [timer, setTimer] = useState(30);
+
+    useEffect(() => {
+        let interval: ReturnType<typeof setInterval>;
+        if (timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [timer]);
 
     const handleVerify = async () => {
         if (otp.length < 6) {
@@ -51,6 +63,8 @@ export const useOTPViewModel = () => {
     };
 
     const handleResend = async () => {
+        if (timer > 0) return;
+
         setIsLoading(true);
         try {
             const response = await api.request(
@@ -64,6 +78,7 @@ export const useOTPViewModel = () => {
                 text1: "OTP Resent",
                 text2: "Please check your email",
             });
+            setTimer(30);
         } catch (error: any) {
             console.error("Resend OTP Failed:", error.message);
             Toast.show({
@@ -83,5 +98,6 @@ export const useOTPViewModel = () => {
         handleVerify,
         handleResend,
         email,
+        timer,
     };
 };
