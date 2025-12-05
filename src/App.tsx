@@ -10,6 +10,7 @@ import Login from "./screens/Login";
 import { AppColors } from "./theme/colors";
 import Toast from "react-native-toast-message";
 import Welcome from "./screens/Welcome";
+import OTP from "./screens/OTP";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +28,7 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
-            initialRouteName="Main"
+            initialRouteName="OTP"
           >
             <Stack.Screen
               name="Welcome"
@@ -48,6 +49,11 @@ function App() {
             <Stack.Screen
               name="Signup"
               component={Signup}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="OTP"
+              component={OTP}
               options={{ headerShown: false }}
             />
 

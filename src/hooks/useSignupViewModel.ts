@@ -97,7 +97,7 @@ export const useSignupViewModel = () => {
                 text1: "Signup Successful",
                 text2: "Please login to continue",
             });
-            navigation.goBack();
+            navigation.navigate("OTP", { email });
         } catch (error: any) {
             console.error("Signup Failed:", error.message);
             Toast.show({

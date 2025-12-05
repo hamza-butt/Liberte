@@ -15,6 +15,7 @@
     "@react-navigation/native-stack": "^7.0.12",
     "react": "19.1.1",
     "react-native": "0.82.1",
+    "react-native-confirmation-code-field": "^8.0.1",
     "react-native-gesture-handler": "^2.20.2",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-safe-area-context": "^5.5.2",
