@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import ProgressCard from "../components/walkAndEarn/ProgressCard";
 import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
+import EcoSeedsCard from "../components/walkAndEarn/EcoSeedsCard";
 import WalkAndEarnRewards from "../components/walkAndEarn/WalkAndEarnRewards";
 import { AppColors } from "../theme/colors";
 
@@ -41,6 +42,9 @@ const WalkAndEarn = () => {
 
                         {/* Walk & Earn Rewards */}
                         <WalkAndEarnRewards />
+
+                        {/* EcoSeeds Card */}
+                        <EcoSeedsCard />
 
                     </ScrollView>
                 </SafeAreaView>
