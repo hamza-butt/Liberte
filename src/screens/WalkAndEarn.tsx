@@ -3,6 +3,7 @@ import { ImageBackground, ScrollView, StyleSheet, View, Text, TouchableOpacity, 
 import { SafeAreaView } from "react-native-safe-area-context";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import ProgressCard from "../components/walkAndEarn/ProgressCard";
+import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
 import { AppColors } from "../theme/colors";
 
 const WalkAndEarn = () => {
@@ -31,44 +32,11 @@ const WalkAndEarn = () => {
                             <Text style={styles.walkingButtonText}>Start Walking</Text>
                         </TouchableOpacity>
 
+                        {/* Divider */}
                         <View style={styles.divider} />
 
                         {/* Your Impact Portfolio */}
-                        <View style={styles.sectionContainer}>
-                            <Text style={styles.sectionTitle}>Your Impact Portfolio</Text>
-                            <View style={styles.impactGrid}>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>24</Text>
-                                    <Text style={styles.impactLabel}>Trees Planted</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>🌿</Text></View>
-                                </View>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>34L</Text>
-                                    <Text style={styles.impactLabel}>Water Donated</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>💧</Text></View>
-                                </View>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>15</Text>
-                                    <Text style={styles.impactLabel}>Meals Provided</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>🍲</Text></View>
-                                </View>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>8</Text>
-                                    <Text style={styles.impactLabel}>Safety Reports</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>🛡️</Text></View>
-                                </View>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>124</Text>
-                                    <Text style={styles.impactLabel}>Lives Touched</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>🤝</Text></View>
-                                </View>
-                                <View style={styles.impactCard}>
-                                    <Text style={styles.impactValue}>123</Text>
-                                    <Text style={styles.impactLabel}>Interaction</Text>
-                                    <View style={styles.impactImagePlaceholder}><Text>💬</Text></View>
-                                </View>
-                            </View>
-                        </View>
+                        <ImpactPortfolio />
 
                         {/* Walk & Earn Rewards */}
                         <View style={styles.sectionContainer}>
@@ -122,7 +90,7 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: "rgba(255,255,255,0.2)",
+        backgroundColor: AppColors.whiteTranslucent,
         marginVertical: 8,
     },
     sectionContainer: {
@@ -132,43 +100,6 @@ const styles = StyleSheet.create({
         color: AppColors.primaryTextDark,
         fontSize: 20,
         fontWeight: "700",
-    },
-    impactGrid: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: 12,
-    },
-    impactCard: {
-        width: "31%", // approx 1/3 minus gap
-        backgroundColor: "rgba(255, 255, 255, 0.15)",
-        borderRadius: 16,
-        padding: 12,
-        alignItems: "center",
-        justifyContent: "space-between",
-        minHeight: 110,
-        borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.1)",
-    },
-    impactValue: {
-        fontSize: 20,
-        fontWeight: "700",
-        color: AppColors.primaryTextDark,
-    },
-    impactLabel: {
-        fontSize: 12,
-        color: "rgba(255,255,255,0.8)",
-        textAlign: "center",
-        flexGrow: 1,
-        marginTop: 4,
-    },
-    impactImagePlaceholder: {
-        marginTop: 8,
-        height: 30,
-        width: "100%",
-        backgroundColor: "rgba(255,255,255,0.1)",
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     rewardsList: {
         gap: 16,
