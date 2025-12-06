@@ -11,6 +11,7 @@ import { AppColors } from "./theme/colors";
 import Toast from "react-native-toast-message";
 import Welcome from "./screens/Welcome";
 import OTP from "./screens/OTP";
+import WalkAndEarn from "./screens/WalkAndEarn";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
-            initialRouteName="OTP"
+            initialRouteName="WalkAndEarn"
           >
             <Stack.Screen
               name="Welcome"
@@ -54,6 +55,12 @@ function App() {
             <Stack.Screen
               name="OTP"
               component={OTP}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="WalkAndEarn"
+              component={WalkAndEarn}
               options={{ headerShown: false }}
             />
 
