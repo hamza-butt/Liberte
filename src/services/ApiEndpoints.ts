@@ -5,4 +5,5 @@ export const ENDPOINTS = {
     USER_REGISTRATION: 'user-registration',
     VERIFY_REGISTRATION_ACCOUNT: 'verify-registration-account',
     RESEND_VERIFY_OTP: 'resend-verify-otp',
+    GET_USER_DETAILS: 'get-user-details',
 };

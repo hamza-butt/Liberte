@@ -53,6 +53,17 @@ export const useLoginViewModel = () => {
             console.log("Attempting login with:", params);
             const response = await api.request(ENDPOINTS.USER_LOGIN, "POST", params);
             console.log("Login Success:", response);
+
+            if (response.status && response.data) {
+                const { token, ...userData } = response.data;
+
+                // store token in storage
+                if (rememberMe) {
+                    const { setToken } = require('../utils/storage');
+                    await setToken(token);
+                }
+            }
+
             Toast.show({
                 type: "success",
                 text1: "Login Successful",

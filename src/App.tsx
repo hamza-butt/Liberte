@@ -1,4 +1,6 @@
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet, View, ActivityIndicator } from "react-native";
+import { useEffect, useState } from "react";
+import { getToken } from "./utils/storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -16,6 +18,23 @@ import WalkAndEarn from "./screens/WalkAndEarn";
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [initialRoute, setInitialRoute] = useState<string | null>(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = await getToken();
+      setInitialRoute(token ? "Main" : "Welcome");
+    };
+    checkAuth();
+  }, []);
+
+  if (initialRoute === null) {
+    return (
+      <View style={[styles.root, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color={AppColors.primaryTextDark} />
+      </View>
+    );
+  }
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
@@ -29,7 +48,7 @@ function App() {
               },
               headerTintColor: AppColors.primaryTextDark,
             }}
-            initialRouteName="WalkAndEarn"
+            initialRouteName={initialRoute}
           >
             <Stack.Screen
               name="Welcome"
@@ -78,6 +97,10 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: "#000",
+  },
+  loadingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

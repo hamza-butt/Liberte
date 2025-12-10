@@ -1,11 +1,18 @@
 import React from "react";
-import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
-
+import {
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+import { AppColors } from "../theme/colors";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
 import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";
 import ReferralCard from "../components/home/ReferralCard";
 import YachtRewardCard from "../components/home/YachtRewardCard";
+import { useHomeViewModel } from "../hooks/useHomeViewModel";
 
 const WEATHER_SLIDES: WeatherSlide[] = [
   {
@@ -46,9 +53,9 @@ const PRODUCT_SLIDES: ProductSlide[] = [
 ];
 
 function Home() {
+  const { isLoading, refetch } = useHomeViewModel();
   const sliderItems = React.useMemo(() => WEATHER_SLIDES, []);
   const productSlides = React.useMemo(() => PRODUCT_SLIDES, []);
-
 
   return (
     <View style={styles.fullScreen}>
@@ -57,28 +64,30 @@ function Home() {
         style={styles.background}
         imageStyle={styles.backgroundImage}
       >
-        <ScrollView
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-          bounces
-          contentInsetAdjustmentBehavior="never"
-          automaticallyAdjustContentInsets={false}
-        >
-          {/* weather */}
-          <WeatherAndGreeting />
+        <SafeAreaView style={styles.safeArea}>
+          <ScrollView
+            contentContainerStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            bounces
+            contentInsetAdjustmentBehavior="never"
+            automaticallyAdjustContentInsets={false}
+          >
+            {/* weather */}
+            <WeatherAndGreeting />
 
-          {/* weather slider */}
-          <WeatherSlider slides={sliderItems} />
+            {/* weather slider */}
+            <WeatherSlider slides={sliderItems} />
 
-          {/* products slider */}
-          <ProductSlider slides={productSlides} />
+            {/* products slider */}
+            <ProductSlider slides={productSlides} />
 
-          {/* referral card */}
-          <ReferralCard />
+            {/* referral card */}
+            <ReferralCard />
 
-          {/* yacht reward */}
-          <YachtRewardCard />
-        </ScrollView>
+            {/* yacht reward */}
+            <YachtRewardCard />
+          </ScrollView>
+        </SafeAreaView>
       </ImageBackground>
     </View>
   );
