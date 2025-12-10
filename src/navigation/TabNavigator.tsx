@@ -4,9 +4,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import DigitalVault from "../screens/DigitalVault";
 import { AppColors } from "../theme/colors";
-import BrandHeader from "../components/navBar/BrandHeader";
-import HeaderActions from "../components/navBar/HeaderActions";
 import WalkAndEarn from "../screens/WalkAndEarn";
+import { commonHeaderOptions } from "./NavigationOptions";
 
 const Tab = createBottomTabNavigator();
 
@@ -56,7 +55,7 @@ const TabNavigator = () => {
                 headerStyle: {
                     backgroundColor: AppColors.navBarBackground,
                 },
-
+                ...commonHeaderOptions,
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabBarLabel,
                 tabBarActiveTintColor: AppColors.primaryTextDark,
@@ -69,17 +68,6 @@ const TabNavigator = () => {
                 options={{
                     tabBarIcon: ({ focused }) => <HomeIcon focused={focused} />,
                     tabBarLabel: "Home",
-                    headerTitle: "",
-                    headerLeft: () => (
-                        <View style={{ paddingLeft: 20 }}>
-                            <BrandHeader />
-                        </View>
-                    ),
-                    headerRight: () => (
-                        <View style={{ paddingRight: 20 }}>
-                            <HeaderActions />
-                        </View>
-                    ),
                 }}
             />
             <Tab.Screen
