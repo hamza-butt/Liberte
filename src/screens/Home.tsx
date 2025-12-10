@@ -6,7 +6,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { AppColors } from "../theme/colors";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
 import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";

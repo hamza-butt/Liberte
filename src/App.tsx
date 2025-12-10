@@ -14,6 +14,7 @@ import Toast from "react-native-toast-message";
 import Welcome from "./screens/Welcome";
 import OTP from "./screens/OTP";
 import WalkAndEarn from "./screens/WalkAndEarn";
+import { UserProvider } from "./context/UserContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,58 +38,60 @@ function App() {
   }
   return (
     <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
-        <StatusBar barStyle="light-content" />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerTitleAlign: "center",
-              headerStyle: {
-                backgroundColor: AppColors.navBarBackground,
-              },
-              headerTintColor: AppColors.primaryTextDark,
-            }}
-            initialRouteName={initialRoute}
-          >
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{ headerShown: false }}
-            />
+      <UserProvider>
+        <SafeAreaProvider>
+          <StatusBar barStyle="light-content" />
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerTitleAlign: "center",
+                headerStyle: {
+                  backgroundColor: AppColors.navBarBackground,
+                },
+                headerTintColor: AppColors.primaryTextDark,
+              }}
+              initialRouteName={initialRoute}
+            >
+              <Stack.Screen
+                name="Welcome"
+                component={Welcome}
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Main"
-              component={TabNavigator}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Signup"
-              component={Signup}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="OTP"
-              component={OTP}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Main"
+                component={TabNavigator}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Signup"
+                component={Signup}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="OTP"
+                component={OTP}
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen
-              name="WalkAndEarn"
-              component={WalkAndEarn}
-              options={{ headerShown: false }}
-            />
+              <Stack.Screen
+                name="WalkAndEarn"
+                component={WalkAndEarn}
+                options={{ headerShown: false }}
+              />
 
 
 
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-      <Toast />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+        <Toast />
+      </UserProvider>
     </GestureHandlerRootView>
   );
 }

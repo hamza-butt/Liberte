@@ -1,8 +1,11 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
+import { useUser } from "../../context/UserContext";
 
 function HeaderActions() {
+  const { user } = useUser();
+
   return (
     <View style={styles.container}>
       {/* balance pill */}
@@ -17,7 +20,7 @@ function HeaderActions() {
           style={styles.iconImage}
           resizeMode="contain"
         />
-        <Text style={styles.balanceValue}>511</Text>
+        <Text style={styles.balanceValue}>{user?.card_points || "0"}</Text>
         <Text style={styles.balanceLabel}>Litties</Text>
       </Pressable>
 
@@ -44,9 +47,13 @@ function HeaderActions() {
         ]}
       >
         <Image
-          source={require("../../assets/common/profile.png")}
+          source={
+            user?.user_image
+              ? { uri: user.user_image }
+              : require("../../assets/common/profile.png")
+          }
           style={styles.profileiconImage}
-          resizeMode="contain"
+          resizeMode="cover"
         />
       </Pressable>
     </View>

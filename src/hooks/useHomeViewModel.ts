@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { api } from '../services/ApiClient';
 import { ENDPOINTS } from '../services/ApiEndpoints';
-import { getToken, setUser } from '../utils/storage';
+import { getToken } from '../utils/storage';
 import { User } from '../types/User';
+import { useUser } from '../context/UserContext';
 
 export const useHomeViewModel = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const { setUser } = useUser();
 
     const fetchUserDetails = useCallback(async () => {
         setIsLoading(true);

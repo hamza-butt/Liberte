@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
+import { useUser } from "../../context/UserContext";
 
 type WeatherAndGreetingProps = {
   name?: string;
@@ -9,16 +10,19 @@ type WeatherAndGreetingProps = {
 };
 
 function WeatherAndGreeting({
-  name = "Isabell",
+  name,
   subtitle = "Ready to earn some rewards?",
   temperature = 24,
 }: WeatherAndGreetingProps) {
+  const { user } = useUser();
+  const displayName = name || user?.full_name || "User";
+
   return (
     <View style={styles.row}>
       {/* title and subtitle */}
       <View style={styles.textBlock}>
         <Text numberOfLines={1} style={styles.greeting}>
-          {`Good Afternoon, ${name}!`}
+          {`Good Afternoon, ${displayName}!`}
         </Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
