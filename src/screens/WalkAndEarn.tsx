@@ -1,6 +1,5 @@
 import React from "react";
 import { ImageBackground, ScrollView, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import ProgressCard from "../components/walkAndEarn/ProgressCard";
 import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
@@ -16,38 +15,36 @@ const WalkAndEarn = () => {
                 style={styles.background}
                 imageStyle={styles.backgroundImage}
             >
-                <SafeAreaView style={styles.safeArea}>
-                    <ScrollView
-                        contentContainerStyle={styles.content}
-                        showsVerticalScrollIndicator={false}
-                    >
-                        {/* Weather and Greeting */}
-                        <WeatherAndGreeting />
+                <ScrollView
+                    contentContainerStyle={styles.content}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Weather and Greeting */}
+                    <WeatherAndGreeting />
 
-                        {/* Progress Card */}
-                        <ProgressCard />
+                    {/* Progress Card */}
+                    <ProgressCard />
 
 
-                        {/* Start Walking Button */}
-                        <TouchableOpacity style={styles.walkingButton}>
-                            <Text style={styles.walkingButtonIcon}>🚶</Text>
-                            <Text style={styles.walkingButtonText}>Start Walking</Text>
-                        </TouchableOpacity>
+                    {/* Start Walking Button */}
+                    <TouchableOpacity style={styles.walkingButton}>
+                        <Text style={styles.walkingButtonIcon}>🚶</Text>
+                        <Text style={styles.walkingButtonText}>Start Walking</Text>
+                    </TouchableOpacity>
 
-                        {/* Divider */}
-                        <View style={styles.divider} />
+                    {/* Divider */}
+                    <View style={styles.divider} />
 
-                        {/* Your Impact Portfolio */}
-                        <ImpactPortfolio />
+                    {/* Your Impact Portfolio */}
+                    <ImpactPortfolio />
 
-                        {/* Walk & Earn Rewards */}
-                        <WalkAndEarnRewards />
+                    {/* Walk & Earn Rewards */}
+                    <WalkAndEarnRewards />
 
-                        {/* EcoSeeds Card */}
-                        <EcoSeedsCard />
+                    {/* EcoSeeds Card */}
+                    <EcoSeedsCard />
 
-                    </ScrollView>
-                </SafeAreaView>
+                </ScrollView>
             </ImageBackground>
         </View>
     );
@@ -62,9 +59,6 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         resizeMode: "cover",
-    },
-    safeArea: {
-        flex: 1,
     },
     content: {
         paddingHorizontal: 24,

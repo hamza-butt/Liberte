@@ -6,6 +6,7 @@ import DigitalVault from "../screens/DigitalVault";
 import { AppColors } from "../theme/colors";
 import BrandHeader from "../components/navBar/BrandHeader";
 import HeaderActions from "../components/navBar/HeaderActions";
+import WalkAndEarn from "../screens/WalkAndEarn";
 
 const Tab = createBottomTabNavigator();
 
@@ -82,8 +83,8 @@ const TabNavigator = () => {
                 }}
             />
             <Tab.Screen
-                name="Walk"
-                component={Home} // Placeholder
+                name="WalkAndEarn"
+                component={WalkAndEarn}
                 options={{
                     tabBarButton: (props) => <WalkButton {...props} />,
                     tabBarLabel: () => null,
