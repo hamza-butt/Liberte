@@ -1,10 +1,22 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { BlurView } from "@react-native-community/blur";
 import BrandHeader from "../components/navBar/BrandHeader";
 import HeaderActions from "../components/navBar/HeaderActions";
 
 export const commonHeaderOptions = {
     headerTitle: "",
+    headerTransparent: true,
+    headerStyle: {
+        backgroundColor: "transparent",
+    },
+    headerBackground: () => (
+        <BlurView
+            style={StyleSheet.absoluteFill}
+            blurType="light"
+            blurAmount={10}
+        />
+    ),
     headerLeft: () => (
         <View style={{ paddingLeft: 20 }}>
             <BrandHeader />
