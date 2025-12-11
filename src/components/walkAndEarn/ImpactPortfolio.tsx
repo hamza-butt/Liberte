@@ -10,12 +10,12 @@ interface ImpactItem {
 }
 
 const impactItems: ImpactItem[] = [
-    { id: '1', value: '24', label: 'Trees Planted', icon: require('../../assets/home/tick.png') },
-    { id: '2', value: '34L', label: 'Water Donated', icon: require('../../assets/home/tick.png') },
-    { id: '3', value: '15', label: 'Meals Provided', icon: require('../../assets/home/tick.png') },
-    { id: '4', value: '8', label: 'Safety Reports', icon: require('../../assets/home/tick.png') },
-    { id: '5', value: '124', label: 'Lives Touched', icon: require('../../assets/home/tick.png') },
-    { id: '6', value: '123', label: 'Interaction', icon: require('../../assets/home/tick.png') },
+    { id: '1', value: '24', label: 'Trees Planted', icon: require('../../assets/walkAndEarn/portfolio/p1.png') },
+    { id: '2', value: '34L', label: 'Water Donated', icon: require('../../assets/walkAndEarn/portfolio/p2.png') },
+    { id: '3', value: '15', label: 'Meals Provided', icon: require('../../assets/walkAndEarn/portfolio/p3.png') },
+    { id: '4', value: '8', label: 'Safety Reports', icon: require('../../assets/walkAndEarn/portfolio/p4.png') },
+    { id: '5', value: '124', label: 'Lives Touched', icon: require('../../assets/walkAndEarn/portfolio/p5.png') },
+    { id: '6', value: '123', label: 'Interaction', icon: require('../../assets/walkAndEarn/portfolio/p6.png') },
 ];
 
 const ImpactPortfolio = () => {
@@ -27,9 +27,7 @@ const ImpactPortfolio = () => {
                     <View key={item.id} style={styles.impactCard}>
                         <Text style={styles.impactValue}>{item.value}</Text>
                         <Text style={styles.impactLabel}>{item.label}</Text>
-                        <View style={styles.impactImagePlaceholder}>
-                            <Image source={item.icon} style={styles.icon} resizeMode="contain" />
-                        </View>
+                        <Image source={item.icon} style={styles.icon} resizeMode="contain" />
                     </View>
                 ))}
             </View>
@@ -55,12 +53,20 @@ const styles = StyleSheet.create({
         width: "31%", // approx 1/3 minus gap
         backgroundColor: "rgba(255, 255, 255, 0.15)",
         borderRadius: 16,
-        padding: 12,
         alignItems: "center",
         justifyContent: "space-between",
         minHeight: 110,
         borderWidth: 1,
         borderColor: "rgba(255, 255, 255, 0.1)",
+        overflow: "hidden",
+        paddingTop: 10,
+    },
+    impactContent: {
+        paddingTop: 12,
+        paddingHorizontal: 8,
+        alignItems: "center",
+        width: "100%",
+        flex: 1,
     },
     impactValue: {
         fontSize: 20,
@@ -74,19 +80,9 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         marginTop: 4,
     },
-    impactImagePlaceholder: {
-        marginTop: 8,
-        height: 30,
-        width: "100%",
-        backgroundColor: "rgba(255,255,255,0.1)",
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     icon: {
-        width: 16,
-        height: 16,
-        tintColor: "rgba(255,255,255,0.8)",
+        width: "100%",
+        height: 50,
     },
 });
 
