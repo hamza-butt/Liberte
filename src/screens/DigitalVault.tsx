@@ -4,15 +4,18 @@ import { AppColors } from "../theme/colors";
 import BalanceCard from "../components/digitalVault/BalanceCard";
 import Leaderboard from "../components/digitalVault/Leaderboard";
 import SupportCard from "../components/digitalVault/SupportCard";
+import { useHeaderHeight } from "@react-navigation/elements";
+
 
 const DigitalVault = () => {
+    const headerHeight = useHeaderHeight();
     return (
         <ImageBackground
             source={require("../assets/welcome/intro_background.png")}
             style={styles.background}
             imageStyle={styles.backgroundImage}
         >
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            <ScrollView style={styles.container} contentContainerStyle={[styles.contentContainer, { paddingTop: headerHeight }]}>
 
                 {/* Balance Card */}
                 <BalanceCard />

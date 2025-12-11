@@ -52,9 +52,6 @@ const TabNavigator = () => {
         <Tab.Navigator
             screenOptions={{
                 headerShown: true,
-                headerStyle: {
-                    backgroundColor: AppColors.navBarBackground,
-                },
                 ...commonHeaderOptions,
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabBarLabel,

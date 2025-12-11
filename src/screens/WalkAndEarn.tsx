@@ -6,8 +6,14 @@ import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
 import EcoSeedsCard from "../components/walkAndEarn/EcoSeedsCard";
 import WalkAndEarnRewards from "../components/walkAndEarn/WalkAndEarnRewards";
 import { AppColors } from "../theme/colors";
+import { useHeaderHeight } from "@react-navigation/elements";
+
 
 const WalkAndEarn = () => {
+
+    const headerHeight = useHeaderHeight();
+
+
     return (
         <View style={styles.fullScreen}>
             <ImageBackground
@@ -16,7 +22,7 @@ const WalkAndEarn = () => {
                 imageStyle={styles.backgroundImage}
             >
                 <ScrollView
-                    contentContainerStyle={styles.content}
+                    contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}
                     showsVerticalScrollIndicator={false}
                 >
                     {/* Weather and Greeting */}

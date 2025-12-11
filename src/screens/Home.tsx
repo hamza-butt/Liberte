@@ -1,11 +1,11 @@
 import React from "react";
 import {
   ImageBackground,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
 } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 import WeatherAndGreeting from "../components/home/WeatherAndGreeting";
 import WeatherSlider, { WeatherSlide } from "../components/home/WeatherSlider";
 import ProductSlider, { ProductSlide } from "../components/home/ProductSlider";
@@ -53,6 +53,7 @@ const PRODUCT_SLIDES: ProductSlide[] = [
 
 function Home() {
   const { isLoading, refetch } = useHomeViewModel();
+  const headerHeight = useHeaderHeight();
   const sliderItems = React.useMemo(() => WEATHER_SLIDES, []);
   const productSlides = React.useMemo(() => PRODUCT_SLIDES, []);
 
@@ -63,30 +64,31 @@ function Home() {
         style={styles.background}
         imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView style={styles.safeArea}>
-          <ScrollView
-            contentContainerStyle={styles.content}
-            showsVerticalScrollIndicator={false}
-            bounces
-            contentInsetAdjustmentBehavior="never"
-            automaticallyAdjustContentInsets={false}
-          >
-            {/* weather */}
-            <WeatherAndGreeting />
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            { paddingTop: headerHeight },
+          ]}
+          showsVerticalScrollIndicator={false}
+          bounces
+          contentInsetAdjustmentBehavior="never"
+          automaticallyAdjustContentInsets={false}
+        >
+          {/* weather */}
+          <WeatherAndGreeting />
 
-            {/* weather slider */}
-            <WeatherSlider slides={sliderItems} />
+          {/* weather slider */}
+          <WeatherSlider slides={sliderItems} />
 
-            {/* products slider */}
-            <ProductSlider slides={productSlides} />
+          {/* products slider */}
+          <ProductSlider slides={productSlides} />
 
-            {/* referral card */}
-            <ReferralCard />
+          {/* referral card */}
+          <ReferralCard />
 
-            {/* yacht reward */}
-            <YachtRewardCard />
-          </ScrollView>
-        </SafeAreaView>
+          {/* yacht reward */}
+          <YachtRewardCard />
+        </ScrollView>
       </ImageBackground>
     </View>
   );
@@ -102,15 +104,11 @@ const styles = StyleSheet.create({
   backgroundImage: {
     resizeMode: "cover",
   },
-  safeArea: {
-    flex: 1,
-  },
   content: {
     flexGrow: 1,
     paddingHorizontal: 24,
     paddingBottom: 16,
     gap: 28,
-    paddingTop: 16,
   },
 });
 
