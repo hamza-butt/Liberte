@@ -5,6 +5,7 @@ import ProgressCard from "../components/walkAndEarn/ProgressCard";
 import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
 import EcoSeedsCard from "../components/walkAndEarn/EcoSeedsCard";
 import WalkAndEarnRewards from "../components/walkAndEarn/WalkAndEarnRewards";
+import CauseSelectionModal from "../components/walkAndEarn/Modal/CauseSelectionModal";
 import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 
@@ -12,7 +13,11 @@ import { useHeaderHeight } from "@react-navigation/elements";
 const WalkAndEarn = () => {
 
     const headerHeight = useHeaderHeight();
+    const [isCauseModalVisible, setIsCauseModalVisible] = React.useState(false);
 
+    const handleStartWalking = (selectedCause: any) => {
+        console.log("Starting walking with cause:", selectedCause);
+    };
 
     return (
         <View style={styles.fullScreen}>
@@ -33,7 +38,10 @@ const WalkAndEarn = () => {
 
 
                     {/* Start Walking Button */}
-                    <TouchableOpacity style={styles.walkingButton}>
+                    <TouchableOpacity
+                        style={styles.walkingButton}
+                        onPress={() => setIsCauseModalVisible(true)}
+                    >
                         <Text style={styles.walkingButtonIcon}>🚶</Text>
                         <Text style={styles.walkingButtonText}>Start Walking</Text>
                     </TouchableOpacity>
@@ -51,6 +59,11 @@ const WalkAndEarn = () => {
                     <EcoSeedsCard />
 
                 </ScrollView>
+                <CauseSelectionModal
+                    visible={isCauseModalVisible}
+                    onClose={() => setIsCauseModalVisible(false)}
+                    onStartWalking={handleStartWalking}
+                />
             </ImageBackground>
         </View>
     );

@@ -18,6 +18,12 @@ export const AppColors = {
   primaryTextDark: "rgb(255, 255, 255)",
   primaryTextLight: "rgb(0, 0, 0)",
 
+
+  // secondary text
+  secondaryTextDark: "#94A3B8",
+  secondaryTextLight: "#94A3B8",
+
+
   // Button Gradients
   ctaGradientStart: "#F6D365",
   ctaGradientEnd: "#3B7A73",
