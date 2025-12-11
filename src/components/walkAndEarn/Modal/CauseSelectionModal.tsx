@@ -102,7 +102,7 @@ const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
 const styles = StyleSheet.create({
     overlay: {
         flex: 1,
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0.88)",
         justifyContent: "center",
         alignItems: "center",
         padding: 16,
