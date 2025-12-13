@@ -99,22 +99,22 @@ export const useDailyClaimViewModel = () => {
     };
 
     useEffect(() => {
-        if (data?.time_left) {
-            let totalSeconds = parseTime(data.time_left);
-            setRemainingTime(formatTime(totalSeconds));
+        // if (data?.time_left) {
+        //     let totalSeconds = parseTime(data.time_left);
+        //     setRemainingTime(formatTime(totalSeconds));
 
-            const interval = setInterval(() => {
-                if (totalSeconds > 0) {
-                    totalSeconds -= 1;
-                    setRemainingTime(formatTime(totalSeconds));
-                } else {
-                    clearInterval(interval);
-                    // Optionally refetch or update status here
-                }
-            }, 1000);
+        //     const interval = setInterval(() => {
+        //         if (totalSeconds > 0) {
+        //             totalSeconds -= 1;
+        //             setRemainingTime(formatTime(totalSeconds));
+        //         } else {
+        //             clearInterval(interval);
+        //             // Optionally refetch or update status here
+        //         }
+        //     }, 1000);
 
-            return () => clearInterval(interval);
-        }
+        //     return () => clearInterval(interval);
+        // }
     }, [data?.time_left]);
 
     return {

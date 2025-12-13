@@ -18,13 +18,13 @@ function YachtRewardCard() {
 
   const days = data?.daily_list.map((item: DailyItem) => {
     let status = "upcoming";
-    const currentDay = data.current_day || 1;
+    const currentDay = Number(data?.current_day) || 1;
 
     // Logic for status
     if (item.day < currentDay) {
       status = "completed";
     } else if (item.day === currentDay) {
-      status = data.today_claimed ? "completed" : "active";
+      status = data?.today_claimed ? "completed" : "active";
     } else {
       status = "upcoming";
     }
@@ -104,7 +104,7 @@ function YachtRewardCard() {
                   <Image
                     source={require("../../assets/home/tick.png")}
                     style={styles.checkIcon}
-                    resizeMode="contain"
+                    resizeMode="cover"
                   />
                 )}
                 {day.status !== "completed" && (
@@ -243,6 +243,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: "center",
     alignItems: "center",
+    overflow: 'hidden',
   },
   circleCompleted: {
     backgroundColor: AppColors.greenDark,
@@ -254,8 +255,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.2)",
   },
   checkIcon: {
-    width: 16,
-    height: 16,
+    width: "100%",
+    height: "100%",
   },
   dayValue: {
     color: "#FFFFFF",
