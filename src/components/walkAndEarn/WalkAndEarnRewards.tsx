@@ -67,19 +67,19 @@ const WalkAndEarnRewards = () => {
                 snapToInterval={ITEM_WIDTH}
             >
                 {rewards.map((item) => (
-                    <LinearGradient
-                        key={item.id}
-                        colors={['#067D9E', '#033F52']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                        style={styles.rewardCard}
-                    >
+                    <View key={item.id} style={styles.rewardCard}>
+                        <LinearGradient
+                            colors={['#067D9E', '#033F52']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 0, y: 1 }}
+                            style={styles.gradient}
+                        />
                         <View style={styles.rewardHeader}>
                             <Image source={item.icon} style={styles.rewardIcon} resizeMode="contain" />
                             <Text style={styles.rewardTitle}>{item.title}</Text>
                         </View>
                         <Text style={styles.rewardDesc}>{item.description}</Text>
-                    </LinearGradient>
+                    </View>
                 ))}
             </ScrollView>
         </View>
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
         width: 240,
         borderWidth: 1,
         borderColor: "rgba(255,255,255,0.15)",
+        overflow: 'hidden',
+    },
+    gradient: {
+        ...StyleSheet.absoluteFillObject,
     },
     rewardHeader: {
         flexDirection: "row",
