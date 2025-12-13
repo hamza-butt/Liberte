@@ -47,9 +47,35 @@ export const useDailyClaimViewModel = () => {
 
 
     const claimReward = async () => {
-        // Placeholder for claim functionality if needed
-        // For now the task is just to "get" the status and update info
-        Alert.alert("Claim", "Claim functionality to be implemented");
+        try {
+            setLoading(true);
+            const token = await getToken();
+            if (!token) {
+                Alert.alert("Error", "User token not found");
+                setLoading(false);
+                return;
+            }
+
+            const response = await api.request<any>(
+                ENDPOINTS.USER_DAILY_CLAIM,
+                'GET',
+                { token }
+            );
+
+            if (response.status) {
+                // Success
+                Alert.alert("Success", response.message || "Claim successful.");
+                fetchDailyClaimStatus(); // Refresh status
+            } else {
+                // Already claimed or other error
+                Alert.alert("Claim Info", response.message || "Could not claim reward.");
+            }
+        } catch (error: any) {
+            console.error("Error claiming reward:", error);
+            Alert.alert("Error", error.message || "Failed to claim reward");
+        } finally {
+            setLoading(false);
+        }
     };
 
 

@@ -7,6 +7,7 @@ export const ENDPOINTS = {
     RESEND_VERIFY_OTP: 'resend-verify-otp',
     GET_USER_DETAILS: 'get-user-details',
     GET_DAILY_CLAIM_STATUS: 'get-daily-claim-status',
+    USER_DAILY_CLAIM: 'user-daily-claim',
 
 
 
