@@ -14,10 +14,7 @@ import { DailyItem } from "../../types/DailyClaimTypes";
 const { width } = Dimensions.get("window");
 
 function YachtRewardCard() {
-  const { data, loading, claimReward } = useDailyClaimViewModel();
-
-  // If loading, we could show a skeleton or just default empty state.
-  // For now, let's keep the structure but maybe show safe defaults if data is null.
+  const { data, loading, claimReward, formattedTime } = useDailyClaimViewModel();
 
   const days = data?.daily_list.map((item: DailyItem) => {
     let status = "upcoming";
@@ -39,9 +36,6 @@ function YachtRewardCard() {
     };
   }) || [];
 
-  // Fallback if data is not yet loaded to show something or just render empty?
-  // The original mock had 7 days. Let's persist basic empty structure if loading to avoid jumping?
-  // Or just null check in render.
 
   return (
     <View style={styles.container}>
@@ -82,7 +76,7 @@ function YachtRewardCard() {
           />
           <View style={styles.timerTextContainer}>
             <Text style={styles.timerLabel}>Time left</Text>
-            <Text style={styles.timerValue}>{data?.time_left || "--:--:--"}</Text>
+            <Text style={styles.timerValue}>{formattedTime}</Text>
           </View>
         </View>
 

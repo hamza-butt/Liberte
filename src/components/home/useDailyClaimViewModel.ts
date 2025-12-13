@@ -52,10 +52,50 @@ export const useDailyClaimViewModel = () => {
         Alert.alert("Claim", "Claim functionality to be implemented");
     };
 
+
+
+    // Time related logic
+    const [remainingTime, setRemainingTime] = useState<string>("--:--:--");
+
+    const parseTime = (timeStr: string): number => {
+        const parts = timeStr.split(':');
+        if (parts.length === 3) {
+            return (parseInt(parts[0], 10) * 3600) + (parseInt(parts[1], 10) * 60) + parseInt(parts[2], 10);
+        }
+        return 0;
+    };
+
+    const formatTime = (totalSeconds: number): string => {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    useEffect(() => {
+        if (data?.time_left) {
+            let totalSeconds = parseTime(data.time_left);
+            setRemainingTime(formatTime(totalSeconds));
+
+            const interval = setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds -= 1;
+                    setRemainingTime(formatTime(totalSeconds));
+                } else {
+                    clearInterval(interval);
+                    // Optionally refetch or update status here
+                }
+            }, 1000);
+
+            return () => clearInterval(interval);
+        }
+    }, [data?.time_left]);
+
     return {
         loading,
         data,
         error,
+        formattedTime: remainingTime,
         refetch: fetchDailyClaimStatus,
         claimReward
     };
