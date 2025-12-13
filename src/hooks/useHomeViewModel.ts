@@ -20,7 +20,6 @@ export const useHomeViewModel = () => {
                 return;
             }
 
-            console.log('Fetching user details with token:', token);
             const response = await api.request<{ data: User }>(
                 ENDPOINTS.GET_USER_DETAILS,
                 'GET',

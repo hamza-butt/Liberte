@@ -6,4 +6,8 @@ export const ENDPOINTS = {
     VERIFY_REGISTRATION_ACCOUNT: 'verify-registration-account',
     RESEND_VERIFY_OTP: 'resend-verify-otp',
     GET_USER_DETAILS: 'get-user-details',
+    GET_DAILY_CLAIM_STATUS: 'get-daily-claim-status',
+
+
+
 };

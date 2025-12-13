@@ -8,20 +8,40 @@ import {
   Dimensions,
 } from "react-native";
 import { AppColors } from "../../theme/colors";
+import { useDailyClaimViewModel } from "./useDailyClaimViewModel";
+import { DailyItem } from "../../types/DailyClaimTypes";
 
 const { width } = Dimensions.get("window");
 
 function YachtRewardCard() {
-  // Mock data for the progress
-  const days = [
-    { label: "Day 1", status: "completed" },
-    { label: "Day 2", status: "active", value: 5 },
-    { label: "Day 3", status: "upcoming", value: 10 },
-    { label: "Day 4", status: "upcoming", value: 10 },
-    { label: "Day 5", status: "upcoming", value: 15 },
-    { label: "Day 6", status: "upcoming", value: 15 },
-    { label: "Day 7", status: "upcoming", value: 20 },
-  ];
+  const { data, loading, claimReward } = useDailyClaimViewModel();
+
+  // If loading, we could show a skeleton or just default empty state.
+  // For now, let's keep the structure but maybe show safe defaults if data is null.
+
+  const days = data?.daily_list.map((item: DailyItem) => {
+    let status = "upcoming";
+    const currentDay = data.current_day || 1;
+
+    // Logic for status
+    if (item.day < currentDay) {
+      status = "completed";
+    } else if (item.day === currentDay) {
+      status = data.today_claimed ? "completed" : "active";
+    } else {
+      status = "upcoming";
+    }
+
+    return {
+      label: `Day ${item.day}`,
+      status: status,
+      value: item.points
+    };
+  }) || [];
+
+  // Fallback if data is not yet loaded to show something or just render empty?
+  // The original mock had 7 days. Let's persist basic empty structure if loading to avoid jumping?
+  // Or just null check in render.
 
   return (
     <View style={styles.container}>
@@ -62,19 +82,21 @@ function YachtRewardCard() {
           />
           <View style={styles.timerTextContainer}>
             <Text style={styles.timerLabel}>Time left</Text>
-            <Text style={styles.timerValue}>09:10:30</Text>
+            <Text style={styles.timerValue}>{data?.time_left || "--:--:--"}</Text>
           </View>
         </View>
 
-        <View style={styles.claimButton}>
-          <Text style={styles.claimText}>Claim</Text>
+        <View style={[styles.claimButton, data?.today_claimed && { backgroundColor: AppColors.greenDark }]}>
+          <Text style={styles.claimText} onPress={!data?.today_claimed ? claimReward : undefined}>
+            {data?.today_claimed ? "Claimed" : "Claim"}
+          </Text>
         </View>
       </View>
 
       {/* Bottom Section (Days) */}
       <View style={styles.daysSection}>
         <View style={styles.progressRow}>
-          {days.map((day, index) => (
+          {days.length > 0 ? days.map((day: any, index: number) => (
             <View key={index} style={styles.dayItem}>
               <View
                 style={[
@@ -97,7 +119,15 @@ function YachtRewardCard() {
               </View>
               <Text style={styles.dayLabel}>{day.label}</Text>
             </View>
-          ))}
+          )) : (
+            // Render placeholders if no data yet
+            Array.from({ length: 7 }).map((_, i) => (
+              <View key={i} style={styles.dayItem}>
+                <View style={[styles.circle, styles.circleUpcoming]} />
+                <Text style={styles.dayLabel}>Day {i + 1}</Text>
+              </View>
+            ))
+          )}
         </View>
       </View>
     </View>
