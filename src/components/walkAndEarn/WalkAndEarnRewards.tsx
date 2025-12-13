@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, View, Dimensions } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Dimensions, Image, ImageSourcePropType } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
 import { AppColors } from "../../theme/colors";
 
 interface RewardItem {
     id: string;
-    icon: string;
+    icon: ImageSourcePropType;
     title: string;
     description: string;
 }
@@ -12,19 +13,19 @@ interface RewardItem {
 const rewards: RewardItem[] = [
     {
         id: '1',
-        icon: '🌱',
+        icon: require("../../assets/walkAndEarn/walkAndEarnRewards/leaf.png"),
         title: '10 EcoSeeds for\n100,000 Steps',
         description: 'We will plant 1 tree for your 10 EcoSeeds',
     },
     {
         id: '2',
-        icon: '💧',
+        icon: require("../../assets/walkAndEarn/walkAndEarnRewards/drop.png"),
         title: '10 AquaDrops\n100,000 Steps',
         description: 'Each drop counts! Support water with your steps.',
     },
     {
         id: '3',
-        icon: '🎈',
+        icon: require("../../assets/walkAndEarn/walkAndEarnRewards/baloon.png"),
         title: '5 GrainBundles for\n50,000 Steps',
         description: 'Walk to help provide food to those in need.',
     },
@@ -61,18 +62,24 @@ const WalkAndEarnRewards = () => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.rewardsList}
-                pagingEnabled={false} // Disable standard paging to handle custom snapping if needed, but for auto-scroll it's fine
+                pagingEnabled={false}
                 decelerationRate="fast"
-                snapToInterval={ITEM_WIDTH} // Snap to card + gap
+                snapToInterval={ITEM_WIDTH}
             >
                 {rewards.map((item) => (
-                    <View key={item.id} style={styles.rewardCard}>
+                    <LinearGradient
+                        key={item.id}
+                        colors={['#067D9E', '#033F52']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 0, y: 1 }}
+                        style={styles.rewardCard}
+                    >
                         <View style={styles.rewardHeader}>
-                            <Text style={{ fontSize: 24 }}>{item.icon}</Text>
+                            <Image source={item.icon} style={styles.rewardIcon} resizeMode="contain" />
                             <Text style={styles.rewardTitle}>{item.title}</Text>
                         </View>
                         <Text style={styles.rewardDesc}>{item.description}</Text>
-                    </View>
+                    </LinearGradient>
                 ))}
             </ScrollView>
         </View>
@@ -93,7 +100,6 @@ const styles = StyleSheet.create({
         paddingRight: 24,
     },
     rewardCard: {
-        backgroundColor: "rgba(4, 95, 121, 0.8)", // Darker background to match design
         borderRadius: 20,
         padding: 16,
         width: 240,
@@ -115,6 +121,10 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,0.7)",
         fontSize: 13,
         lineHeight: 18,
+    },
+    rewardIcon: {
+        width: 32,
+        height: 32,
     },
 });
 

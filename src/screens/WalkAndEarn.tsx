@@ -42,7 +42,11 @@ const WalkAndEarn = () => {
                         style={styles.walkingButton}
                         onPress={() => setIsCauseModalVisible(true)}
                     >
-                        <Text style={styles.walkingButtonIcon}>🚶</Text>
+                        <Image
+                            source={require("../assets/walkAndEarn/walk_person.png")}
+                            style={styles.walkingButtonIcon}
+                            resizeMode="contain"
+                        />
                         <Text style={styles.walkingButtonText}>Start Walking</Text>
                     </TouchableOpacity>
 
@@ -118,7 +122,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     walkingButtonIcon: {
-        fontSize: 24,
+        width: 24,
+        height: 24,
+        tintColor: "#FFFFFF",
     },
 });
 

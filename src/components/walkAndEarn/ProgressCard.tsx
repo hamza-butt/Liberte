@@ -12,9 +12,9 @@ const STROKE_WIDTH = 10;
 const CENTER = RADIUS;
 const SIZE = RADIUS * 2;
 const STEP_ICON = require("../../assets/walkAndEarn/progressCard/step.png");
-const KILOMETRE_ICON = require("../../assets/walkAndEarn/progressCard/walk_person.png");
-const KCAL_ICON = require("../../assets/walkAndEarn/progressCard/walk_person.png");
-const LITRES_ICON = require("../../assets/walkAndEarn/progressCard/walk_person.png");
+const KILOMETRE_ICON = require("../../assets/walkAndEarn/progressCard/run_person.png");
+const KCAL_ICON = require("../../assets/walkAndEarn/progressCard/fire_white.png");
+const LITRES_ICON = require("../../assets/walkAndEarn/progressCard/fire_white.png");
 
 const ProgressCard = () => {
     const { path, targetPath } = React.useMemo(() => {
@@ -82,7 +82,7 @@ const ProgressCard = () => {
                         {/* Steps */}
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
-                                <Image source={KILOMETRE_ICON} style={styles.stepIcon} resizeMode="contain" />
+                                <Image source={KILOMETRE_ICON} style={styles.progressIcons} resizeMode="contain" />
                                 <Text style={styles.statValue}>6.4</Text>
                             </View>
                             <Text style={styles.statLabel}>Kilometre</Text>
@@ -91,7 +91,7 @@ const ProgressCard = () => {
                         {/* kcal */}
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
-                                <Image source={KCAL_ICON} style={styles.stepIcon} resizeMode="contain" />
+                                <Image source={KCAL_ICON} style={styles.progressIcons} resizeMode="contain" />
                                 <Text style={styles.statValue}>224</Text>
                             </View>
                             <Text style={styles.statLabel}>Kcal</Text>
@@ -100,7 +100,6 @@ const ProgressCard = () => {
                         {/* litres */}
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
-                                <Image source={LITRES_ICON} style={styles.stepIcon} resizeMode="contain" />
                                 <Text style={styles.statValue}>8.7</Text>
                             </View>
                             <Text style={styles.statLabel}>Litres</Text>
@@ -213,9 +212,15 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,0.8)",
         fontSize: 11,
     },
+
     stepIcon: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
+    },
+
+    progressIcons: {
+        width: 15,
+        height: 15,
     },
 
 });
