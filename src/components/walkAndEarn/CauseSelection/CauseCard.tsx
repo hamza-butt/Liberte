@@ -6,7 +6,7 @@ import { AppColors } from "../../../theme/colors";
 // Since it's only used here and in the modal, we can redefine or export it from a types file.
 // For now, I'll redefine it to keep this component self-contained for props.
 export interface Cause {
-    id: string;
+    id: number;
     title: string;
     description: string;
     image: any;

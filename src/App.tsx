@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       const token = await getToken();
-      setInitialRoute(token ? "Main" : "Welcome");
+      setInitialRoute(token ? "WalkAndEarn" : "Welcome");
     };
     checkAuth();
   }, []);

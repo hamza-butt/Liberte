@@ -45,19 +45,19 @@ const CAUSES: Cause[] = [
 interface CauseSelectionModalProps {
     visible: boolean;
     onClose: () => void;
-    onStartWalking: (selectedCause: Cause | null) => void;
+    onCauseSelection: (selectedCause: Cause | null) => void;
 }
 
 const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
     visible,
     onClose,
-    onStartWalking,
+    onCauseSelection,
 }) => {
     const [selectedCauseId, setSelectedCauseId] = useState<string | null>(null);
 
     const handleStart = () => {
         const cause = CAUSES.find((c) => c.id === selectedCauseId) || null;
-        onStartWalking(cause);
+        onCauseSelection(cause);
         onClose();
     };
 
