@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { Alert } from 'react-native';
 import PedometerService, { PedometerUpdate } from '../services/PedometerService';
 import { RESULTS, PermissionStatus } from 'react-native-permissions';
@@ -10,14 +10,15 @@ export const WalkAndEarnViewModel = () => {
     const [selectedCause, setSelectedCause] = useState<number | null>(null);
     const [permissionStatus, setPermissionStatus] = useState<PermissionStatus | null>(null);
 
+    // Refs to track previous values for delta calculation
+    const lastStepsRef = useRef(0);
+    const lastDistanceRef = useRef(0);
+
 
     // Check permission and start tracking
     const startTracking = async () => {
-
         const status = await PedometerService.checkPermission();
         setPermissionStatus(status);
-        console.log("Permission Status:", status);
-
         if (status === RESULTS.GRANTED) {
             startService();
         } else if (status === RESULTS.DENIED) {
@@ -35,13 +36,34 @@ export const WalkAndEarnViewModel = () => {
 
     // Start the pedometer service
     const startService = () => {
+        console.log("Starting service");
+
+        // Reset tracking state and refs
         setIsTracking(true);
         setSteps(0);
         setDistance(0);
+        lastStepsRef.current = 0;
+        lastDistanceRef.current = 0;
+
         PedometerService.startTracking(handleUpdate);
     };
 
     const handleUpdate = useCallback((data: PedometerUpdate) => {
+        // Calculate deltas
+        const stepsDelta = data.steps - lastStepsRef.current;
+        const distanceDelta = data.distance - lastDistanceRef.current;
+        console.log("Pedometer Update:", data);
+        if (stepsDelta > 0 || distanceDelta > 0) {
+            console.log(`Pedometer Delta Update: +${stepsDelta} steps, +${distanceDelta.toFixed(2)}m`);
+
+            // TODO: Send these deltas to the server
+
+            // Update refs
+            lastStepsRef.current = data.steps;
+            lastDistanceRef.current = data.distance;
+        }
+
+        // Update UI with cumulative values
         setSteps(data.steps);
         setDistance(data.distance);
     }, []);
