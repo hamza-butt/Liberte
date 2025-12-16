@@ -11,31 +11,31 @@ import CauseFooter from "../CauseSelection/CauseFooter";
 
 const CAUSES: Cause[] = [
     {
-        id: "1",
+        id: 1,
         title: "Forest Restoration",
         description: "Help plant trees and restore forests.",
         image: require("../../../assets/walkAndEarn/portfolio/p1.png"),
     },
     {
-        id: "2",
+        id: 2,
         title: "Clean Water Access",
         description: "Provide clean water to communities.",
         image: require("../../../assets/walkAndEarn/portfolio/p2.png"),
     },
     {
-        id: "3",
+        id: 3,
         title: "Food Security",
         description: "Fight hunger and malnutrition.",
         image: require("../../../assets/walkAndEarn/portfolio/p3.png"),
     },
     {
-        id: "4",
+        id: 4,
         title: "Eco Education",
         description: "Support women's rights and education.",
         image: require("../../../assets/walkAndEarn/portfolio/p4.png"),
     },
     {
-        id: "5",
+        id: 5,
         title: "Kids Walks for Labudu ",
         description: "Earn Labubu Eco-Collections with every step ",
         image: require("../../../assets/walkAndEarn/portfolio/p5.png"),
@@ -45,7 +45,7 @@ const CAUSES: Cause[] = [
 interface CauseSelectionModalProps {
     visible: boolean;
     onClose: () => void;
-    onCauseSelection: (selectedCause: Cause | null) => void;
+    onCauseSelection: (selectedCauseId: number) => void;
 }
 
 const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
@@ -53,12 +53,13 @@ const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
     onClose,
     onCauseSelection,
 }) => {
-    const [selectedCauseId, setSelectedCauseId] = useState<string | null>(null);
+    const [selectedCauseId, setSelectedCauseId] = useState<number | null>(null);
 
     const handleStart = () => {
-        const cause = CAUSES.find((c) => c.id === selectedCauseId) || null;
-        onCauseSelection(cause);
-        onClose();
+        if (selectedCauseId !== null) {
+            onCauseSelection(selectedCauseId);
+            onClose();
+        }
     };
 
     return (

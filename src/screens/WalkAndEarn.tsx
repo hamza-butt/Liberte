@@ -10,27 +10,27 @@ import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 
-import { useWalkTracker } from "../hooks/useWalkTracker";
+import { WalkAndEarnViewModel } from "../hooks/WalkAndEarnViewModel";
 
 const WalkAndEarn = () => {
 
     const headerHeight = useHeaderHeight();
     const [isCauseModalVisible, setIsCauseModalVisible] = React.useState(false);
-    const { isTracking, steps, distance, startTracking, stopTracking } = useWalkTracker();
-    const [selectedCause, setSelectedCause] = React.useState(null);
+    const { isTracking, steps, distance, startTracking, stopTracking, selectedCause, setSelectedCause } = WalkAndEarnViewModel();
 
-    const handleStartWalking = (cause: any) => {
+    const handleStartWalking = (causeId: number) => {
         // update cause selection
-        setSelectedCause(cause);
-        console.log("Starting walking with cause:", selectedCause);
-        // startTracking();
+        setSelectedCause(causeId);
+        startTracking();
     };
 
     const handlePressButton = () => {
+
         if (isTracking) {
             stopTracking();
         } else {
-            setIsCauseModalVisible(true);
+            startTracking()
+            // setIsCauseModalVisible(true);
         }
     };
 
@@ -45,26 +45,15 @@ const WalkAndEarn = () => {
                     contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}
                     showsVerticalScrollIndicator={false}
                 >
+
                     {/* Weather and Greeting */}
                     <WeatherAndGreeting />
 
                     {/* Progress Card */}
                     <ProgressCard />
 
-                    {/* Live Stats */}
-                    {isTracking && (
-                        <View style={styles.liveStatsContainer}>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statValue}>{steps}</Text>
-                                <Text style={styles.statLabel}>Steps</Text>
-                            </View>
-                            <View style={styles.statDivider} />
-                            <View style={styles.statItem}>
-                                <Text style={styles.statValue}>{distance.toFixed(0)}</Text>
-                                <Text style={styles.statLabel}>Meters</Text>
-                            </View>
-                        </View>
-                    )}
+                    <Text>Steps: {steps}</Text>
+                    <Text>Distance: {distance}</Text>
 
                     {/* Start/Stop Walking Button */}
                     <TouchableOpacity
@@ -160,34 +149,7 @@ const styles = StyleSheet.create({
     stopButton: {
         backgroundColor: '#FF4B4B',
     },
-    liveStatsContainer: {
-        flexDirection: 'row',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        borderRadius: 16,
-        padding: 16,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.3)',
-    },
-    statItem: {
-        alignItems: 'center',
-    },
-    statValue: {
-        color: '#FFFFFF',
-        fontSize: 24,
-        fontWeight: '700',
-    },
-    statLabel: {
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontSize: 14,
-        marginTop: 4,
-    },
-    statDivider: {
-        width: 1,
-        height: '80%',
-        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    },
+
 });
 
 export default WalkAndEarn;

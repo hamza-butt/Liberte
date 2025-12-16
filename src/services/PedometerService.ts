@@ -40,6 +40,7 @@ class PedometerService {
     }
 
     async checkPermission(): Promise<PermissionStatus> {
+        console.log("Checking permission ", Platform.OS);
         const permission =
             Platform.OS === 'ios'
                 ? PERMISSIONS.IOS.MOTION
@@ -47,6 +48,7 @@ class PedometerService {
 
         try {
             const result = await check(permission);
+            console.log("Permission result ", result);
             return result;
         } catch (error) {
             console.error('Error checking permission:', error);

@@ -15,7 +15,7 @@ export interface Cause {
 interface CauseCardProps {
     cause: Cause;
     isSelected: boolean;
-    onSelect: (id: string) => void;
+    onSelect: (id: number) => void;
 }
 
 const CauseCard: React.FC<CauseCardProps> = ({ cause, isSelected, onSelect }) => {
