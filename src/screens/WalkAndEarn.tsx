@@ -16,7 +16,7 @@ const WalkAndEarn = () => {
 
     const headerHeight = useHeaderHeight();
     const [isCauseModalVisible, setIsCauseModalVisible] = React.useState(false);
-    const { isTracking, steps, distance, startTracking, stopTracking, selectedCause, setSelectedCause } = WalkAndEarnViewModel();
+    const { isTracking, steps, distance, startTracking, stopTracking, selectedCause, setSelectedCause, testSocket } = WalkAndEarnViewModel();
 
     const handleStartWalking = (causeId: number) => {
         // update cause selection
@@ -25,13 +25,14 @@ const WalkAndEarn = () => {
     };
 
     const handlePressButton = () => {
+        testSocket();
 
-        if (isTracking) {
-            stopTracking();
-        } else {
-            startTracking()
-            // setIsCauseModalVisible(true);
-        }
+        // if (isTracking) {
+        //     stopTracking();
+        // } else {
+        //     startTracking()
+        //     // setIsCauseModalVisible(true);
+        // }
     };
 
     return (

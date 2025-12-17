@@ -1,6 +1,8 @@
 import { useState, useCallback, useRef } from 'react';
 import { Alert } from 'react-native';
 import PedometerService, { PedometerUpdate } from '../services/PedometerService';
+import SocketService from '../services/SocketService';
+import { getToken } from '../utils/storage';
 import { RESULTS, PermissionStatus } from 'react-native-permissions';
 
 export const WalkAndEarnViewModel = () => {
@@ -13,6 +15,15 @@ export const WalkAndEarnViewModel = () => {
     // Refs to track previous values for delta calculation
     const lastStepsRef = useRef(0);
     const lastDistanceRef = useRef(0);
+    const tokenRef = useRef<string | null>(null);
+
+
+    const testSocket = () => {
+        console.log("called")
+        SocketService.connect();
+
+        //  
+    }
 
 
     // Check permission and start tracking
@@ -35,8 +46,14 @@ export const WalkAndEarnViewModel = () => {
     };
 
     // Start the pedometer service
-    const startService = () => {
+    const startService = async () => {
         console.log("Starting service");
+
+        const token = await getToken();
+        tokenRef.current = token;
+        if (token) {
+            // SocketService.connect();
+        }
 
         // Reset tracking state and refs
         setIsTracking(true);
@@ -56,7 +73,16 @@ export const WalkAndEarnViewModel = () => {
         if (stepsDelta > 0 || distanceDelta > 0) {
             console.log(`Pedometer Delta Update: +${stepsDelta} steps, +${distanceDelta.toFixed(2)}m`);
 
-            // TODO: Send these deltas to the server
+            // if (tokenRef.current) {
+            //     SocketService.sendStepEvent({
+            //         token: tokenRef.current,
+            //         category_id: 1,
+            //         steps: stepsDelta,
+            //         type: "walking",
+            //         lat: 22.57,
+            //         lng: 88.36
+            //     });
+            // }
 
             // Update refs
             lastStepsRef.current = data.steps;
@@ -72,6 +98,7 @@ export const WalkAndEarnViewModel = () => {
     const stopTracking = () => {
         setIsTracking(false);
         PedometerService.stopTracking();
+        // SocketService.disconnect();
     };
 
     // Show settings alert
@@ -94,6 +121,7 @@ export const WalkAndEarnViewModel = () => {
         startTracking,
         stopTracking,
         selectedCause,
-        setSelectedCause
+        setSelectedCause,
+        testSocket
     };
 };
