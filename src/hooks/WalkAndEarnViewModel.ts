@@ -1,9 +1,12 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Alert } from 'react-native';
 import PedometerService, { PedometerUpdate } from '../services/PedometerService';
 import SocketService from '../services/SocketService';
 import { getToken } from '../utils/storage';
 import { RESULTS, PermissionStatus } from 'react-native-permissions';
+import { api } from '../services/ApiClient';
+import { ENDPOINTS } from '../services/ApiEndpoints';
+import { DailyStepSummary } from '../types/WalkAndEarnTypes';
 
 export const WalkAndEarnViewModel = () => {
     const [isTracking, setIsTracking] = useState(false);
@@ -11,11 +14,42 @@ export const WalkAndEarnViewModel = () => {
     const [distance, setDistance] = useState(0);
     const [selectedCause, setSelectedCause] = useState<number | null>(null);
     const [permissionStatus, setPermissionStatus] = useState<PermissionStatus | null>(null);
+    const [dailySummary, setDailySummary] = useState<DailyStepSummary | null>(null);
 
     // Refs to track previous values for delta calculation
     const lastStepsRef = useRef(0);
     const lastDistanceRef = useRef(0);
     const tokenRef = useRef<string | null>(null);
+
+    const fetchDailySummary = async () => {
+
+        const token = await getToken();
+        const params = {
+            token,
+            category_id: 1
+        }
+        if (!token) {
+            console.log("No token found");
+            return;
+        }
+        try {
+            const response = await api.request<DailyStepSummary>(
+                ENDPOINTS.GET_STEP_SUMMARY,
+                'GET',
+                params
+            );
+            if (response.data) {
+                console.log("Step summary fetched successfully");
+                setDailySummary(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching step summary:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchDailySummary();
+    }, []);
 
 
     const testSocket = () => {
@@ -138,6 +172,8 @@ export const WalkAndEarnViewModel = () => {
         stopTracking,
         selectedCause,
         setSelectedCause,
-        testSocket
+        testSocket,
+        dailySummary,
+        fetchDailySummary
     };
 };

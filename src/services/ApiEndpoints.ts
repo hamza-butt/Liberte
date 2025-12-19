@@ -8,6 +8,7 @@ export const ENDPOINTS = {
     GET_USER_DETAILS: 'get-user-details',
     GET_DAILY_CLAIM_STATUS: 'get-daily-claim-status',
     USER_DAILY_CLAIM: 'user-daily-claim',
+    GET_STEP_SUMMARY: 'get-step-summary-today',
 
 
 

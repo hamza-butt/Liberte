@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { Canvas, Path, Skia, LinearGradient, vec } from "@shopify/react-native-skia";
 import { AppColors } from "../../theme/colors";
 
+import { DailyStepSummary } from "../../types/WalkAndEarnTypes";
 // Constants for steps
-const TOTAL_STEPS = 10000;
-const COMPLETED_STEPS = 8500;
+const DEFAULT_TOTAL_STEPS = 10000;
 
 const RADIUS = 65;
 const STROKE_WIDTH = 10;
@@ -16,9 +16,19 @@ const KILOMETRE_ICON = require("../../assets/walkAndEarn/progressCard/run_person
 const KCAL_ICON = require("../../assets/walkAndEarn/progressCard/fire_white.png");
 const LITRES_ICON = require("../../assets/walkAndEarn/progressCard/fire_white.png");
 
-const ProgressCard = () => {
+interface ProgressCardProps {
+    data: DailyStepSummary | null;
+}
+
+const ProgressCard: React.FC<ProgressCardProps> = ({ data }) => {
+    const steps = data?.steps || 0;
+    const goal = data?.goal || DEFAULT_TOTAL_STEPS;
+    const km = data?.kilometre || 0;
+    const kcal = data?.kcal || 0;
+    const litres = data?.litres || 0;
+
     const { path, targetPath } = React.useMemo(() => {
-        const progress = Math.min(1, Math.max(0, COMPLETED_STEPS / TOTAL_STEPS));
+        const progress = Math.min(1, Math.max(0, steps / goal));
 
         const path = Skia.Path.Make();
         path.addCircle(CENTER, CENTER, RADIUS - STROKE_WIDTH / 2);
@@ -31,7 +41,7 @@ const ProgressCard = () => {
         );
 
         return { path, targetPath };
-    }, []);
+    }, [steps, goal]);
 
     return (
         <View style={styles.card}>
@@ -65,9 +75,9 @@ const ProgressCard = () => {
                     <View style={styles.progressInnerProfile}>
                         {/* Placeholder for footprint icon */}
                         <Image source={STEP_ICON} style={styles.stepIcon} resizeMode="contain" />
-                        <Text style={styles.stepCount}>{COMPLETED_STEPS}</Text>
+                        <Text style={styles.stepCount}>{steps}</Text>
                         <View style={styles.stepDivider} />
-                        <Text style={styles.stepTarget}>{TOTAL_STEPS}</Text>
+                        <Text style={styles.stepTarget}>{goal}</Text>
                     </View>
                 </View>
 
@@ -79,11 +89,11 @@ const ProgressCard = () => {
                     <View style={styles.statsRow}>
 
 
-                        {/* Steps */}
+                        {/* Steps (using km icon/label based on original code) */}
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
                                 <Image source={KILOMETRE_ICON} style={styles.progressIcons} resizeMode="contain" />
-                                <Text style={styles.statValue}>6.4</Text>
+                                <Text style={styles.statValue}>{km}</Text>
                             </View>
                             <Text style={styles.statLabel}>Kilometre</Text>
                         </View>
@@ -92,7 +102,7 @@ const ProgressCard = () => {
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
                                 <Image source={KCAL_ICON} style={styles.progressIcons} resizeMode="contain" />
-                                <Text style={styles.statValue}>224</Text>
+                                <Text style={styles.statValue}>{kcal}</Text>
                             </View>
                             <Text style={styles.statLabel}>Kcal</Text>
                         </View>
@@ -100,7 +110,7 @@ const ProgressCard = () => {
                         {/* litres */}
                         <View style={styles.progressItemContainer}>
                             <View style={styles.progressItemHorizantalContainer}>
-                                <Text style={styles.statValue}>8.7</Text>
+                                <Text style={styles.statValue}>{litres}</Text>
                             </View>
                             <Text style={styles.statLabel}>Litres</Text>
                         </View>

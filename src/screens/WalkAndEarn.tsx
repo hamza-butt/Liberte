@@ -16,7 +16,7 @@ const WalkAndEarn = () => {
 
     const headerHeight = useHeaderHeight();
     const [isCauseModalVisible, setIsCauseModalVisible] = React.useState(false);
-    const { isTracking, steps, distance, startTracking, stopTracking, selectedCause, setSelectedCause, testSocket } = WalkAndEarnViewModel();
+    const { isTracking, steps, distance, startTracking, stopTracking, selectedCause, setSelectedCause, testSocket, dailySummary } = WalkAndEarnViewModel();
 
     const handleStartWalking = (causeId: number) => {
         // update cause selection
@@ -51,7 +51,7 @@ const WalkAndEarn = () => {
                     <WeatherAndGreeting />
 
                     {/* Progress Card */}
-                    <ProgressCard />
+                    <ProgressCard data={dailySummary} />
 
                     <Text>Steps: {steps}</Text>
                     <Text>Distance: {distance}</Text>
