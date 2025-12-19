@@ -21,6 +21,7 @@ export const WalkAndEarnViewModel = () => {
     const lastDistanceRef = useRef(0);
     const tokenRef = useRef<string | null>(null);
 
+    // fetch daily summary
     const fetchDailySummary = async () => {
 
         const token = await getToken();
@@ -59,12 +60,13 @@ export const WalkAndEarnViewModel = () => {
         // wait for 2 seconds
         setTimeout(() => {
             SocketService.sendStepEvent({
-                token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjgiLCJpYXQiOjE3NjQ3NDYyNjEsImV4cCI6MTc2NzMzODI2MX0.FGyVZYrV3R56KVPN24lynzBpgQE4zgi9_2I8MwjenCw",
+                user_id: 15,
                 category_id: 1,
-                steps: 100,
-                type: "walking",
+                steps: 10,
+                type: "walk",
                 lat: 22.57,
-                lng: 88.36
+                lng: 88.36,
+                timestamp: 1734609000 // New unique timestamp (Dec 2024)
             });
 
         }, 2000);

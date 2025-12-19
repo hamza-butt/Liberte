@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 interface StepEventData {
-    token: string;
+    user_id: number;
     category_id: number;
     steps: number;
     type: string;
@@ -43,6 +43,14 @@ class SocketService {
     private setupListeners(): void {
         if (!this.socket) return;
 
+        // V2 Wildcard Hack to debug ALL events
+        const originalOnevent = this.socket.onevent;
+        this.socket.onevent = (packet: any) => {
+            const args = packet.data || [];
+            console.log("DEBUG: Received packet:", packet);
+            if (originalOnevent) originalOnevent.call(this.socket, packet);
+        };
+
         this.socket.on("connect", () => {
             console.log("Socket is connected");
             console.log("Socket ID:", this.socket?.id);
@@ -72,7 +80,7 @@ class SocketService {
         }
     }
 
-    public sendStepEvent(data: Omit<StepEventData, 'timestamp'>): void {
+    public sendStepEvent(data: Omit<StepEventData, 'timestamp'> & { timestamp?: number }): void {
         if (!this.socket || !this.socket.connected) {
             console.log("Cannot send event, socket not connected");
             return;
@@ -80,7 +88,7 @@ class SocketService {
 
         const payload: StepEventData = {
             ...data,
-            timestamp: Math.floor(Date.now() / 1000)
+            timestamp: data.timestamp || Math.floor(Date.now() / 1000)
         };
 
         console.log("Emitting step_event:", payload);
