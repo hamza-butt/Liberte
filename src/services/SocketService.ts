@@ -48,19 +48,19 @@ class SocketService {
             console.log("Socket ID:", this.socket?.id);
         });
 
-        this.socket.on("disconnect", (reason) => {
+        this.socket.on("disconnect", (reason: any) => {
             console.log("Socket disconnected:", reason);
         });
 
-        this.socket.on("connect_error", (error) => {
+        this.socket.on("connect_error", (error: any) => {
             console.log("Socket connection error came:", error);
         });
 
-        this.socket.on("step_ack", (data) => {
+        this.socket.on("step_ack", (data: any) => {
             console.log("Step saved (ACK):", data);
         });
 
-        this.socket.on("auth_error", (data) => {
+        this.socket.on("auth_error", (data: any) => {
             console.log("Auth error:", data.message);
         });
     }

@@ -22,7 +22,23 @@ export const WalkAndEarnViewModel = () => {
         console.log("called")
         SocketService.connect();
 
-        //  
+        // wait for 2 seconds
+        setTimeout(() => {
+            SocketService.sendStepEvent({
+                token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjgiLCJpYXQiOjE3NjQ3NDYyNjEsImV4cCI6MTc2NzMzODI2MX0.FGyVZYrV3R56KVPN24lynzBpgQE4zgi9_2I8MwjenCw",
+                category_id: 1,
+                steps: 100,
+                type: "walking",
+                lat: 22.57,
+                lng: 88.36
+            });
+
+        }, 2000);
+
+
+        setTimeout(() => {
+            SocketService.disconnect();
+        }, 10000);
     }
 
 
