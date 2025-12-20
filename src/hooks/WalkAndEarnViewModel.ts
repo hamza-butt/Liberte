@@ -24,7 +24,8 @@ export const WalkAndEarnViewModel = () => {
     // fetch daily summary
     const fetchDailySummary = async () => {
 
-        const token = await getToken();
+        // const token = await getToken();
+        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1IiwiaWF0IjoxNzY2MTUzNzM0LCJleHAiOjE3Njg3NDU3MzR9.D5BH6PE4NoYLp-gkr7H3iExX4v7qFI97mn72TITW3wI"
         const params = {
             token,
             category_id: 1
@@ -66,9 +67,8 @@ export const WalkAndEarnViewModel = () => {
                 type: "walk",
                 lat: 22.57,
                 lng: 88.36,
-                timestamp: 1734609000 // New unique timestamp (Dec 2024)
+                timestamp: Math.floor(Date.now() / 1000)
             });
-
         }, 2000);
 
 

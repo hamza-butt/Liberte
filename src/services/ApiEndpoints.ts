@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://www.firsttrackapp.visulz.com/api/';
+export const BASE_URL = 'https://videosdownloaders.com/firsttrackapi/api/';
 
 export const ENDPOINTS = {
     USER_LOGIN: 'user-login-action',
@@ -9,7 +9,5 @@ export const ENDPOINTS = {
     GET_DAILY_CLAIM_STATUS: 'get-daily-claim-status',
     USER_DAILY_CLAIM: 'user-daily-claim',
     GET_STEP_SUMMARY: 'get-step-summary-today',
-
-
 
 };

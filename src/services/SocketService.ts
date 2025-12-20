@@ -13,7 +13,7 @@ interface StepEventData {
 class SocketService {
     private static instance: SocketService;
     private socket: any = null;
-    private readonly SOCKET_URL = "http://64.227.141.187:3000";
+    private readonly SOCKET_URL = "https://videosdownloaders.com:3000";
 
     private constructor() { }
 
@@ -43,13 +43,10 @@ class SocketService {
     private setupListeners(): void {
         if (!this.socket) return;
 
-        // V2 Wildcard Hack to debug ALL events
-        const originalOnevent = this.socket.onevent;
-        this.socket.onevent = (packet: any) => {
-            const args = packet.data || [];
-            console.log("DEBUG: Received packet:", packet);
-            if (originalOnevent) originalOnevent.call(this.socket, packet);
-        };
+        // Debug all events
+        this.socket.onAny((event: string, ...args: any[]) => {
+            console.log(`DEBUG: Received event '${event}':`, args);
+        });
 
         this.socket.on("connect", () => {
             console.log("Socket is connected");
