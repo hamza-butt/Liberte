@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { BlurView } from "@react-native-community/blur";
 import Home from "../screens/Home";
 import DigitalVault from "../screens/DigitalVault";
 import { AppColors } from "../theme/colors";
@@ -55,14 +54,7 @@ const TabNavigator = () => {
                 headerShown: true,
                 ...commonHeaderOptions,
                 tabBarBackground: () => (
-                    <View style={{ flex: 1, borderTopWidth: 1, borderTopColor: "rgba(255, 255, 255, 0.2)" }}>
-                        <BlurView
-                            blurAmount={10}
-                            blurType="light"
-                            style={StyleSheet.absoluteFill}
-                            overlayColor="transparent"
-                        />
-                    </View>
+                    <View style={styles.backgroundContainer} />
                 ),
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabBarLabel,
@@ -142,6 +134,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    backgroundContainer: {
+        flex: 1,
+        borderTopWidth: 1,
+        borderTopColor: AppColors.whiteTranslucent,
+        backgroundColor: AppColors.whiteTranslucent,
+    }
 });
 
 export default TabNavigator;
