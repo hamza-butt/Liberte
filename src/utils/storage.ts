@@ -57,3 +57,13 @@ export const removeUser = async (): Promise<void> => {
         console.error('Error removing user info:', error);
     }
 };
+
+export const getUserId = async (): Promise<number | null> => {
+    try {
+        const user = await getUser();
+        return user?.id ? parseInt(user.id, 10) : null;
+    } catch (error) {
+        console.error('Error getting user id:', error);
+        return null;
+    }
+};

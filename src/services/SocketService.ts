@@ -40,6 +40,12 @@ class SocketService {
         this.setupListeners();
     }
 
+    private stepAckCallback: ((data: any) => void) | null = null;
+
+    public onStepAck(callback: (data: any) => void): void {
+        this.stepAckCallback = callback;
+    }
+
     private setupListeners(): void {
         if (!this.socket) return;
 
@@ -57,17 +63,12 @@ class SocketService {
             console.log("Socket disconnected:", reason);
         });
 
-        this.socket.on("connect_error", (error: any) => {
-            console.log("Socket connection error came:", error);
-        });
-
         this.socket.on("step_ack", (data: any) => {
-            console.log("Step saved (ACK):", data);
+            if (this.stepAckCallback) {
+                this.stepAckCallback(data);
+            }
         });
 
-        this.socket.on("auth_error", (data: any) => {
-            console.log("Auth error:", data.message);
-        });
     }
 
     public disconnect(): void {

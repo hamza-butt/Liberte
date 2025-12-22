@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { Alert } from 'react-native';
 import PedometerService, { PedometerUpdate } from '../services/PedometerService';
 import SocketService from '../services/SocketService';
-import { getToken } from '../utils/storage';
+import { getToken, getUserId } from '../utils/storage';
 import { RESULTS, PermissionStatus } from 'react-native-permissions';
 import { api } from '../services/ApiClient';
 import { ENDPOINTS } from '../services/ApiEndpoints';
@@ -19,13 +19,11 @@ export const WalkAndEarnViewModel = () => {
     // Refs to track previous values for delta calculation
     const lastStepsRef = useRef(0);
     const lastDistanceRef = useRef(0);
-    const tokenRef = useRef<string | null>(null);
 
     // fetch daily summary
     const fetchDailySummary = async () => {
 
-        // const token = await getToken();
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1IiwiaWF0IjoxNzY2MTUzNzM0LCJleHAiOjE3Njg3NDU3MzR9.D5BH6PE4NoYLp-gkr7H3iExX4v7qFI97mn72TITW3wI"
+        const token = await getToken();
         const params = {
             token,
             category_id: 1
@@ -49,26 +47,58 @@ export const WalkAndEarnViewModel = () => {
         }
     };
 
-    useEffect(() => {
-        fetchDailySummary();
+    const handleSocketUpdate = useCallback((data: any) => {
+        console.log("ViewModel received step_ack:", data);
+        if (data && data.status) {
+            const summary: DailyStepSummary = {
+                date: new Date().toISOString(),
+                category_id: data.category_id,
+                steps: data.steps,
+                goal: data.goal,
+                progress: data.goal > 0 ? (data.steps / data.goal) : 0,
+                kilometre: parseFloat(data.kilometre),
+                kcal: data.kcal,
+                litres: parseFloat(data.litres)
+            };
+            setDailySummary(summary);
+        }
     }, []);
 
+    useEffect(() => {
 
-    const testSocket = () => {
+        printUserId();
+
+        fetchDailySummary();
+        // Listen for socket updates
+        SocketService.onStepAck(handleSocketUpdate);
+    }, [handleSocketUpdate]);
+
+
+    const printUserId = async () => {
+        const userId = await getUserId();
+        console.log("User ID:", userId);
+    }
+
+    const testSocket = async () => {
         console.log("called")
         SocketService.connect();
+        const userId = await getUserId();
 
         // wait for 2 seconds
         setTimeout(() => {
-            SocketService.sendStepEvent({
-                user_id: 15,
-                category_id: 1,
-                steps: 10,
-                type: "walk",
-                lat: 22.57,
-                lng: 88.36,
-                timestamp: Math.floor(Date.now() / 1000)
-            });
+            if (userId) {
+                SocketService.sendStepEvent({
+                    user_id: userId,
+                    category_id: 1,
+                    steps: 10,
+                    type: "walk",
+                    lat: 22.57,
+                    lng: 88.36,
+                    timestamp: Math.floor(Date.now() / 1000)
+                });
+            } else {
+                console.log("User ID not found, skipping socket event");
+            }
         }, 2000);
 
 
@@ -97,15 +127,10 @@ export const WalkAndEarnViewModel = () => {
         }
     };
 
-    // Start the pedometer service
-    const startService = async () => {
+    // Start the pedometer and socket service
+    const startService = () => {
         console.log("Starting service");
-
-        const token = await getToken();
-        tokenRef.current = token;
-        if (token) {
-            // SocketService.connect();
-        }
+        SocketService.connect();
 
         // Reset tracking state and refs
         setIsTracking(true);
@@ -117,40 +142,50 @@ export const WalkAndEarnViewModel = () => {
         PedometerService.startTracking(handleUpdate);
     };
 
-    const handleUpdate = useCallback((data: PedometerUpdate) => {
+    const handleUpdate = useCallback(async (data: PedometerUpdate) => {
+
         // Calculate deltas
         const stepsDelta = data.steps - lastStepsRef.current;
         const distanceDelta = data.distance - lastDistanceRef.current;
-        console.log("Pedometer Update:", data);
-        if (stepsDelta > 0 || distanceDelta > 0) {
-            console.log(`Pedometer Delta Update: +${stepsDelta} steps, +${distanceDelta.toFixed(2)}m`);
+        console.log(`Pedometer Delta Update: +${stepsDelta} steps, +${distanceDelta.toFixed(2)}m`);
 
-            // if (tokenRef.current) {
-            //     SocketService.sendStepEvent({
-            //         token: tokenRef.current,
-            //         category_id: 1,
-            //         steps: stepsDelta,
-            //         type: "walking",
-            //         lat: 22.57,
-            //         lng: 88.36
-            //     });
-            // }
 
-            // Update refs
-            lastStepsRef.current = data.steps;
-            lastDistanceRef.current = data.distance;
+        // return if there is no step
+        if (stepsDelta <= 0) {
+            console.log("Zero or less step found")
+            return;
         }
+
+        const userId = await getUserId();
+        if (userId == null) {
+            console.log("User ID not found, skipping socket event");
+            return;
+        }
+
+        SocketService.sendStepEvent({
+            user_id: userId,
+            category_id: 1,
+            steps: stepsDelta,
+            type: "walking",
+            lat: 22.57,
+            lng: 88.36
+        });
+
+        // Update refs
+        lastStepsRef.current = data.steps;
+        lastDistanceRef.current = data.distance;
 
         // Update UI with cumulative values
         setSteps(data.steps);
         setDistance(data.distance);
+
     }, []);
 
     // Stop the pedometer service
     const stopTracking = () => {
         setIsTracking(false);
         PedometerService.stopTracking();
-        // SocketService.disconnect();
+        SocketService.disconnect();
     };
 
     // Show settings alert

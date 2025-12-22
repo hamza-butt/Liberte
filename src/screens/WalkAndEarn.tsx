@@ -25,14 +25,14 @@ const WalkAndEarn = () => {
     };
 
     const handlePressButton = () => {
-        testSocket();
+        // testSocket();
 
-        // if (isTracking) {
-        //     stopTracking();
-        // } else {
-        //     startTracking()
-        //     // setIsCauseModalVisible(true);
-        // }
+        if (isTracking) {
+            stopTracking();
+        } else {
+            startTracking()
+            // setIsCauseModalVisible(true);
+        }
     };
 
     return (
@@ -52,9 +52,6 @@ const WalkAndEarn = () => {
 
                     {/* Progress Card */}
                     <ProgressCard data={dailySummary} />
-
-                    <Text>Steps: {steps}</Text>
-                    <Text>Distance: {distance}</Text>
 
                     {/* Start/Stop Walking Button */}
                     <TouchableOpacity
