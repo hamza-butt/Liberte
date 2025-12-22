@@ -4,43 +4,14 @@ import {
     View,
     StyleSheet,
 } from "react-native";
+import { BlurView } from "@react-native-community/blur";
 import { AppColors } from "../../../theme/colors";
 import CauseHeader from "../CauseSelection/CauseHeader";
 import CauseCard, { Cause } from "../CauseSelection/CauseCard";
 import CauseFooter from "../CauseSelection/CauseFooter";
 
-const CAUSES: Cause[] = [
-    {
-        id: 1,
-        title: "Forest Restoration",
-        description: "Help plant trees and restore forests.",
-        image: require("../../../assets/walkAndEarn/cause/cause1.gif"),
-    },
-    {
-        id: 2,
-        title: "Clean Water Access",
-        description: "Provide clean water to communities.",
-        image: require("../../../assets/walkAndEarn/cause/cause2.gif"),
-    },
-    {
-        id: 3,
-        title: "Food Security",
-        description: "Fight hunger and malnutrition.",
-        image: require("../../../assets/walkAndEarn/cause/cause3.gif"),
-    },
-    {
-        id: 4,
-        title: "Eco Education",
-        description: "Support women's rights and education.",
-        image: require("../../../assets/walkAndEarn/cause/cause4.gif"),
-    },
-    {
-        id: 5,
-        title: "Kids Walks for Labudu ",
-        description: "Earn Labubu Eco-Collections with every step ",
-        image: require("../../../assets/walkAndEarn/cause/cause5.gif"),
-    },
-];
+import { CAUSES } from "../CauseSelection/CauseData";
+
 
 interface CauseSelectionModalProps {
     visible: boolean;
@@ -66,10 +37,15 @@ const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
         <Modal
             visible={visible}
             transparent
-            animationType="fade"
+            animationType="none"
             onRequestClose={onClose}
         >
             <View style={styles.overlay}>
+                <BlurView
+                    style={StyleSheet.absoluteFill}
+                    blurType="dark"
+                    blurAmount={10}
+                />
                 <View style={styles.container}>
                     {/* Header */}
                     <CauseHeader onClose={onClose} />
@@ -103,7 +79,6 @@ const CauseSelectionModal: React.FC<CauseSelectionModalProps> = ({
 const styles = StyleSheet.create({
     overlay: {
         flex: 1,
-        backgroundColor: "rgba(0, 0, 0, 0.88)",
         justifyContent: "center",
         alignItems: "center",
         padding: 16,

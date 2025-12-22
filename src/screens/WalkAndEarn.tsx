@@ -6,6 +6,7 @@ import ImpactPortfolio from "../components/walkAndEarn/ImpactPortfolio";
 import EcoSeedsCard from "../components/walkAndEarn/EcoSeedsCard";
 import WalkAndEarnRewards from "../components/walkAndEarn/WalkAndEarnRewards";
 import CauseSelectionModal from "../components/walkAndEarn/Modal/CauseSelectionModal";
+import { CAUSES } from "../components/walkAndEarn/CauseSelection/CauseData";
 import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 
@@ -86,6 +87,16 @@ const WalkAndEarn = () => {
                     onClose={() => setIsCauseModalVisible(false)}
                     onCauseSelection={handleStartWalking}
                 />
+
+                {/* Preload GIFs */}
+                <View style={{ position: 'absolute', opacity: 0, width: 0, height: 0, overflow: 'hidden' }} pointerEvents="none">
+                    {CAUSES.map((cause) => (
+                        <Image
+                            key={`preload-${cause.id}`}
+                            source={cause.image}
+                        />
+                    ))}
+                </View>
             </ImageBackground>
         </View>
     );
