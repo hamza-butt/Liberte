@@ -30,8 +30,8 @@ const WalkAndEarn = () => {
         if (isTracking) {
             stopTracking();
         } else {
-            startTracking()
-            // setIsCauseModalVisible(true);
+            // startTracking()
+            setIsCauseModalVisible(true);
         }
     };
 
