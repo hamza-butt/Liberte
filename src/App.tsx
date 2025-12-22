@@ -1,6 +1,6 @@
 import { StatusBar, StyleSheet, View, ActivityIndicator } from "react-native";
 import { useEffect, useState } from "react";
-import { getToken } from "./utils/storage";
+import { getRememberMe } from "./utils/storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -23,8 +23,8 @@ function App() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = await getToken();
-      setInitialRoute(token ? "WalkAndEarn" : "Welcome");
+      const rememberMe = await getRememberMe();
+      setInitialRoute(rememberMe ? "Main" : "Welcome");
       // setInitialRoute("WalkAndEarn");
     };
     checkAuth();

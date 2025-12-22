@@ -11,11 +11,14 @@ export const commonHeaderOptions = {
         backgroundColor: "transparent",
     },
     headerBackground: () => (
-        <BlurView
-            style={StyleSheet.absoluteFill}
-            blurType="light"
-            blurAmount={10}
-        />
+        <View style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: "rgba(255, 255, 255, 0.2)" }}>
+            <BlurView
+                style={StyleSheet.absoluteFill}
+                blurType="light"
+                blurAmount={10}
+                overlayColor="transparent"
+            />
+        </View>
     ),
     headerLeft: () => (
         <View style={{ paddingLeft: 20 }}>

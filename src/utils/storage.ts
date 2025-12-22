@@ -3,6 +3,33 @@ import { User } from '../types/User';
 
 const KEY_AUTH_TOKEN = 'auth_token';
 const KEY_USER_INFO = 'user_info';
+const KEY_REMEMBER_ME = 'remember_me';
+
+export const setRememberMe = async (value: boolean): Promise<void> => {
+    try {
+        await AsyncStorage.setItem(KEY_REMEMBER_ME, JSON.stringify(value));
+    } catch (error) {
+        console.error('Error setting remember me:', error);
+    }
+};
+
+export const getRememberMe = async (): Promise<boolean> => {
+    try {
+        const value = await AsyncStorage.getItem(KEY_REMEMBER_ME);
+        return value ? JSON.parse(value) : false;
+    } catch (error) {
+        console.error('Error getting remember me:', error);
+        return false;
+    }
+};
+
+export const removeRememberMe = async (): Promise<void> => {
+    try {
+        await AsyncStorage.removeItem(KEY_REMEMBER_ME);
+    } catch (error) {
+        console.error('Error removing remember me:', error);
+    }
+};
 
 
 

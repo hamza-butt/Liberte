@@ -55,11 +55,14 @@ const TabNavigator = () => {
                 headerShown: true,
                 ...commonHeaderOptions,
                 tabBarBackground: () => (
-                    <BlurView
-                        blurAmount={10}
-                        blurType="light"
-                        style={StyleSheet.absoluteFill}
-                    />
+                    <View style={{ flex: 1, borderTopWidth: 1, borderTopColor: "rgba(255, 255, 255, 0.2)" }}>
+                        <BlurView
+                            blurAmount={10}
+                            blurType="light"
+                            style={StyleSheet.absoluteFill}
+                            overlayColor="transparent"
+                        />
+                    </View>
                 ),
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabBarLabel,

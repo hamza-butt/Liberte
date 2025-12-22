@@ -57,10 +57,15 @@ export const useLoginViewModel = () => {
             if (response.status && response.data) {
                 const { token, ...userData } = response.data;
 
-                // store token in storage
+                // store user token when logged in
+                const { setToken } = require('../utils/storage');
+                await setToken(token);
+
+
+                // make remember me true when logged in
                 if (rememberMe) {
-                    const { setToken } = require('../utils/storage');
-                    await setToken(token);
+                    const { setRememberMe } = require('../utils/storage');
+                    await setRememberMe(true);
                 }
             }
 
