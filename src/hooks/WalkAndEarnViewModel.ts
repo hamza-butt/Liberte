@@ -19,6 +19,12 @@ export const WalkAndEarnViewModel = () => {
     // Refs to track previous values for delta calculation
     const lastStepsRef = useRef(0);
     const lastDistanceRef = useRef(0);
+    const selectedCauseRef = useRef<number | null>(null);
+
+    // Sync ref with state
+    useEffect(() => {
+        selectedCauseRef.current = selectedCause;
+    }, [selectedCause]);
 
     // fetch daily summary
     const fetchDailySummary = async () => {
@@ -162,9 +168,14 @@ export const WalkAndEarnViewModel = () => {
             return;
         }
 
+        if (selectedCauseRef.current === null) {
+            console.log("No cause selected, skipping socket event");
+            return;
+        }
+
         SocketService.sendStepEvent({
             user_id: userId,
-            category_id: 1,
+            category_id: selectedCauseRef.current,
             steps: stepsDelta,
             type: "walking",
             lat: 22.57,

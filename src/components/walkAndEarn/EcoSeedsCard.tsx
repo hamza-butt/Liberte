@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { Canvas, RoundedRect, LinearGradient, vec } from "@shopify/react-native-skia";
-import Video from "react-native-video";
 import { AppColors } from "../../theme/colors";
 
 const TOTAL_STEPS = 100000;
@@ -17,12 +16,10 @@ const EcoSeedsCard = () => {
         <View style={styles.card}>
             {/* Left Side: Video Animation */}
             <View style={styles.videoContainer}>
-                <Video
-                    source={require("../../assets/home/productSlider/apple-watch.mp4")}
+                <Image
+                    source={require("../../assets/walkAndEarn/cause/cause1.gif")}
                     style={styles.video}
                     resizeMode="cover"
-                    repeat
-                    muted
                 />
             </View>
 
