@@ -17,10 +17,12 @@ yarn-debug.log*
 /android/.gradle/
 /android/.idea/
 /android/local.properties
+/android/build/
 /android/app/build/
 /android/app/debug/
 /android/app/release/
 /android/.cxx/
+/android/app/.cxx/
 /android/.externalNativeBuild/
 /android/app/*.keystore
 
