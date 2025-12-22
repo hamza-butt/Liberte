@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 import { AppColors } from '../../theme/colors';
-import App from '../../App';
 
 type WelcomeFeatureItemProps = {
   title: string;
@@ -20,6 +19,7 @@ function WelcomeFeatureItem({
 }: WelcomeFeatureItemProps) {
   return (
     <View style={styles.container}>
+
       <View style={[styles.iconWrapper, { backgroundColor: iconBackgroundColor }]}>
         <Image
           source={iconSource}
@@ -31,6 +31,7 @@ function WelcomeFeatureItem({
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
+
     </View>
   );
 }
@@ -41,15 +42,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 16,
     padding: 16,
-    borderRadius: 16,
     backgroundColor: AppColors.whiteTranslucent,
+
     borderWidth: 1,
     borderColor: AppColors.whiteTranslucent,
+    borderRadius: 16,
+
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 2,
-    elevation: 8,
+
   },
   iconWrapper: {
     width: 52,
