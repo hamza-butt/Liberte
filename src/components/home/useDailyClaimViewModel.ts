@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 import { api } from '../../services/ApiClient';
 import { ENDPOINTS } from '../../services/ApiEndpoints';
 import { DailyClaimData, DailyClaimResponse } from '../../types/DailyClaimTypes';
@@ -64,20 +65,31 @@ export const useDailyClaimViewModel = () => {
 
             if (response.status) {
                 // Success
-                Alert.alert("Success", response.message || "Claim successful.");
+                Toast.show({
+                    type: "success",
+                    text1: "Success",
+                    text2: response.message || "Claim successful.",
+                });
                 fetchDailyClaimStatus(); // Refresh status
             } else {
                 // Already claimed or other error
-                Alert.alert("Claim Info", response.message || "Could not claim reward.");
+                Toast.show({
+                    type: "info",
+                    text1: "Claim Info",
+                    text2: response.message || "Could not claim reward.",
+                });
             }
         } catch (error: any) {
             console.error("Error claiming reward:", error);
-            Alert.alert("Error", error.message || "Failed to claim reward");
+            Toast.show({
+                type: "error",
+                text1: "Error",
+                text2: error.message || "Failed to claim reward",
+            });
         } finally {
             setLoading(false);
         }
     };
-
 
 
     // Time related logic
@@ -99,22 +111,22 @@ export const useDailyClaimViewModel = () => {
     };
 
     useEffect(() => {
-        // if (data?.time_left) {
-        //     let totalSeconds = parseTime(data.time_left);
-        //     setRemainingTime(formatTime(totalSeconds));
+        if (data?.time_left) {
+            let totalSeconds = parseTime(data.time_left);
+            setRemainingTime(formatTime(totalSeconds));
 
-        //     const interval = setInterval(() => {
-        //         if (totalSeconds > 0) {
-        //             totalSeconds -= 1;
-        //             setRemainingTime(formatTime(totalSeconds));
-        //         } else {
-        //             clearInterval(interval);
-        //             // Optionally refetch or update status here
-        //         }
-        //     }, 1000);
+            const interval = setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds -= 1;
+                    setRemainingTime(formatTime(totalSeconds));
+                } else {
+                    clearInterval(interval);
+                    // Optionally refetch or update status here
+                }
+            }, 1000);
 
-        //     return () => clearInterval(interval);
-        // }
+            return () => clearInterval(interval);
+        }
     }, [data?.time_left]);
 
     return {

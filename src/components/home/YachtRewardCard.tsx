@@ -11,7 +11,6 @@ import { AppColors } from "../../theme/colors";
 import { useDailyClaimViewModel } from "./useDailyClaimViewModel";
 import { DailyItem } from "../../types/DailyClaimTypes";
 
-const { width } = Dimensions.get("window");
 
 function YachtRewardCard() {
   const { data, loading, claimReward, formattedTime } = useDailyClaimViewModel();
