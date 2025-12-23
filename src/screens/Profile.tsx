@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, ScrollView } from "react-nativ
 import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 
-
+import { ProfileHeader } from "../components/profile/ProfileHeader";
 const Profile = () => {
 
     const headerHeight = useHeaderHeight();
@@ -25,7 +25,15 @@ const Profile = () => {
                     contentInsetAdjustmentBehavior="never"
                     automaticallyAdjustContentInsets={false}
                 >
-                    <Text>Profile</Text>
+
+                    {/* Profile Header */}
+                    <ProfileHeader
+                        image={require("../assets/profile/user_avatar.png")}
+                        name="Isabella Ferreira"
+                        email="isabella134@gmail.com"
+                    />
+
+                    {/* calender  */}
                 </ScrollView>
             </ImageBackground>
         </View>
@@ -47,6 +55,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingBottom: 100,
         gap: 28,
+        marginTop: 100
     },
 });
 

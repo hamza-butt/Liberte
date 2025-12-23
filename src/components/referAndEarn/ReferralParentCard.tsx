@@ -46,10 +46,14 @@ const ReferralParentCard = ({ node }: { node: ReferralNodeData }) => {
 
                 {/* Expand Toggle Button */}
                 {hasChildren && (
-                    <View style={[styles.arrowButtonParent, !isCollapsed && styles.arrowRotated]}>
+                    <View style={styles.arrowButtonParent}>
                         <Image
-                            source={require("../../assets/common/arrow-right-white.png")}
-                            style={[styles.arrowIcon, { transform: [{ rotate: '90deg' }] }]} // Points right initially, rotates 180 (left) on parent toggle style
+                            source={
+                                isCollapsed
+                                    ? require("../../assets/ReferAndEarn/referralTree/arrowDown.png")
+                                    : require("../../assets/ReferAndEarn/referralTree/arrowUp.png")
+                            }
+                            style={styles.arrowIcon}
                             resizeMode="contain"
                         />
                     </View>
@@ -177,13 +181,9 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
 
-    arrowRotated: {
-        transform: [{ rotate: '180deg' }],
-    },
     arrowIcon: {
-        width: 12,
-        height: 12,
-        tintColor: '#fff',
+        width: "100%",
+        height: "100%",
     },
 });
 
