@@ -16,6 +16,10 @@ function HeaderActions() {
   const handleOptionSelect = async (option: string) => {
     setDropdownVisible(false);
 
+    if (option === "Profile") {
+      navigation.navigate("Profile" as never);
+    }
+
     if (option === "Logout") {
       await setToken("");
       await setRememberMe(false);
