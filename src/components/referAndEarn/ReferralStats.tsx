@@ -7,28 +7,30 @@ const ReferralStats = () => {
         <View style={styles.container}>
             {/* Direct Referrals Card */}
             <View style={styles.card}>
-                {/* Placeholder for Coins Icon */}
-                <View style={styles.iconPlaceholder}>
-                    {/* Using a temporary asset or shape */}
-                    <View style={[styles.circle, { backgroundColor: "#FACC15" }]} />
-                    <View style={[styles.circle, { backgroundColor: "#FACC15", position: 'absolute', top: 10, right: 20 }]} />
-                </View>
+                <Image
+                    source={require("../../assets/ReferAndEarn/referralStat/coins.png")}
+                    style={styles.floatingIcon}
+                    resizeMode="contain"
+                />
 
-                <Text style={styles.number}>3</Text>
-                <Text style={styles.label}>Direct Referrals</Text>
+                <View style={styles.content}>
+                    <Text style={styles.number}>3</Text>
+                    <Text style={styles.label}>Direct Referrals</Text>
+                </View>
             </View>
 
             {/* Total Network Card */}
             <View style={styles.card}>
-                {/* Placeholder for People Icon */}
-                <View style={styles.iconPlaceholder}>
-                    {/* Using a temporary asset or shape */}
-                    <View style={[styles.circle, { backgroundColor: "#4F46E5" }]} />
-                    <View style={[styles.circle, { backgroundColor: "#4F46E5", position: 'absolute', top: 10, left: 20 }]} />
-                </View>
+                <Image
+                    source={require("../../assets/ReferAndEarn/referralStat/human.png")}
+                    style={styles.floatingIcon}
+                    resizeMode="contain"
+                />
 
-                <Text style={styles.number}>12</Text>
-                <Text style={styles.label}>Total Network</Text>
+                <View style={styles.content}>
+                    <Text style={styles.number}>12</Text>
+                    <Text style={styles.label}>Total Network</Text>
+                </View>
             </View>
         </View>
     );
@@ -48,20 +50,20 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "rgba(255, 255, 255, 0.3)",
-        minHeight: 160,
+        minHeight: 180,
+        marginTop: 30,
     },
-    iconPlaceholder: {
-        height: 60,
-        width: 80,
-        marginBottom: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative'
+    floatingIcon: {
+        position: "absolute",
+        top: -50,
+        alignSelf: "center",
+        width: 120,
+        height: 120,
+        zIndex: 1,
     },
-    circle: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
+    content: {
+        marginTop: 30,
+        alignItems: "center",
     },
     number: {
         color: "#fff",
