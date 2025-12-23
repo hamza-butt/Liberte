@@ -16,6 +16,7 @@ import OTP from "./screens/OTP";
 import WalkAndEarn from "./screens/WalkAndEarn";
 import { UserProvider } from "./context/UserContext";
 import Profile from "./screens/Profile";
+import ReferAndEarn from "./screens/ReferAndEarn";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +27,7 @@ function App() {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
       // setInitialRoute(rememberMe ? "Main" : "Welcome");
-      setInitialRoute("Main");
+      setInitialRoute("ReferAndEarn");
     };
     checkAuth();
   }, []);
@@ -91,6 +92,12 @@ function App() {
               <Stack.Screen
                 name="Profile"
                 component={Profile}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="ReferAndEarn"
+                component={ReferAndEarn}
                 options={{ headerShown: false }}
               />
 

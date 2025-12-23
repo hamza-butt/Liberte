@@ -20,6 +20,10 @@ function HeaderActions() {
       navigation.navigate("Profile" as never);
     }
 
+    if (option === "Refer & Earn") {
+      navigation.navigate("ReferAndEarn" as never);
+    }
+
     if (option === "Logout") {
       await setToken("");
       await setRememberMe(false);
