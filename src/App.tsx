@@ -24,8 +24,8 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
-      setInitialRoute(rememberMe ? "Main" : "Welcome");
-      // setInitialRoute("WalkAndEarn");
+      // setInitialRoute(rememberMe ? "Main" : "Welcome");
+      setInitialRoute("WalkAndEarn");
     };
     checkAuth();
   }, []);

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, ImageSourcePropType } from "react-native";
+import { StyleSheet, Text, View, Image, ImageSourcePropType, Dimensions } from "react-native";
 import { AppColors } from "../../theme/colors";
 
 interface ImpactItem {
@@ -17,6 +17,14 @@ const impactItems: ImpactItem[] = [
     { id: '5', value: '124', label: 'Lives Touched', icon: require('../../assets/walkAndEarn/portfolio/p5.png') },
     { id: '6', value: '123', label: 'Interaction', icon: require('../../assets/walkAndEarn/portfolio/p6.png') },
 ];
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const PADDING_HORIZONTAL = 24 * 2; // Total horizontal padding from WalkAndEarn
+const GAP = 12;
+const NUM_COLUMNS = 3;
+
+// Calculate exact width: (Available Width - Total Gap Space - Safety Buffer) / Num Columns
+const ITEM_WIDTH = Math.floor((SCREEN_WIDTH - PADDING_HORIZONTAL - (GAP * (NUM_COLUMNS - 1)) - 5) / NUM_COLUMNS);
 
 const ImpactPortfolio = () => {
     return (
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
         gap: 12,
     },
     impactCard: {
-        width: "31%", // approx 1/3 minus gap
+        width: ITEM_WIDTH,
         backgroundColor: "rgba(255, 255, 255, 0.15)",
         borderRadius: 16,
         alignItems: "center",
