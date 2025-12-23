@@ -23,23 +23,16 @@ const ReferralChildRow = ({ node, isLast }: { node: ReferralNodeData; isLast: bo
                     {node.earnings !== undefined && (
                         <View style={styles.earningBadge}>
                             <Image
-                                source={require("../../assets/ReferAndEarn/referralStat/coins.png")}
+                                source={require("../../assets/ReferAndEarn/referralTree/coin.gif")}
                                 style={styles.coinIconSmall}
                                 resizeMode="contain"
                             />
                             <Text style={styles.earningText}>{node.earnings}</Text>
                         </View>
                     )}
-                    <View style={styles.arrowButton}>
-                        <Image
-                            source={require("../../assets/common/arrow-right-white.png")}
-                            style={[styles.arrowIcon, { transform: [{ rotate: '90deg' }] }]}
-                            resizeMode="contain"
-                        />
-                    </View>
+
                 </View>
 
-                {/* seperator line */}
 
             </View>
         </View>
@@ -115,26 +108,13 @@ const styles = StyleSheet.create({
         height: 32,
     },
     coinIconSmall: {
-        width: 14,
-        height: 14,
+        width: 20,
+        height: 20,
     },
     earningText: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 13,
-    },
-    arrowButton: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-        backgroundColor: AppColors.whiteTranslucent,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    arrowIcon: {
-        width: 12,
-        height: 12,
-        tintColor: '#fff',
     },
 });
 
