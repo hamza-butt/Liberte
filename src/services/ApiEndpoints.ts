@@ -9,5 +9,6 @@ export const ENDPOINTS = {
     GET_DAILY_CLAIM_STATUS: 'get-daily-claim-status',
     USER_DAILY_CLAIM: 'user-daily-claim',
     GET_STEP_SUMMARY: 'get-step-summary-today',
+    GET_REFER_AND_EARN_DATA: 'get-reffer-and-earn-data',
 
 };

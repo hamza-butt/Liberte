@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { ReferralNodeData } from "../../types/ReferralTypes";
+import { NetworkNode } from "../../types/Referral";
 import { AppColors } from "../../theme/colors";
 
-const ReferralChildRow = ({ node, isLast }: { node: ReferralNodeData; isLast: boolean }) => {
+const ReferralChildRow = ({ node, isLast }: { node: NetworkNode; isLast: boolean }) => {
     return (
         <View style={styles.childRowWrapper}>
             {/* Visual Tree Line Connector */}
@@ -14,23 +14,16 @@ const ReferralChildRow = ({ node, isLast }: { node: ReferralNodeData; isLast: bo
 
                 {/* user info */}
                 <View style={styles.userInfo}>
-                    <Image source={node.avatar} style={styles.childAvatar} />
-                    <Text style={styles.childName}>{node.name}</Text>
+                    <Image source={{ uri: node.user_image }} style={styles.childAvatar} />
+                    <Text style={styles.childName}>{node.full_name}</Text>
                 </View>
 
-                {/* Right Side: Earnings */}
+                {/* Right Side: Status or Earnings? API doesn't have earnings for child, so maybe just status or remove earnings */}
                 <View style={styles.rightAction}>
-                    {node.earnings !== undefined && (
-                        <View style={styles.earningBadge}>
-                            <Image
-                                source={require("../../assets/ReferAndEarn/referralTree/coin.gif")}
-                                style={styles.coinIconSmall}
-                                resizeMode="contain"
-                            />
-                            <Text style={styles.earningText}>{node.earnings}</Text>
-                        </View>
-                    )}
-
+                    {/* Status Badge instead of earnings since we don't have earnings in child data yet */}
+                    <View style={[styles.statusBadge, node.status === '1' ? styles.activeBadge : styles.pendingBadge]}>
+                        <Text style={styles.statusText}>{node.status === '1' ? 'Active' : 'Inactive'}</Text>
+                    </View>
                 </View>
 
 
@@ -97,24 +90,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 8,
     },
-    earningBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: AppColors.whiteTranslucent,
+    statusBadge: {
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 8,
-        gap: 6,
-        height: 32,
     },
-    coinIconSmall: {
-        width: 20,
-        height: 20,
+    activeBadge: {
+        backgroundColor: 'rgba(34, 197, 95, 0.4)',
     },
-    earningText: {
+    pendingBadge: {
+        backgroundColor: 'rgba(156, 163, 175, 0.4)',
+    },
+    statusText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 13,
+        fontSize: 12,
     },
 });
 

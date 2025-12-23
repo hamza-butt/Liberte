@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { ReferralNodeData } from "../../types/ReferralTypes";
+import { NetworkNode } from "../../types/Referral";
 import ReferralChildRow from "./ReferralChildRow";
 import { AppColors } from "../../theme/colors";
 
 
-const ReferralParentCard = ({ node }: { node: ReferralNodeData }) => {
+const ReferralParentCard = ({ node }: { node: NetworkNode }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
     const hasChildren = node.children && node.children.length > 0;
 
@@ -20,24 +20,24 @@ const ReferralParentCard = ({ node }: { node: ReferralNodeData }) => {
                 <View style={styles.userInfo}>
                     {/*Image and notification */}
                     <View>
-                        <Image source={node.avatar} style={styles.avatar} />
+                        <Image source={{ uri: node.user_image }} style={styles.avatar} />
                         <View style={styles.badge}>
-                            <Text style={styles.badgeText}>1</Text>
+                            <Text style={styles.badgeText}>{node.referral_count || 0}</Text>
                         </View>
                     </View>
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.name}>{node.name}</Text>
+                        <Text style={styles.name}>{node.full_name}</Text>
 
                         {/* Status and referrals */}
                         <View style={styles.statusRow}>
-                            <View style={[styles.statusBadge, node.status === 'Active' ? styles.activeBadge : styles.pendingBadge]}>
-                                <Text style={styles.statusText}>{node.status === 'Active' ? '✓ Active' : '⏳ Pending'}</Text>
+                            <View style={[styles.statusBadge, node.status === '1' ? styles.activeBadge : styles.pendingBadge]}>
+                                <Text style={styles.statusText}>{node.status === '1' ? '✓ Active' : '⏳ Pending'}</Text>
                             </View>
 
-                            {node.referralsCount !== undefined && (
+                            {node.referral_count > 0 && (
                                 <View style={styles.referralBadge}>
-                                    <Text style={styles.referralText}>+{node.referralsCount} referrals</Text>
+                                    <Text style={styles.referralText}>+{node.referral_count} referrals</Text>
                                 </View>
                             )}
                         </View>
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(34, 197, 95, 0.4)',
     },
     pendingBadge: {
-        backgroundColor: 'rgba(34, 197, 95, 0.4)',
+        backgroundColor: 'rgba(156, 163, 175, 0.4)',
     },
     statusText: {
         color: '#fff',
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
     arrowButtonParent: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+        width: 24,
+        height: 24,
+        borderRadius: 12,
         backgroundColor: "rgba(255,255,255,0.2)",
         justifyContent: 'center',
         alignItems: 'center',

@@ -2,7 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
 
-const ReferralStats = () => {
+interface ReferralStatsProps {
+    directReferrals: number;
+    totalNetwork: number;
+}
+
+const ReferralStats = ({ directReferrals, totalNetwork }: ReferralStatsProps) => {
     return (
         <View style={styles.container}>
             {/* Direct Referrals Card */}
@@ -14,7 +19,7 @@ const ReferralStats = () => {
                 />
 
                 <View style={styles.content}>
-                    <Text style={styles.number}>3</Text>
+                    <Text style={styles.number}>{directReferrals}</Text>
                     <Text style={styles.label}>Direct Referrals</Text>
                 </View>
             </View>
@@ -28,7 +33,7 @@ const ReferralStats = () => {
                 />
 
                 <View style={styles.content}>
-                    <Text style={styles.number}>12</Text>
+                    <Text style={styles.number}>{totalNetwork}</Text>
                     <Text style={styles.label}>Total Network</Text>
                 </View>
             </View>

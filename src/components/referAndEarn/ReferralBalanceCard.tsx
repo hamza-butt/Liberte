@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { AppColors } from "../../theme/colors";
 import Toast from "react-native-toast-message";
+import Clipboard from '@react-native-clipboard/clipboard';
 
-const ReferralBalanceCard = () => {
-    const referralLink = "https://tiny.url/1234567890";
+interface ReferralBalanceCardProps {
+    balance: number;
+    referral_link: string;
+    totalReferrals: number;
+}
+
+const ReferralBalanceCard = ({ balance, referral_link, totalReferrals }: ReferralBalanceCardProps) => {
 
     const handleCopy = () => {
+        Clipboard.setString(referral_link);
         Toast.show({
             type: "success",
             text1: "Copied!",
@@ -26,7 +33,7 @@ const ReferralBalanceCard = () => {
             {/* Text Content */}
             <View style={styles.contentContainer}>
                 <Text style={styles.label}>Referral Balance</Text>
-                <Text style={styles.balance}>10,000 Litties</Text>
+                <Text style={styles.balance}>{balance} Litties</Text>
 
 
                 {/* Referral Count */}
@@ -35,7 +42,7 @@ const ReferralBalanceCard = () => {
                         source={require("../../assets/ReferAndEarn/referralBalance/user-solid-full.png")}
                         style={styles.referralIcon}
                     />
-                    <Text style={styles.referralCount}>05 Total Referral</Text>
+                    <Text style={styles.referralCount}>{String(totalReferrals).padStart(2, '0')} Total Referral</Text>
                 </View>
 
 
@@ -46,7 +53,7 @@ const ReferralBalanceCard = () => {
             {/* Link Copy Bar */}
             <View style={styles.linkWrapper}>
                 <View style={styles.linkContainer}>
-                    <Text style={styles.linkText} numberOfLines={1}>{referralLink}</Text>
+                    <Text style={styles.linkText} numberOfLines={1}>{referral_link}</Text>
                     <TouchableOpacity style={styles.copyButton} onPress={handleCopy}>
                         <Text style={styles.copyButtonText}>Copy</Text>
                     </TouchableOpacity>

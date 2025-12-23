@@ -1,14 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, ScrollView, ActivityIndicator } from "react-native";
 import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 import ReferralBalanceCard from "../components/referAndEarn/ReferralBalanceCard";
 import ReferralStats from "../components/referAndEarn/ReferralStats";
 import SocialShare from "../components/referAndEarn/SocialShare";
 import ReferralTree from "../components/referAndEarn/ReferralTree";
+import { useReferAndEarnViewModel } from "../hooks/useReferAndEarnViewModel";
 
 const ReferAndEarn = () => {
     const headerHeight = useHeaderHeight();
+    const { referralData, isLoading, error } = useReferAndEarnViewModel();
+
+    if (isLoading) {
+        return (
+            <View style={[styles.fullScreen, styles.center]}>
+                <ImageBackground
+                    source={require("../assets/welcome/intro_background.png")}
+                    style={styles.background}
+                    imageStyle={styles.backgroundImage}
+                >
+                    <ActivityIndicator size="large" color={AppColors.yellowDark} />
+                </ImageBackground>
+            </View>
+        );
+    }
+
+    // Default values if data is missing or loading failed
+    const balance = referralData?.total_referral_earn || 0;
+    const referral_link = referralData?.referral_link || "";
+    const totalReferrals = referralData?.total_network_count || 0;
+    const directReferrals = referralData?.direct_count || 0;
+    const networkTree = referralData?.network_tree || [];
 
     return (
         <View style={styles.fullScreen}>
@@ -28,14 +51,21 @@ const ReferAndEarn = () => {
                     automaticallyAdjustContentInsets={false}
                 >
                     {/* Referral Balance Card */}
-                    <ReferralBalanceCard />
+                    <ReferralBalanceCard
+                        balance={balance}
+                        referral_link={referral_link}
+                        totalReferrals={totalReferrals}
+                    />
                     {/* Referral Stats */}
-                    <ReferralStats />
+                    <ReferralStats
+                        directReferrals={directReferrals}
+                        totalNetwork={totalReferrals}
+                    />
                     {/* Social Share */}
                     <SocialShare />
 
                     {/* Network Tree */}
-                    <ReferralTree />
+                    <ReferralTree networkTree={networkTree} />
                 </ScrollView>
             </ImageBackground>
         </View>
@@ -46,8 +76,14 @@ const styles = StyleSheet.create({
     fullScreen: {
         flex: 1,
     },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     background: {
         flex: 1,
+        width: '100%',
+        height: '100%',
     },
     backgroundImage: {
         resizeMode: "cover",
