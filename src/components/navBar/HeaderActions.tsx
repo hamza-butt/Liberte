@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
 import { useUser } from "../../context/UserContext";
+import ProfileDropdown from "./ProfileDropdown";
+import { setToken, setRememberMe } from "../../utils/storage";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 function HeaderActions() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const navigation = useNavigation();
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(true);
+
+  const handleOptionSelect = async (option: string) => {
+    setDropdownVisible(false);
+
+    if (option === "Logout") {
+      await setToken("");
+      await setRememberMe(false);
+      setUser(null);
+
+      Toast.show({
+        type: "success",
+        text1: "Logout Successful",
+        text2: "You have been logged out successfully",
+      });
+
+      // Navigate toLogin
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        })
+      );
+    }
+    // Handle other options like Navigation here
+    console.log("Selected:", option);
+  };
+
+  const handleToggleTheme = () => {
+    setIsLightMode(!isLightMode);
+  };
 
   return (
     <View style={styles.container}>
@@ -39,23 +76,34 @@ function HeaderActions() {
       </Pressable>
 
       {/* profile */}
-      <Pressable
-        hitSlop={8}
-        style={({ pressed }) => [
-          styles.avatar,
-          pressed && styles.actionPressed,
-        ]}
-      >
-        <Image
-          source={
-            user?.user_image
-              ? { uri: user.user_image }
-              : require("../../assets/common/profile.png")
-          }
-          style={styles.profileiconImage}
-          resizeMode="cover"
-        />
-      </Pressable>
+      <View style={{ zIndex: 2000 }}>
+        <Pressable
+          hitSlop={8}
+          onPress={() => setDropdownVisible(!isDropdownVisible)}
+          style={({ pressed }) => [
+            styles.avatar,
+            pressed && styles.actionPressed,
+          ]}
+        >
+          <Image
+            source={
+              user?.user_image
+                ? { uri: user.user_image }
+                : require("../../assets/common/profile.png")
+            }
+            style={styles.profileiconImage}
+            resizeMode="cover"
+          />
+        </Pressable>
+
+        {isDropdownVisible && (
+          <ProfileDropdown
+            onOptionSelect={handleOptionSelect}
+            isLightMode={isLightMode}
+            onToggleTheme={handleToggleTheme}
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -65,7 +113,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    borderColor: AppColors.orangeDark,
   },
   balancePill: {
     height: 30,
