@@ -4,6 +4,8 @@ import { AppColors } from "../theme/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import { ProfileHeader } from "../components/profile/ProfileHeader";
+import { TierProgressCard } from "../components/profile/TierProgressCard";
+
 const Profile = () => {
 
     const headerHeight = useHeaderHeight();
@@ -33,7 +35,14 @@ const Profile = () => {
                         email="isabella134@gmail.com"
                     />
 
-                    {/* calender  */}
+                    {/* Progress  */}
+                    <TierProgressCard
+                        currentTier="Bronze"
+                        currentPoints={1000}
+                        nextTierPoints={2000}
+                        timeRemaining="13h 11min"
+                    />
+
                 </ScrollView>
             </ImageBackground>
         </View>
