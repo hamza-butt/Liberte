@@ -5,6 +5,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import ReferralBalanceCard from "../components/referAndEarn/ReferralBalanceCard";
 import ReferralStats from "../components/referAndEarn/ReferralStats";
 import SocialShare from "../components/referAndEarn/SocialShare";
+import ReferralTree from "../components/referAndEarn/ReferralTree";
 
 const ReferAndEarn = () => {
     const headerHeight = useHeaderHeight();
@@ -32,6 +33,9 @@ const ReferAndEarn = () => {
                     <ReferralStats />
                     {/* Social Share */}
                     <SocialShare />
+
+                    {/* Network Tree */}
+                    <ReferralTree />
                 </ScrollView>
             </ImageBackground>
         </View>
