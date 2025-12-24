@@ -7,6 +7,7 @@ import { ProfileHeader } from "../components/profile/ProfileHeader";
 import { TierProgressCard } from "../components/profile/TierProgressCard";
 import { WalkingStreakCard } from "../components/profile/WalkingStreakCard";
 import { PersonalGoalCard } from "../components/profile/PersonalGoalCard";
+import { AccountSettingsCard } from "../components/profile/AccountSettingsCard";
 
 const Profile = () => {
 
@@ -48,8 +49,11 @@ const Profile = () => {
                     {/* Walking Streak Card */}
                     <WalkingStreakCard />
 
-                    {/* Personal Goal Card */}
-                    <PersonalGoalCard />
+                    {/* Settings Group */}
+                    <View style={styles.settingsGroup}>
+                        <PersonalGoalCard />
+                        <AccountSettingsCard />
+                    </View>
 
                 </ScrollView>
             </ImageBackground>
@@ -73,6 +77,9 @@ const styles = StyleSheet.create({
         paddingBottom: 100,
         gap: 28,
         padding: 100,
+    },
+    settingsGroup: {
+        gap: 0,
     },
 });
 
