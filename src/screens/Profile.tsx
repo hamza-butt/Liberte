@@ -5,6 +5,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 import { ProfileHeader } from "../components/profile/ProfileHeader";
 import { TierProgressCard } from "../components/profile/TierProgressCard";
+import { WalkingStreakCard } from "../components/profile/WalkingStreakCard";
 
 const Profile = () => {
 
@@ -42,6 +43,9 @@ const Profile = () => {
                         nextTierPoints={2000}
                         timeRemaining="13h 11min"
                     />
+
+                    {/* Walking Streak Card */}
+                    <WalkingStreakCard />
 
                 </ScrollView>
             </ImageBackground>
