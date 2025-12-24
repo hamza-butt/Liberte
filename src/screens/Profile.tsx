@@ -6,6 +6,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { ProfileHeader } from "../components/profile/ProfileHeader";
 import { TierProgressCard } from "../components/profile/TierProgressCard";
 import { WalkingStreakCard } from "../components/profile/WalkingStreakCard";
+import { PersonalGoalCard } from "../components/profile/PersonalGoalCard";
 
 const Profile = () => {
 
@@ -47,6 +48,9 @@ const Profile = () => {
                     {/* Walking Streak Card */}
                     <WalkingStreakCard />
 
+                    {/* Personal Goal Card */}
+                    {/* <PersonalGoalCard /> */}
+
                 </ScrollView>
             </ImageBackground>
         </View>
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingBottom: 100,
         gap: 28,
-        marginTop: 100
+        padding: 100,
     },
 });
 
