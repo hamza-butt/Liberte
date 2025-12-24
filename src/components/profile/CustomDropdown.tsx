@@ -34,11 +34,12 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
             >
                 <Text style={styles.dropdownText}>{value}</Text>
                 <Image
-                    source={require("../../assets/common/arrow-right-white.png")}
-                    style={[
-                        styles.dropdownArrow,
-                        isOpen && { transform: [{ rotate: "90deg" }] }
-                    ]}
+                    source={
+                        isOpen
+                            ? require("../../assets/profile/personalGoal/arrow-down.png")
+                            : require("../../assets/profile/personalGoal/arrow-right.png")
+                    }
+                    style={styles.dropdownArrow}
                     resizeMode="contain"
                 />
             </TouchableOpacity>
@@ -91,9 +92,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     dropdownArrow: {
-        width: 14,
-        height: 14,
-        tintColor: AppColors.primaryTextDark,
+        width: 15,
+        height: 15,
     },
     dropdownList: {
         marginTop: 8,

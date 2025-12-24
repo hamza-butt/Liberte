@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from "reac
 import Collapsible from "react-native-collapsible";
 import { AppColors } from "../../theme/colors";
 import { CustomDropdown } from "./CustomDropdown";
+import CTAButton from "../common/CTAButton";
 
 export const PersonalGoalCard = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -27,11 +28,12 @@ export const PersonalGoalCard = () => {
                     <Text style={styles.title}>Personal Goal</Text>
                 </View>
                 <Image
-                    source={require("../../assets/common/arrow-right-white.png")}
-                    style={[
-                        styles.arrowIcon,
-                        isExpanded && { transform: [{ rotate: "90deg" }] }
-                    ]}
+                    source={
+                        isExpanded
+                            ? require("../../assets/profile/personalGoal/arrow-down.png")
+                            : require("../../assets/profile/personalGoal/arrow-right.png")
+                    }
+                    style={styles.arrowIcon}
                     resizeMode="contain"
                 />
             </TouchableOpacity>
@@ -76,10 +78,11 @@ export const PersonalGoalCard = () => {
                         />
                     </View>
 
-                    {/* Save Button */}
-                    <TouchableOpacity style={styles.saveButton} onPress={toggleExpand}>
-                        <Text style={styles.saveButtonText}>Save Goals</Text>
-                    </TouchableOpacity>
+                    <CTAButton
+                        label="Save Goals"
+                        variant="primary"
+                        onPress={toggleExpand}
+                    />
                 </View>
             </Collapsible>
         </View>
@@ -120,9 +123,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     arrowIcon: {
-        width: 16,
-        height: 16,
-        tintColor: "#fff",
+        width: 15,
+        height: 15,
     },
     content: {
         paddingHorizontal: 20,
@@ -150,17 +152,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderWidth: 1,
         borderColor: AppColors.whiteTranslucent,
-    },
-    saveButton: {
-        backgroundColor: AppColors.yellowDark,
-        borderRadius: 25,
-        paddingVertical: 16,
-        alignItems: "center",
-        marginTop: 10,
-    },
-    saveButtonText: {
-        color: AppColors.primaryTextDark,
-        fontSize: 16,
-        fontWeight: "bold",
     },
 });
