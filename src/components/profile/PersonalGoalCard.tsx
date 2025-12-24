@@ -11,14 +11,24 @@ interface PersonalGoalCardProps {
     initialGoals?: ProfileGoal;
 }
 
+import { usePersonalGoalViewModel } from "../../hooks/usePersonalGoalViewModel";
+
 export const PersonalGoalCard = ({ initialGoals }: PersonalGoalCardProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [dailyStepGoal, setDailyStepGoal] = useState(initialGoals?.daily_step_goal?.toString() || "8000");
     const [activityLevel, setActivityLevel] = useState(initialGoals?.activity_level || "Intermediate");
     const [weeklyGoal, setWeeklyGoal] = useState(initialGoals?.weekly_goal?.toString() || "5");
 
+    const { saveGoals, isLoading } = usePersonalGoalViewModel();
+
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
+    };
+
+    const handleSave = () => {
+        saveGoals(dailyStepGoal, activityLevel, weeklyGoal, () => {
+            toggleExpand();
+        });
     };
 
     return (
@@ -87,7 +97,8 @@ export const PersonalGoalCard = ({ initialGoals }: PersonalGoalCardProps) => {
                     <CTAButton
                         label="Save Goals"
                         variant="primary"
-                        onPress={toggleExpand}
+                        onPress={handleSave}
+                        isLoading={isLoading}
                     />
                 </View>
             </Collapsible>
