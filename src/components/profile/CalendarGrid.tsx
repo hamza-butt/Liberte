@@ -3,20 +3,10 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { getMonthIndex, getDaysInMonth, getStartDayOfWeek } from "../../utils/CalendarUtils";
 import { AppColors } from "../../theme/colors";
 
-export interface MonthlySteps {
-    monthly_steps: {
-        month: string;
-        year: string;
-        total_steps: number;
-        daily_goal: number;
-        goal_achieved_days: number;
-        missed_days: number;
-        daily_steps: { [date: string]: number };
-    };
-}
+import { MonthlyStepsData } from "../../types/ProfileTypes";
 
 interface CalendarGridProps {
-    data: MonthlySteps["monthly_steps"];
+    data: MonthlyStepsData;
 }
 
 const WEEK_DAYS = ["S", "M", "T", "W", "T", "F", "S"];

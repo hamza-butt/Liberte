@@ -10,5 +10,6 @@ export const ENDPOINTS = {
     USER_DAILY_CLAIM: 'user-daily-claim',
     GET_STEP_SUMMARY: 'get-step-summary-today',
     GET_REFER_AND_EARN_DATA: 'get-reffer-and-earn-data',
+    GET_PROFILE_DATA: 'get-profile-data',
 
 };

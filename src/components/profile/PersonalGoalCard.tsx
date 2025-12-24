@@ -5,11 +5,17 @@ import { AppColors } from "../../theme/colors";
 import { CustomDropdown } from "./CustomDropdown";
 import CTAButton from "../common/CTAButton";
 
-export const PersonalGoalCard = () => {
+import { ProfileGoal } from "../../types/ProfileTypes";
+
+interface PersonalGoalCardProps {
+    initialGoals?: ProfileGoal;
+}
+
+export const PersonalGoalCard = ({ initialGoals }: PersonalGoalCardProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [dailyStepGoal, setDailyStepGoal] = useState("8000");
-    const [activityLevel, setActivityLevel] = useState("Intermediate");
-    const [weeklyGoal, setWeeklyGoal] = useState("5");
+    const [dailyStepGoal, setDailyStepGoal] = useState(initialGoals?.daily_step_goal?.toString() || "8000");
+    const [activityLevel, setActivityLevel] = useState(initialGoals?.activity_level || "Intermediate");
+    const [weeklyGoal, setWeeklyGoal] = useState(initialGoals?.weekly_goal?.toString() || "5");
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
