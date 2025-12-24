@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { getMonthIndex, getDaysInMonth, getStartDayOfWeek } from "../../utils/CalendarUtils";
 import { AppColors } from "../../theme/colors";
 
@@ -75,13 +75,13 @@ export const CalendarGrid = ({ data }: CalendarGridProps) => {
                 <View key={`day-${day}`} style={styles.dayCell}>
                     <View style={styles.iconContainer}>
                         {status === "completed" && (
-                            <View style={styles.completedBadge}><Text style={styles.checkMark}>✓</Text></View>
+                            <Image source={require("../../assets/profile/calender/check.png")} style={styles.statusIcon} resizeMode="contain" />
                         )}
                         {status === "missed" && (
-                            <View style={styles.missedBadge}><Text style={styles.crossMark}>✕</Text></View>
+                            <Image source={require("../../assets/profile/calender/cross.png")} style={styles.statusIcon} resizeMode="contain" />
                         )}
                         {status === "upcoming" && (
-                            <View style={styles.upcomingBadge}><Text style={styles.lockIcon}>🔒</Text></View>
+                            <Image source={require("../../assets/profile/calender/lock.png")} style={styles.statusIcon} resizeMode="contain" />
                         )}
                     </View>
                     <Text style={styles.dayText}>{String(day).padStart(2, '0')}</Text>
@@ -150,32 +150,8 @@ const styles = StyleSheet.create({
     iconContainer: {
         marginBottom: 2,
     },
-    completedBadge: {
+    statusIcon: {
         width: 30,
         height: 30,
-        borderRadius: 15,
-        backgroundColor: AppColors.greenDark,
-        alignItems: "center",
-        justifyContent: "center",
     },
-    missedBadge: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: AppColors.redDark,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    upcomingBadge: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: "rgba(148, 171, 173, 0.5)",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    checkMark: { color: "#fff", fontSize: 15, fontWeight: "bold" },
-    crossMark: { color: "#fff", fontSize: 15, fontWeight: "bold" },
-    lockIcon: { fontSize: 15 },
 });

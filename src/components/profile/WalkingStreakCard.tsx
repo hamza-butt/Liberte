@@ -78,15 +78,15 @@ export const WalkingStreakCard = () => {
             {/* Legend */}
             <View style={styles.legendContainer}>
                 <View style={styles.legendItem}>
-                    <View style={[styles.legendIcon, styles.completedBadge]}><Text style={styles.checkMarkSmall}>✓</Text></View>
+                    <Image source={require("../../assets/profile/calender/check.png")} style={styles.legendImage} resizeMode="contain" />
                     <Text style={styles.legendIconText}>Completed</Text>
                 </View>
                 <View style={styles.legendItem}>
-                    <View style={[styles.legendIcon, styles.missedBadge]}><Text style={styles.crossMarkSmall}>✕</Text></View>
+                    <Image source={require("../../assets/profile/calender/cross.png")} style={styles.legendImage} resizeMode="contain" />
                     <Text style={styles.legendIconText}>Missed</Text>
                 </View>
                 <View style={styles.legendItem}>
-                    <View style={[styles.legendIcon, styles.upcomingBadge]}><Text style={styles.lockIconSmall}>🔒</Text></View>
+                    <Image source={require("../../assets/profile/calender/lock.png")} style={styles.legendImage} resizeMode="contain" />
                     <Text style={styles.legendIconText}>Upcoming</Text>
                 </View>
             </View>
@@ -150,29 +150,8 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
 
-    legendIcon: {
+    legendImage: {
         width: 30,
         height: 30,
-        alignItems: "center",
-        justifyContent: "center",
     },
-    completedBadge: {
-        backgroundColor: AppColors.greenDark,
-        borderRadius: 15,
-
-    },
-    missedBadge: {
-        backgroundColor: AppColors.redDark,
-        borderRadius: 15,
-    },
-    upcomingBadge: {
-        backgroundColor: "rgba(102, 102, 102, 1)",
-        borderRadius: 15,
-    },
-
-
-    // Icons
-    checkMarkSmall: { color: "#fff", fontSize: 15, fontWeight: "bold" },
-    crossMarkSmall: { color: "#fff", fontSize: 15, fontWeight: "bold" },
-    lockIconSmall: { fontSize: 15 },
 });

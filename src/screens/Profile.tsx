@@ -49,7 +49,7 @@ const Profile = () => {
                     <WalkingStreakCard />
 
                     {/* Personal Goal Card */}
-                    {/* <PersonalGoalCard /> */}
+                    <PersonalGoalCard />
 
                 </ScrollView>
             </ImageBackground>

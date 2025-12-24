@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from "react-native";
+import Collapsible from "react-native-collapsible";
 import { AppColors } from "../../theme/colors";
+import { CustomDropdown } from "./CustomDropdown";
 
 export const PersonalGoalCard = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -13,13 +15,12 @@ export const PersonalGoalCard = () => {
     };
 
     return (
-        <View style={styles.container}>
-
+        <View style={[styles.container, isExpanded && styles.containerExpanded]}>
             {/* Header */}
             <TouchableOpacity activeOpacity={0.8} onPress={toggleExpand} style={styles.header}>
                 <View style={styles.headerLeft}>
                     <Image
-                        source={require("../../assets/profile/personalGoal/goal.png")}
+                        source={require("../../assets/profile/personalGoal/target.png")}
                         style={styles.goalIcon}
                         resizeMode="contain"
                     />
@@ -37,9 +38,10 @@ export const PersonalGoalCard = () => {
 
 
             {/* Drop down value */}
-            {isExpanded && (
+            <Collapsible collapsed={!isExpanded}>
                 <View style={styles.content}>
                     <View style={styles.divider} />
+
 
                     {/* Daily Step Goal */}
                     <View style={styles.inputGroup}>
@@ -49,20 +51,18 @@ export const PersonalGoalCard = () => {
                             value={dailyStepGoal}
                             onChangeText={setDailyStepGoal}
                             keyboardType="numeric"
-                            placeholderTextColor="rgba(255,255,255,0.5)"
+                            placeholderTextColor={AppColors.primaryTextDark}
                         />
                     </View>
 
                     {/* Activity Level */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Activity Level</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={activityLevel}
-                            onChangeText={setActivityLevel}
-                            placeholderTextColor="rgba(255,255,255,0.5)"
-                        />
-                    </View>
+                    <CustomDropdown
+                        label="Activity Level"
+                        value={activityLevel}
+                        options={["Beginner", "Intermediate", "Advanced"]}
+                        onSelect={setActivityLevel}
+                        zIndex={10}
+                    />
 
                     {/* Weekly Goal */}
                     <View style={styles.inputGroup}>
@@ -72,7 +72,7 @@ export const PersonalGoalCard = () => {
                             value={weeklyGoal}
                             onChangeText={setWeeklyGoal}
                             keyboardType="numeric"
-                            placeholderTextColor="rgba(255,255,255,0.5)"
+                            placeholderTextColor={AppColors.primaryTextDark}
                         />
                     </View>
 
@@ -81,19 +81,22 @@ export const PersonalGoalCard = () => {
                         <Text style={styles.saveButtonText}>Save Goals</Text>
                     </TouchableOpacity>
                 </View>
-            )}
+            </Collapsible>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "rgba(23, 60, 75, 0.7)", // Matches the glassy teal look roughly
+        backgroundColor: AppColors.whiteTranslucent,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.15)",
+        borderColor: AppColors.whiteTranslucent,
         marginTop: 20,
         overflow: "hidden",
+    },
+    containerExpanded: {
+        backgroundColor: "rgba(23, 60, 75, 0.7)",
     },
     header: {
         flexDirection: "row",
@@ -108,11 +111,11 @@ const styles = StyleSheet.create({
     },
 
     goalIcon: {
-        width: 24,
-        height: 24,
+        width: 35,
+        height: 35,
     },
     title: {
-        color: "#fff",
+        color: AppColors.primaryTextDark,
         fontSize: 18,
         fontWeight: "bold",
     },
@@ -127,36 +130,36 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        backgroundColor: AppColors.whiteTranslucent,
         marginBottom: 20,
     },
     inputGroup: {
         marginBottom: 16,
     },
     label: {
-        color: "#fff",
+        color: AppColors.primaryTextDark,
         fontSize: 16,
         fontWeight: "600",
         marginBottom: 8,
     },
     input: {
-        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        backgroundColor: AppColors.whiteTranslucent,
         borderRadius: 12,
         padding: 16,
-        color: "#fff",
+        color: AppColors.primaryTextDark,
         fontSize: 16,
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.1)",
+        borderColor: AppColors.whiteTranslucent,
     },
     saveButton: {
-        backgroundColor: AppColors.yellowDark, // Assuming this is the yellow/gold color
+        backgroundColor: AppColors.yellowDark,
         borderRadius: 25,
         paddingVertical: 16,
         alignItems: "center",
         marginTop: 10,
     },
     saveButtonText: {
-        color: "#fff", // Or dark text depending on contrast
+        color: AppColors.primaryTextDark,
         fontSize: 16,
         fontWeight: "bold",
     },
