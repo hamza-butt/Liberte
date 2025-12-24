@@ -12,5 +12,6 @@ export const ENDPOINTS = {
     GET_REFER_AND_EARN_DATA: 'get-reffer-and-earn-data',
     GET_PROFILE_DATA: 'get-profile-data',
     SAVE_USER_GOALS: 'save-user-goals',
+    CHANGE_PASSWORD: 'change-password-user',
 
 };

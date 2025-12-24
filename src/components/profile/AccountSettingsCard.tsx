@@ -4,13 +4,28 @@ import Collapsible from "react-native-collapsible";
 import { AppColors } from "../../theme/colors";
 import CTAButton from "../common/CTAButton";
 
+import { useChangePasswordViewModel } from "../../hooks/useChangePasswordViewModel";
+
 export const AccountSettingsCard = () => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const { changePassword, isLoading } = useChangePasswordViewModel();
+
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
+    };
+
+    const handleChangePassword = () => {
+        changePassword(oldPassword, newPassword, confirmPassword, () => {
+            // Clear fields and collapse on success
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+            toggleExpand();
+        });
     };
 
     return (
@@ -43,6 +58,18 @@ export const AccountSettingsCard = () => {
 
                     <Text style={styles.sectionTitle}>Change Password</Text>
 
+                    {/* Old Password */}
+                    <View style={styles.inputGroup}>
+                        <Text style={styles.label}>Old Password</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={oldPassword}
+                            onChangeText={setOldPassword}
+                            secureTextEntry
+                            placeholderTextColor={AppColors.primaryTextDark}
+                        />
+                    </View>
+
                     {/* New Password */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>New Password</Text>
@@ -70,8 +97,9 @@ export const AccountSettingsCard = () => {
                     <CTAButton
                         label="Change Password"
                         variant="primary"
-                        onPress={() => { }}
+                        onPress={handleChangePassword}
                         style={{ marginTop: 10 }}
+                        isLoading={isLoading}
                     />
                 </View>
             </Collapsible>
