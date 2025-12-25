@@ -17,6 +17,20 @@ export const usePersonalGoalViewModel = () => {
 
         // Validation for Weekly Goal
         const weeklyGoalNum = parseInt(weeklyGoal);
+        const dailyStepGoalNum = parseInt(dailyStepGoal);
+
+        // Check if daily step goal is valid
+        if (isNaN(dailyStepGoalNum) || dailyStepGoalNum <= 0) {
+            Toast.show({
+                type: 'error',
+                text1: 'Invalid Input',
+                text2: 'Please enter a valid number for daily steps.'
+            });
+            setIsLoading(false);
+            return;
+        }
+
+        // Check if weekly goal is valid
         if (isNaN(weeklyGoalNum) || weeklyGoalNum < 1 || weeklyGoalNum > 7) {
             Toast.show({
                 type: 'error',
@@ -26,6 +40,8 @@ export const usePersonalGoalViewModel = () => {
             setIsLoading(false);
             return;
         }
+
+
 
         try {
             const token = await getToken();

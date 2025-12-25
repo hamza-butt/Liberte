@@ -44,9 +44,9 @@ export const TierProgressCard = ({
                     <View style={[styles.progressBarFill, { width: `${progress * 100}%` }]} />
                 </View>
 
-                <Text style={styles.timeRemainingText}>
+                {/* <Text style={styles.timeRemainingText}>
                     Time Remaining {timeRemaining}
-                </Text>
+                </Text> */}
 
                 <Text style={styles.instructionText}>
                     Walk {nextTierPoints - currentPoints} more steps to maintain {currentTier} Tier.
