@@ -25,9 +25,9 @@ const SupportCard = () => {
                 <TouchableOpacity style={[styles.button, styles.contactButton]}>
                     <Text style={styles.contactButtonText}>Contact Us</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, styles.ticketsButton]}>
+                {/* <TouchableOpacity style={[styles.button, styles.ticketsButton]}>
                     <Text style={styles.ticketsButtonText}>View My Tickets</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </View>
     );

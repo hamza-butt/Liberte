@@ -17,6 +17,7 @@ import WalkAndEarn from "./screens/WalkAndEarn";
 import { UserProvider } from "./context/UserContext";
 import Profile from "./screens/Profile";
 import ReferAndEarn from "./screens/ReferAndEarn";
+import DigitalVault from "./screens/DigitalVault";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +28,7 @@ function App() {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
       // setInitialRoute(rememberMe ? "Main" : "Welcome");
-      setInitialRoute("Profile");
+      setInitialRoute("DigitalVault");
     };
     checkAuth();
   }, []);
@@ -71,6 +72,13 @@ function App() {
                 component={TabNavigator}
                 options={{ headerShown: false }}
               />
+
+              <Stack.Screen
+                name="DigitalVault"
+                component={DigitalVault}
+                options={{ headerShown: false }}
+              />
+
               <Stack.Screen
                 name="Signup"
                 component={Signup}
