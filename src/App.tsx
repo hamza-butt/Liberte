@@ -27,8 +27,8 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
-      // setInitialRoute(rememberMe ? "Main" : "Welcome");
-      setInitialRoute("Profile");
+      setInitialRoute(rememberMe ? "Main" : "Welcome");
+      // setInitialRoute("Profile");
     };
     checkAuth();
   }, []);

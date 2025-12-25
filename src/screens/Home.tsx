@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingBottom: 100,
+    paddingHorizontal: 20,
+    paddingBottom: 110,
     gap: 28,
   },
 });

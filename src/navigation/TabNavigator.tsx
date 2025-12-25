@@ -47,7 +47,13 @@ const WalkButton = ({ children, onPress }: any) => (
     </TouchableOpacity>
 );
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+// ... (existing imports)
+
 const TabNavigator = () => {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tab.Navigator
             screenOptions={{
@@ -56,7 +62,13 @@ const TabNavigator = () => {
                 tabBarBackground: () => (
                     <View style={styles.backgroundContainer} />
                 ),
-                tabBarStyle: styles.tabBar,
+                tabBarStyle: [
+                    styles.tabBar,
+                    {
+                        height: 80 + insets.bottom,
+                        paddingBottom: insets.bottom + 10
+                    }
+                ],
                 tabBarLabelStyle: styles.tabBarLabel,
                 tabBarActiveTintColor: AppColors.primaryTextDark,
                 tabBarInactiveTintColor: AppColors.primaryTextDark,
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
         height: 80,
         borderTopWidth: 0,
-        paddingBottom: 10,
+        // paddingBottom: 10, // Handled dynamically
         paddingTop: 10,
         elevation: 0,
     },
