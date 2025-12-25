@@ -10,10 +10,15 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 import { useDigitalVaultViewModel } from "../hooks/useDigitalVaultViewModel";
 import StepTransactions from "../components/digitalVault/StepTransactions";
+import LoadingScreen from "../components/common/LoadingScreen";
 
 const DigitalVault = () => {
     const headerHeight = useHeaderHeight();
     const { data, isLoading } = useDigitalVaultViewModel();
+
+    if (isLoading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <ImageBackground

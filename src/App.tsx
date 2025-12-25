@@ -18,6 +18,7 @@ import { UserProvider } from "./context/UserContext";
 import Profile from "./screens/Profile";
 import ReferAndEarn from "./screens/ReferAndEarn";
 import DigitalVault from "./screens/DigitalVault";
+import { commonHeaderOptions } from "./navigation/NavigationOptions";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ function App() {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
       setInitialRoute(rememberMe ? "Main" : "Welcome");
-      // setInitialRoute("Profile");
+      // setInitialRoute("ReferAndEarn");
     };
     checkAuth();
   }, []);
@@ -100,13 +101,25 @@ function App() {
               <Stack.Screen
                 name="Profile"
                 component={Profile}
-                options={{ headerShown: false }}
+                options={{
+                  ...commonHeaderOptions,
+                  headerShown: true,
+                  headerTitle: "Profile",
+                  headerLeft: undefined,
+                  headerRight: undefined,
+                }}
               />
 
               <Stack.Screen
                 name="ReferAndEarn"
                 component={ReferAndEarn}
-                options={{ headerShown: false }}
+                options={{
+                  ...commonHeaderOptions,
+                  headerShown: true,
+                  headerTitle: "Refer & Earn",
+                  headerLeft: undefined,
+                  headerRight: undefined,
+                }}
               />
 
             </Stack.Navigator>

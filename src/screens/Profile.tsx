@@ -5,6 +5,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 import { ProfileHeader } from "../components/profile/ProfileHeader";
 import { TierProgressCard } from "../components/profile/TierProgressCard";
+import LoadingScreen from "../components/common/LoadingScreen";
 import { WalkingStreakCard } from "../components/profile/WalkingStreakCard";
 import { PersonalGoalCard } from "../components/profile/PersonalGoalCard";
 import { AccountSettingsCard } from "../components/profile/AccountSettingsCard";
@@ -18,17 +19,7 @@ const Profile = () => {
     const { profileData, isLoading } = useProfileViewModel();
 
     if (isLoading) {
-        return (
-            <View style={[styles.fullScreen, styles.center]}>
-                <ImageBackground
-                    source={require("../assets/welcome/intro_background.png")}
-                    style={styles.background}
-                    imageStyle={styles.backgroundImage}
-                >
-                    <ActivityIndicator size="large" color={AppColors.primaryTextDark} />
-                </ImageBackground>
-            </View>
-        );
+        return <LoadingScreen />;
     }
 
     return (
@@ -100,15 +91,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingBottom: 100,
         gap: 28,
-        padding: 100,
+        marginTop: 20,
     },
     settingsGroup: {
         gap: 0,
     },
-    center: {
-        justifyContent: "center",
-        alignItems: "center",
-    }
 });
 
 export default Profile;

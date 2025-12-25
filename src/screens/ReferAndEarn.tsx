@@ -7,23 +7,14 @@ import ReferralStats from "../components/referAndEarn/ReferralStats";
 import SocialShare from "../components/referAndEarn/SocialShare";
 import ReferralTree from "../components/referAndEarn/ReferralTree";
 import { useReferAndEarnViewModel } from "../hooks/useReferAndEarnViewModel";
+import LoadingScreen from "../components/common/LoadingScreen";
 
 const ReferAndEarn = () => {
     const headerHeight = useHeaderHeight();
     const { referralData, isLoading, error } = useReferAndEarnViewModel();
 
     if (isLoading) {
-        return (
-            <View style={[styles.fullScreen, styles.center]}>
-                <ImageBackground
-                    source={require("../assets/welcome/intro_background.png")}
-                    style={styles.background}
-                    imageStyle={styles.backgroundImage}
-                >
-                    <ActivityIndicator size="large" color={AppColors.yellowDark} />
-                </ImageBackground>
-            </View>
-        );
+        return <LoadingScreen />;
     }
 
     // Default values if data is missing or loading failed
@@ -93,7 +84,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingBottom: 100,
         gap: 28,
-        marginTop: 100,
+        marginTop: 30,
     },
     text: {
         fontSize: 24,
