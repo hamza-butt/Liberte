@@ -13,5 +13,6 @@ export const ENDPOINTS = {
     GET_PROFILE_DATA: 'get-profile-data',
     SAVE_USER_GOALS: 'save-user-goals',
     CHANGE_PASSWORD: 'change-password-user',
+    GET_DIGITAL_VAULT_DATA: 'get-digital-vault-data',
 
 };

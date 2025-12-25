@@ -2,7 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
 
-const BalanceCard = () => {
+interface BalanceCardProps {
+    availableBalance?: number;
+    totalKm?: number;
+    totalCalories?: number;
+    totalSteps?: number;
+}
+
+const BalanceCard = ({
+    availableBalance = 0,
+    totalKm = 0.0,
+    totalCalories = 0.0,
+    totalSteps = 0
+}: BalanceCardProps) => {
     return (
         <View style={styles.container}>
 
@@ -22,20 +34,20 @@ const BalanceCard = () => {
             <View style={styles.contentRow}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceLabel}>Available Balance</Text>
-                    <Text style={styles.balanceValue}>6 Litties</Text>
+                    <Text style={styles.balanceValue}>{availableBalance} Litties</Text>
                 </View>
 
                 <View style={styles.statsRow}>
                     <View style={styles.statItem}>
-                        <Text style={styles.statValue}>3.1</Text>
+                        <Text style={styles.statValue}>{totalKm}</Text>
                         <Text style={styles.statLabel}>Km</Text>
                     </View>
                     <View style={styles.statItem}>
-                        <Text style={styles.statValue}>247.76</Text>
+                        <Text style={styles.statValue}>{totalCalories}</Text>
                         <Text style={styles.statLabel}>Calories</Text>
                     </View>
                     <View style={styles.statItem}>
-                        <Text style={styles.statValue}>6194</Text>
+                        <Text style={styles.statValue}>{totalSteps}</Text>
                         <Text style={styles.statLabel}>Steps</Text>
                     </View>
                 </View>
