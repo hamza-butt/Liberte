@@ -1,14 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Switch, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { AppColors } from "../../theme/colors";
 
 interface ProfileDropdownProps {
     onOptionSelect: (option: string) => void;
-    isLightMode: boolean;
-    onToggleTheme: () => void;
 }
 
-const ProfileDropdown = ({ onOptionSelect, isLightMode, onToggleTheme }: ProfileDropdownProps) => {
+const ProfileDropdown = ({ onOptionSelect }: ProfileDropdownProps) => {
     return (
         <View style={styles.container}>
             {/* Menu Items */}
@@ -31,27 +29,6 @@ const ProfileDropdown = ({ onOptionSelect, isLightMode, onToggleTheme }: Profile
                 onPress={() => onOptionSelect("Logout")}
             >
                 <Text style={styles.menuText}>Logout</Text>
-            </TouchableOpacity>
-
-            {/* Separator */}
-            <View style={styles.separator} />
-
-            {/* Theme Toggle */}
-            <TouchableOpacity
-                style={styles.toggleContainer}
-                onPress={onToggleTheme}
-                activeOpacity={0.7}
-            >
-                <Switch
-                    trackColor={{ false: "#767577", true: AppColors.greenDark }}
-                    thumbColor={isLightMode ? "#f4f3f4" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={onToggleTheme}
-                    value={isLightMode}
-                    style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
-                    pointerEvents="none" // Let parent handle touch to avoid conflict
-                />
-                <Text style={styles.toggleText}>Light Mode</Text>
             </TouchableOpacity>
         </View>
     );
@@ -79,22 +56,6 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
     },
     menuText: {
-        fontSize: 16,
-        color: AppColors.primaryTextLight,
-        fontWeight: "500",
-    },
-    separator: {
-        height: 1,
-        backgroundColor: "#E0E0E0",
-        marginVertical: 8,
-    },
-    toggleContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        paddingVertical: 8,
-        gap: 8,
-    },
-    toggleText: {
         fontSize: 16,
         color: AppColors.primaryTextLight,
         fontWeight: "500",

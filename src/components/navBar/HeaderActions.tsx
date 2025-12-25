@@ -11,7 +11,6 @@ function HeaderActions() {
   const { user, setUser } = useUser();
   const navigation = useNavigation();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [isLightMode, setIsLightMode] = useState(true);
 
   const handleOptionSelect = async (option: string) => {
     setDropdownVisible(false);
@@ -47,9 +46,7 @@ function HeaderActions() {
     console.log("Selected:", option);
   };
 
-  const handleToggleTheme = () => {
-    setIsLightMode(!isLightMode);
-  };
+
 
   return (
     <View style={styles.container}>
@@ -107,8 +104,6 @@ function HeaderActions() {
         {isDropdownVisible && (
           <ProfileDropdown
             onOptionSelect={handleOptionSelect}
-            isLightMode={isLightMode}
-            onToggleTheme={handleToggleTheme}
           />
         )}
       </View>
