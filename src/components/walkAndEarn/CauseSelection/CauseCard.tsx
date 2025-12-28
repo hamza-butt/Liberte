@@ -10,6 +10,7 @@ export interface Cause {
     title: string;
     description: string;
     image: any;
+    enabled?: boolean;
 }
 
 interface CauseCardProps {
@@ -21,9 +22,14 @@ interface CauseCardProps {
 const CauseCard: React.FC<CauseCardProps> = ({ cause, isSelected, onSelect }) => {
     return (
         <TouchableOpacity
-            style={[styles.card, isSelected && styles.cardSelected]}
+            style={[
+                styles.card,
+                isSelected && styles.cardSelected,
+                !cause.enabled && { opacity: 0.5 },
+            ]}
             onPress={() => onSelect(cause.id)}
             activeOpacity={0.8}
+            disabled={!cause.enabled}
         >
             <View style={styles.iconContainer}>
                 <Image source={cause.image} style={styles.icon} />
