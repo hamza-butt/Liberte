@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderBottomWidth: 1,
         borderBottomColor: AppColors.whiteTranslucent,
-        backgroundColor: AppColors.whiteTranslucent,
+        backgroundColor: AppColors.navBarBackground,
     }
 });

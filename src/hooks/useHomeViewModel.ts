@@ -26,6 +26,8 @@ export const useHomeViewModel = () => {
                 { token }
             );
 
+            console.log('User details fetched successfully:', response.data);
+
             if (response.status && response.data) {
                 console.log('User details fetched successfully:', response.data);
                 await setUser(response.data as unknown as User);

@@ -66,7 +66,7 @@ const TabNavigator = () => {
                     styles.tabBar,
                     {
                         height: 80 + insets.bottom,
-                        paddingBottom: insets.bottom + 10
+                        paddingBottom: insets.bottom
                     }
                 ],
                 tabBarLabelStyle: styles.tabBarLabel,
@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
         height: 80,
         borderTopWidth: 0,
-        // paddingBottom: 10, // Handled dynamically
         paddingTop: 10,
         elevation: 0,
     },
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderTopWidth: 1,
         borderTopColor: AppColors.whiteTranslucent,
-        backgroundColor: AppColors.whiteTranslucent,
+        backgroundColor: AppColors.navBarBackground,
     }
 });
 
