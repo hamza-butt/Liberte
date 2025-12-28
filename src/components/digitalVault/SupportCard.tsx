@@ -1,8 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Linking } from "react-native";
+import Clipboard from "@react-native-clipboard/clipboard";
 import { AppColors } from "../../theme/colors";
 
 const SupportCard = () => {
+    const handleContactPress = () => {
+        const email = "support@liberte.com";
+        const phone = "+15551234567";
+
+        Alert.alert(
+            "Contact Support",
+            `Email: ${email}\nPhone: ${phone}`,
+            [
+                {
+                    text: "Call",
+                    onPress: () => Linking.openURL(`tel:${phone}`),
+                },
+                {
+                    text: "Email",
+                    onPress: () => Linking.openURL(`mailto:${email}`),
+                },
+                {
+                    text: "Copy Email",
+                    onPress: () => Clipboard.setString(email),
+                },
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+            ]
+        );
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -22,7 +51,10 @@ const SupportCard = () => {
             </View>
 
             <View style={styles.buttonRow}>
-                <TouchableOpacity style={[styles.button, styles.contactButton]}>
+                <TouchableOpacity
+                    style={[styles.button, styles.contactButton]}
+                    onPress={handleContactPress}
+                >
                     <Text style={styles.contactButtonText}>Contact Us</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity style={[styles.button, styles.ticketsButton]}>

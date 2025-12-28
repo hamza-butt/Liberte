@@ -67,7 +67,7 @@ function HeaderActions() {
       </Pressable>
 
       {/* notification */}
-      <Pressable
+      {/* <Pressable
         style={({ pressed }) => [
           styles.roundButton,
           pressed && styles.actionPressed,
@@ -78,7 +78,7 @@ function HeaderActions() {
           style={styles.iconImage}
           resizeMode="contain"
         />
-      </Pressable>
+      </Pressable> */}
 
       {/* profile */}
       <View style={{ zIndex: 2000 }}>
