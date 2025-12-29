@@ -13,8 +13,7 @@ export const useReferAndEarnViewModel = () => {
         setIsLoading(true);
         setError(null);
         try {
-            // const token = await getToken();
-            const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1IiwiaWF0IjoxNzY2MTUzNzM0LCJleHAiOjE3Njg3NDU3MzR9.D5BH6PE4NoYLp-gkr7H3iExX4v7qFI97mn72TITW3wI"
+            const token = await getToken();
             if (!token) {
                 console.warn('No token found, skipping fetch referral data');
                 return;
