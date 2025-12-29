@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AppColors } from "../../theme/colors";
-import TransactionItem, { Transaction } from "./TransactionItem";
+import RecentTransactionItem, { RecentTransaction } from "./RecentTransactionItem";
 
 interface RecentTransactionsProps {
-    transactions: Transaction[];
+    transactions: RecentTransaction[];
 }
 
 const RecentTransactions = ({ transactions }: RecentTransactionsProps) => {
@@ -13,7 +13,7 @@ const RecentTransactions = ({ transactions }: RecentTransactionsProps) => {
             <Text style={styles.headerTitle}>Recent Transactions</Text>
             <View style={styles.listContainer}>
                 {transactions.map((item, index) => (
-                    <TransactionItem
+                    <RecentTransactionItem
                         key={item.id}
                         item={item}
                         isLast={index === transactions.length - 1}

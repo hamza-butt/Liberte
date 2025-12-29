@@ -29,7 +29,7 @@ function App() {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
       // setInitialRoute(rememberMe ? "Main" : "Welcome");
-      setInitialRoute("Main");
+      setInitialRoute("DigitalVault");
     };
     checkAuth();
   }, []);
