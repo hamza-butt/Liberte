@@ -62,7 +62,7 @@ function HeaderActions() {
           style={styles.iconImage}
           resizeMode="contain"
         />
-        <Text style={styles.balanceValue}>{user?.card_points || "0"}</Text>
+        <Text style={styles.balanceValue}>{user?.card_points || "0.1"}</Text>
         <Text style={styles.balanceLabel}>Litties</Text>
       </Pressable>
 
