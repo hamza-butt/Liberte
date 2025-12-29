@@ -46,3 +46,7 @@ export interface ProfileApiResponse {
     message: string;
     data: ProfileData;
 }
+
+export interface UpdateUserImageResponse {
+    user_image: string;
+}

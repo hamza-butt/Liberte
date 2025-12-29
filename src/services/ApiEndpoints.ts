@@ -16,5 +16,6 @@ export const ENDPOINTS = {
     GET_DIGITAL_VAULT_DATA: 'get-digital-vault-data',
     FORGOT_PASSWORD_SEND_OTP: 'forgot-password-send-otp',
     FORGOT_PASSWORD_VERIFY_OTP: 'forgot-password-verify-otp',
+    UPDATE_USER_IMAGE: 'update-user-image',
 
 };

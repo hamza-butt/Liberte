@@ -28,9 +28,12 @@ class ApiClient {
 
         console.log("Request URL:", url);
         const headers = new Headers({
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
         });
+
+        if (!(params instanceof FormData)) {
+            headers.append('Content-Type', 'application/json');
+        }
 
         const fetchOptions: RequestInit = {
             method,
@@ -46,6 +49,8 @@ class ApiClient {
                 if (queryString) {
                     url += `?${queryString}`;
                 }
+            } else if (params instanceof FormData) {
+                fetchOptions.body = params;
             } else {
                 // Send params as JSON body for other methods
                 fetchOptions.body = JSON.stringify(params);
