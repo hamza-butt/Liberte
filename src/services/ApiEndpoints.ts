@@ -14,5 +14,6 @@ export const ENDPOINTS = {
     SAVE_USER_GOALS: 'save-user-goals',
     CHANGE_PASSWORD: 'change-password-user',
     GET_DIGITAL_VAULT_DATA: 'get-digital-vault-data',
+    FORGOT_PASSWORD_SEND_OTP: 'forgot-password-send-otp',
 
 };

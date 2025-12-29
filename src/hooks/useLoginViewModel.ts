@@ -98,8 +98,7 @@ export const useLoginViewModel = () => {
     };
 
     const handleForgotPassword = () => {
-        // Navigate to Forgot Password screen or show modal
-        console.log("Forgot Password clicked");
+        navigation.navigate("ForgotPassword");
     };
 
     return {

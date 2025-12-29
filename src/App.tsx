@@ -19,6 +19,7 @@ import Profile from "./screens/Profile";
 import ReferAndEarn from "./screens/ReferAndEarn";
 import DigitalVault from "./screens/DigitalVault";
 import { commonHeaderOptions } from "./navigation/NavigationOptions";
+import ForgotPassword from "./screens/ForgotPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,8 +29,8 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
-      // setInitialRoute(rememberMe ? "Main" : "Welcome");
-      setInitialRoute("Main");
+      setInitialRoute(rememberMe ? "Main" : "Welcome");
+      setInitialRoute("ForgotPassword");
     };
     checkAuth();
   }, []);
@@ -57,6 +58,11 @@ function App() {
               }}
               initialRouteName={initialRoute}
             >
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPassword}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="Welcome"
                 component={Welcome}
