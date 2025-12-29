@@ -52,7 +52,7 @@ const PRODUCT_SLIDES: ProductSlide[] = [
 ];
 
 function Home() {
-  const { isLoading, refetch } = useHomeViewModel();
+  const { isLoading, refetch, weather } = useHomeViewModel();
   const headerHeight = useHeaderHeight();
   const sliderItems = React.useMemo(() => WEATHER_SLIDES, []);
   const productSlides = React.useMemo(() => PRODUCT_SLIDES, []);
@@ -75,7 +75,7 @@ function Home() {
           automaticallyAdjustContentInsets={false}
         >
           {/* weather */}
-          <WeatherAndGreeting />
+          <WeatherAndGreeting weatherText={weather} />
 
           {/* weather slider */}
           <WeatherSlider slides={sliderItems} />

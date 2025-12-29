@@ -7,11 +7,13 @@ type WeatherAndGreetingProps = {
   name?: string;
   subtitle?: string;
   temperature?: number;
+  weatherText?: string;
 };
 
 function WeatherAndGreeting({
   name,
   subtitle = "Ready to earn some rewards?",
+  weatherText,
   temperature = 24,
 }: WeatherAndGreetingProps) {
   const { user } = useUser();
@@ -37,8 +39,14 @@ function WeatherAndGreeting({
 
         <View>
           <Text style={styles.temperature}>
-            {temperature.toFixed(1)}
-            <Text style={styles.temperatureUnit}>°C</Text>
+            {weatherText ? (
+              weatherText
+            ) : (
+              <>
+                {temperature.toFixed(1)}
+                <Text style={styles.temperatureUnit}>°C</Text>
+              </>
+            )}
           </Text>
         </View>
       </View>

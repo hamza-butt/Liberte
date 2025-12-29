@@ -34,7 +34,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to access to your location to show in map</string>
+	<string>We need access to your location to show local weather information.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>We need access to your motion data to count your steps for the Walk and Earn feature.</string>
 	<key>RCTNewArchEnabled</key>

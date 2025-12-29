@@ -4,11 +4,26 @@ import { ENDPOINTS } from '../services/ApiEndpoints';
 import { getToken } from '../utils/storage';
 import { User } from '../types/User';
 import { useUser } from '../context/UserContext';
+import LocationService from '../services/LocationService';
 
 export const useHomeViewModel = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [weather, setWeather] = useState("24 degree");
     const { setUser } = useUser();
+
+    const fetchLocationAndWeather = useCallback(async () => {
+        console.log("fetchLocationAndWeather");
+        try {
+            const location = await LocationService.getLocation();
+            if (location) {
+                console.log('Location fetched:', location);
+                // Here we would call the weather API...
+            }
+        } catch (err) {
+            console.error('Error fetching location:', err);
+        }
+    }, []);
 
     const fetchUserDetails = useCallback(async () => {
         setIsLoading(true);
@@ -26,8 +41,6 @@ export const useHomeViewModel = () => {
                 { token }
             );
 
-            console.log('User details fetched successfully:', response.data);
-
             if (response.status && response.data) {
                 console.log('User details fetched successfully:', response.data);
                 await setUser(response.data as unknown as User);
@@ -42,11 +55,13 @@ export const useHomeViewModel = () => {
 
     useEffect(() => {
         fetchUserDetails();
-    }, [fetchUserDetails]);
+        fetchLocationAndWeather();
+    }, [fetchUserDetails, fetchLocationAndWeather]);
 
     return {
         isLoading,
         error,
+        weather,
         refetch: fetchUserDetails,
     };
 };
