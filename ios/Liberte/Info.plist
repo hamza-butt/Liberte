@@ -37,6 +37,8 @@
 	<string>We need access to your location to show local weather information.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>We need access to your motion data to count your steps for the Walk and Earn feature.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to let you upload a profile picture.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

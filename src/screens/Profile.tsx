@@ -16,7 +16,7 @@ import { useProfileViewModel } from "../hooks/useProfileViewModel";
 const Profile = () => {
 
     const headerHeight = useHeaderHeight();
-    const { profileData, isLoading } = useProfileViewModel();
+    const { profileData, isLoading, handleUpdateProfileImage } = useProfileViewModel();
 
     if (isLoading) {
         return <LoadingScreen />;
@@ -46,6 +46,7 @@ const Profile = () => {
                             image={profileData.user.user_image ? { uri: profileData.user.user_image } : require("../assets/profile/user_avatar.png")}
                             name={profileData.user.full_name}
                             email={profileData.user.email}
+                            onEditImage={handleUpdateProfileImage}
                         />
                     )}
 
