@@ -20,6 +20,7 @@ import ReferAndEarn from "./screens/ReferAndEarn";
 import DigitalVault from "./screens/DigitalVault";
 import { commonHeaderOptions } from "./navigation/NavigationOptions";
 import ForgotPassword from "./screens/ForgotPassword";
+import ResetPassword from "./screens/ResetPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -104,6 +105,11 @@ function App() {
               />
 
 
+              <Stack.Screen
+                name="ResetPassword"
+                component={ResetPassword}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="Profile"
                 component={Profile}

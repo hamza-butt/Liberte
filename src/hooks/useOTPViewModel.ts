@@ -7,7 +7,7 @@ import { ENDPOINTS } from "../services/ApiEndpoints";
 export const useOTPViewModel = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
-    const { email } = route.params || {};
+    const { email, type } = route.params || {};
 
     const [otp, setOtp] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -44,19 +44,38 @@ export const useOTPViewModel = () => {
 
         setIsLoading(true);
         try {
-            const response = await api.request(
-                ENDPOINTS.VERIFY_REGISTRATION_ACCOUNT,
-                "POST",
-                { email, otp }
-            );
+            let response;
+            if (type === 'forgot_password') {
+                console.log("Verifying Forgot Password OTP for:", email);
+                response = await api.request(
+                    ENDPOINTS.FORGOT_PASSWORD_VERIFY_OTP,
+                    "POST",
+                    { email, otp }
+                );
+            } else {
+                console.log("Verifying Registration OTP for:", email);
+                response = await api.request(
+                    ENDPOINTS.VERIFY_REGISTRATION_ACCOUNT,
+                    "POST",
+                    { email, otp }
+                );
+            }
+
             console.log("OTP Verification Success:", response);
+
             Toast.show({
                 type: "success",
                 text1: "Verification Successful",
-                text2: "Welcome back!",
+                text2: "OTP Verified Successfully",
             });
 
-            navigation.pop(2);
+            if (type === 'forgot_password') {
+                navigation.navigate("ResetPassword", { email, otp });
+            } else {
+                navigation.pop(2);
+            }
+
+
         } catch (error: any) {
             console.error("OTP Verification Failed:", error.message);
             Toast.show({
@@ -74,8 +93,14 @@ export const useOTPViewModel = () => {
 
         setIsLoading(true);
         try {
+            let endpoint = ENDPOINTS.RESEND_VERIFY_OTP;
+
+            if (type === 'forgot_password') {
+                endpoint = ENDPOINTS.FORGOT_PASSWORD_SEND_OTP;
+            }
+
             const response = await api.request(
-                ENDPOINTS.RESEND_VERIFY_OTP,
+                endpoint,
                 "POST",
                 { email }
             );
