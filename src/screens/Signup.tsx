@@ -2,12 +2,12 @@ import React from "react";
 import {
   ImageBackground,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CTAButton from "../components/common/CTAButton";
 import CTATextField from "../components/common/CTATextField";
 import NumberTextField from "../components/common/NumberTextField";
@@ -49,10 +49,13 @@ function Signup() {
       />
 
       <SafeAreaView style={[styles.safeArea]}>
-        <ScrollView
+        <KeyboardAwareScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
           bounces={true}
+          enableOnAndroid={true}
+          extraScrollHeight={20}
+          keyboardShouldPersistTaps="handled"
         >
           <LoginHeader />
 
@@ -125,7 +128,7 @@ function Signup() {
               <Text style={styles.linkText}>Sign In</Text>
             </Text>
           </Pressable>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     </View>
   );
