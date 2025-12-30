@@ -4,10 +4,12 @@ import { ENDPOINTS } from '../services/ApiEndpoints';
 import { ProfileData, UpdateUserImageResponse } from '../types/ProfileTypes';
 import { getToken } from '../utils/storage';
 import { ImagePickerService } from '../services/ImagePickerService';
+import { useUser } from '../context/UserContext';
 
 export const useProfileViewModel = () => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { user, setUser } = useUser();
 
     const fetchProfileData = useCallback(async () => {
         try {
@@ -90,6 +92,14 @@ export const useProfileViewModel = () => {
                     }
                 });
                 console.log("Image uploaded successfully. New URL:", imageUrl);
+
+                // update the UserProvider object 
+                if (user) {
+                    await setUser({
+                        ...user,
+                        user_image: imageUrl
+                    });
+                }
             }
 
         } catch (error) {

@@ -8,8 +8,8 @@ import { isValidEmail } from "../utils/validation";
 
 export const useForgotPasswordViewModel = () => {
     const navigation = useNavigation<any>();
-    // const [email, setEmail] = useState("");
-    const [email, setEmail] = useState("m.hamzase@gmail.com");
+    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("m.hamzase@gmail.com");
     const [isLoading, setIsLoading] = useState(false);
 
     const validateInput = () => {
