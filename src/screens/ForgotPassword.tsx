@@ -5,7 +5,7 @@ import {
     StyleSheet,
     View,
     Pressable,
-    Image
+    Text
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppColors } from "../theme/colors";
@@ -34,13 +34,6 @@ function ForgotPassword() {
 
             <SafeAreaView style={[styles.safeArea, styles.contentWrapper]}>
 
-                <Pressable onPress={handleBack} style={styles.backButton}>
-                    <Image
-                        source={require("../assets/common/arrow-right-white.png")}
-                        style={styles.backIcon}
-                    />
-                </Pressable>
-
                 <ScrollView
                     contentContainerStyle={styles.content}
                     showsVerticalScrollIndicator={false}
@@ -66,6 +59,13 @@ function ForgotPassword() {
                             onPress={handleSendOTP}
                             isLoading={isLoading}
                         />
+
+                        {/* Back Button */}
+                        <Pressable onPress={handleBack} style={styles.backButton}>
+                            <Text style={styles.backButtonText}>
+                                {"Back to Login"}
+                            </Text>
+                        </Pressable>
                     </IntroCard>
 
                 </ScrollView>
@@ -99,17 +99,14 @@ const styles = StyleSheet.create({
         gap: 25,
     },
     backButton: {
-        position: 'absolute',
-        top: 60,
-        left: 24,
-        zIndex: 10,
-        padding: 8
+        marginTop: 24,
+        alignItems: "center",
     },
-    backIcon: {
-        width: 24,
-        height: 24,
-        transform: [{ rotate: "180deg" }]
-    }
+    backButtonText: {
+        color: "rgba(255, 255, 255, 0.5)",
+        fontSize: 14,
+        textDecorationLine: "underline",
+    },
 });
 
 export default ForgotPassword;

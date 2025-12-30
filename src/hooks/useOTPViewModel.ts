@@ -70,7 +70,8 @@ export const useOTPViewModel = () => {
             });
 
             if (type === 'forgot_password') {
-                navigation.navigate("ResetPassword", { email, otp });
+                const token = response.data?.token;
+                navigation.navigate("ResetPassword", { email, otp, token });
             } else {
                 navigation.pop(2);
             }
@@ -131,5 +132,6 @@ export const useOTPViewModel = () => {
         handleResend,
         email,
         timer,
+        type,
     };
 };

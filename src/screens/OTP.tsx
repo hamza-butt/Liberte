@@ -31,6 +31,7 @@ const OTP = () => {
         handleResend,
         email,
         timer,
+        type,
     } = useOTPViewModel();
 
     const ref = useBlurOnFulfill({ value: otp, cellCount: CELL_COUNT });
@@ -104,7 +105,9 @@ const OTP = () => {
 
                         {/* Back Button */}
                         <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
-                            <Text style={styles.backButtonText}>Back to Signup</Text>
+                            <Text style={styles.backButtonText}>
+                                {type === "forgot_password" ? "Back to Forgot Password" : "Back to Signup"}
+                            </Text>
                         </Pressable>
                     </IntroCard>
                 </View>
