@@ -7,6 +7,8 @@ import { RESULTS, PermissionStatus } from 'react-native-permissions';
 import { api } from '../services/ApiClient';
 import { ENDPOINTS } from '../services/ApiEndpoints';
 import { DailyStepSummary } from '../types/WalkAndEarnTypes';
+import { WeatherData } from '../types/HomeTypes';
+import LocationService from '../services/LocationService';
 
 export const WalkAndEarnViewModel = () => {
     const [isTracking, setIsTracking] = useState(false);
@@ -15,6 +17,7 @@ export const WalkAndEarnViewModel = () => {
     const [selectedCause, setSelectedCause] = useState<number | null>(null);
     const [permissionStatus, setPermissionStatus] = useState<PermissionStatus | null>(null);
     const [dailySummary, setDailySummary] = useState<DailyStepSummary | null>(null);
+    const [weather, setWeather] = useState("loading...");
 
     // Refs to track previous values for delta calculation
     const lastStepsRef = useRef(0);
@@ -53,6 +56,29 @@ export const WalkAndEarnViewModel = () => {
         }
     };
 
+    const fetchLocationAndWeather = useCallback(async () => {
+        try {
+            const location = await LocationService.getLocation();
+            if (location) {
+                const weatherResponse = await api.request<WeatherData>(
+                    ENDPOINTS.GET_WEATHER_BY_LOCATION,
+                    'GET',
+                    {
+                        latitude: location.coords.latitude,
+                        longitude: location.coords.longitude,
+                        unit: 'C'
+                    }
+                );
+                if (weatherResponse.status && weatherResponse.data) {
+                    const { temperature, unit } = weatherResponse.data;
+                    setWeather(`${temperature}${unit}`);
+                }
+            }
+        } catch (err) {
+            console.error('Error fetching location/weather:', err);
+        }
+    }, []);
+
     const handleSocketUpdate = useCallback((data: any) => {
         console.log("ViewModel received step_ack:", data);
         if (data && data.status) {
@@ -70,20 +96,19 @@ export const WalkAndEarnViewModel = () => {
         }
     }, []);
 
-    useEffect(() => {
-
-        printUserId();
-
-        fetchDailySummary();
-        // Listen for socket updates
-        SocketService.onStepAck(handleSocketUpdate);
-    }, [handleSocketUpdate]);
-
-
     const printUserId = async () => {
         const userId = await getUserId();
         console.log("User ID:", userId);
     }
+
+    useEffect(() => {
+        printUserId();
+        fetchDailySummary();
+        fetchLocationAndWeather();
+        // Listen for socket updates
+        SocketService.onStepAck(handleSocketUpdate);
+    }, [handleSocketUpdate, fetchLocationAndWeather]);
+
 
     const testSocket = async () => {
         console.log("called")
@@ -222,6 +247,7 @@ export const WalkAndEarnViewModel = () => {
         setSelectedCause,
         testSocket,
         dailySummary,
-        fetchDailySummary
+        fetchDailySummary,
+        weather
     };
 };
