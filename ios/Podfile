@@ -16,6 +16,7 @@ prepare_react_native_project!
 # ⬇️ setup permissions
 setup_permissions([
   'Motion',
+  'LocationWhenInUse',
 ])
 
 linkage = ENV['USE_FRAMEWORKS']

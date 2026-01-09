@@ -1,17 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ImageSourcePropType } from "react-native";
 import { AppColors } from "../../theme/colors";
-
-export interface Transaction {
-    id: string;
-    type: string;
-    earn_category_id: string;
-    category_name: string;
-    points: number;
-    description: string;
-    date: string;
-    time_ago: string;
-}
+import { Transaction } from "../../types/DigitalVaultTypes";
 
 interface TransactionItemProps {
     item: Transaction;

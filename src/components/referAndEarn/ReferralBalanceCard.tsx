@@ -32,7 +32,7 @@ const ReferralBalanceCard = ({ balance, referral_link, totalReferrals }: Referra
 
             {/* Text Content */}
             <View style={styles.contentContainer}>
-                <Text style={styles.label}>Referral Balance</Text>
+                <Text style={styles.label}>Signup & Referral</Text>
                 <Text style={styles.balance}>{balance} Litties</Text>
 
 

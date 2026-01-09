@@ -41,7 +41,7 @@ const RecentTransactionItem = ({ item, isLast, customIcon }: RecentTransactionIt
                 {/* Points */}
                 <View style={styles.pointsContainer}>
                     <Text style={styles.pointsValue}>{item.points.toFixed(1)}</Text>
-                    <Text style={styles.pointsLabel}>Points</Text>
+                    <Text style={styles.pointsLabel}>Litties</Text>
                 </View>
             </View>
         </View>

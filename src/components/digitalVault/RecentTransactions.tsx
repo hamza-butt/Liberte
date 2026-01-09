@@ -10,7 +10,7 @@ interface RecentTransactionsProps {
 const RecentTransactions = ({ transactions }: RecentTransactionsProps) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.headerTitle}>Recent Transactions</Text>
+            <Text style={styles.headerTitle}>Other Transactions</Text>
             <View style={styles.listContainer}>
                 {transactions.map((item, index) => (
                     <RecentTransactionItem

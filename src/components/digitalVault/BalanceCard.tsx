@@ -20,7 +20,7 @@ const BalanceCard = ({
 
             {/* Available Litties */}
             <View style={styles.headerRow}>
-                <Text style={styles.title}>Available Litties</Text>
+                <Text style={styles.title}>Earned Litties</Text>
                 <View style={styles.transactionButton}>
                     <Image
                         source={require("../../assets/digitalVault/coin.png")}
@@ -33,7 +33,7 @@ const BalanceCard = ({
             {/* Balance and Stats */}
             <View style={styles.contentRow}>
                 <View style={styles.balanceContainer}>
-                    <Text style={styles.balanceLabel}>Available Balance</Text>
+                    <Text style={styles.balanceLabel}>through Walk and Earn</Text>
                     <Text style={styles.balanceValue}>{availableBalance} Litties</Text>
                 </View>
 

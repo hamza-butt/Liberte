@@ -12,6 +12,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 
 import { WalkAndEarnViewModel } from "../hooks/WalkAndEarnViewModel";
+import WalkAnimation from "../components/walkAndEarn/WalkAnimation";
 
 const WalkAndEarn = () => {
 
@@ -50,6 +51,9 @@ const WalkAndEarn = () => {
 
                     {/* Weather and Greeting */}
                     <WeatherAndGreeting weatherText={weather} />
+
+                    {/* Walk Animation */}
+                    {/* <WalkAnimation steps={steps} goal={dailySummary?.goal || 10000} /> */}
 
                     {/* Progress Card */}
                     <ProgressCard data={dailySummary} />
