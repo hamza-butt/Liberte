@@ -7,6 +7,8 @@ import Leaderboard from "../components/digitalVault/Leaderboard";
 import SupportCard from "../components/digitalVault/SupportCard";
 import RecentTransactions from "../components/digitalVault/RecentTransactions";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 import { useDigitalVaultViewModel } from "../hooks/useDigitalVaultViewModel";
 import StepTransactions from "../components/digitalVault/StepTransactions";
@@ -14,7 +16,13 @@ import LoadingScreen from "../components/common/LoadingScreen";
 
 const DigitalVault = () => {
     const headerHeight = useHeaderHeight();
-    const { data, isLoading } = useDigitalVaultViewModel();
+    const { data, isLoading, refetch } = useDigitalVaultViewModel();
+
+    useFocusEffect(
+        useCallback(() => {
+            refetch();
+        }, [refetch])
+    );
 
     if (isLoading) {
         return <LoadingScreen />;

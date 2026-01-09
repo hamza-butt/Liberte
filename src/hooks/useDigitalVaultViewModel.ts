@@ -36,9 +36,7 @@ export const useDigitalVaultViewModel = () => {
         }
     }, []);
 
-    useEffect(() => {
-        fetchDigitalVaultData();
-    }, [fetchDigitalVaultData]);
+
 
     return {
         data,
