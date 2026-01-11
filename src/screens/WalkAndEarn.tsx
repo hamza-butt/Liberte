@@ -53,7 +53,7 @@ const WalkAndEarn = () => {
                     <WeatherAndGreeting weatherText={weather} />
 
                     {/* Walk Animation */}
-                    {/* <WalkAnimation steps={steps} goal={dailySummary?.goal || 10000} /> */}
+                    {isTracking && <WalkAnimation steps={steps} goal={dailySummary?.goal || 10000} />}
 
                     {/* Progress Card */}
                     <ProgressCard data={dailySummary} />

@@ -31,7 +31,7 @@ function App() {
     const checkAuth = async () => {
       const rememberMe = await getRememberMe();
       setInitialRoute(rememberMe ? "Main" : "Welcome");
-      // setInitialRoute("DigitalVault");
+      // setInitialRoute("WalkAndEarn");
     };
     checkAuth();
   }, []);
